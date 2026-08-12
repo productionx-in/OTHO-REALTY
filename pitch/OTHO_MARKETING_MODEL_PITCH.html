@@ -1,0 +1,968 @@
+<title>OTHO Realty — The Marketing Model</title>
+<style>
+:root{
+  --ground:#EFF1EE; --surface:#FAFBF9; --surface-2:#E6EAE5; --deep:#12211A;
+  --ink:#16201C; --ink-soft:#566159; --ink-faint:#7C877D;
+  --accent:#1F5C3D; --accent-soft:#E2ECE5;
+  --alert:#A8442A; --alert-soft:#F3E4DF;
+  --rule:#C9CFC7; --rule-soft:#DDE2DB;
+  --on-deep:#E8EDE8; --on-deep-soft:#93A398;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,sans-serif;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#101512; --surface:#171E1A; --surface-2:#1E2621; --deep:#080D0A;
+  --ink:#E4E9E3; --ink-soft:#97A398; --ink-faint:#6E7A70;
+  --accent:#6FBF8F; --accent-soft:#1B2A21;
+  --alert:#E0846A; --alert-soft:#2C1E1A;
+  --rule:#2B342E; --rule-soft:#222A25;
+  --on-deep:#E4E9E3; --on-deep-soft:#8B9A90;
+}}
+:root[data-theme="dark"]{
+  --ground:#101512; --surface:#171E1A; --surface-2:#1E2621; --deep:#080D0A;
+  --ink:#E4E9E3; --ink-soft:#97A398; --ink-faint:#6E7A70;
+  --accent:#6FBF8F; --accent-soft:#1B2A21;
+  --alert:#E0846A; --alert-soft:#2C1E1A;
+  --rule:#2B342E; --rule-soft:#222A25;
+  --on-deep:#E4E9E3; --on-deep-soft:#8B9A90;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:56px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.6;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+.w{max-width:1140px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.narrow{max-width:74ch}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:var(--ground);
+  border-bottom:1px solid var(--rule);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav ol{display:flex;gap:0;list-style:none;margin:0;padding:0;min-width:max-content}
+.nav a{display:block;padding:11px 15px;text-decoration:none;color:var(--ink-soft);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  border-right:1px solid var(--rule-soft);white-space:nowrap}
+.nav a:hover,.nav a:focus-visible{color:var(--accent);background:var(--surface)}
+.nav a b{color:var(--ink-faint);font-weight:400;margin-right:7px;font-variant-numeric:tabular-nums}
+
+/* act shell */
+.act{padding:76px 0;border-top:1px solid var(--rule)}
+.act.dark{background:var(--deep);color:var(--on-deep);border-top:none}
+.act.dark .lbl{color:var(--on-deep-soft)}
+.act.dark h2{color:var(--on-deep)}
+.act.dark p{color:var(--on-deep-soft)}
+.act.dark strong{color:var(--on-deep)}
+.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--ink-faint);margin-bottom:14px;display:flex;gap:12px;align-items:center}
+.lbl::after{content:"";flex:1;height:1px;background:currentColor;opacity:.28}
+h1{font-family:var(--sans);font-weight:700;font-size:clamp(34px,6.4vw,66px);line-height:1.0;
+  letter-spacing:-.035em;text-wrap:balance;margin:0 0 20px}
+h2{font-family:var(--sans);font-weight:700;font-size:clamp(27px,4.1vw,44px);line-height:1.08;
+  letter-spacing:-.03em;text-wrap:balance;margin:0 0 18px;max-width:22ch}
+h3{font-family:var(--sans);font-weight:660;font-size:clamp(19px,2.3vw,24px);line-height:1.2;
+  letter-spacing:-.018em;text-wrap:balance;margin:44px 0 14px}
+h4{font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-faint);margin:32px 0 11px}
+p{margin:0 0 16px;max-width:70ch}
+.lead{font-family:var(--sans);font-size:clamp(18px,2.2vw,22px);line-height:1.44;
+  font-weight:500;letter-spacing:-.014em;color:var(--ink-soft);max-width:60ch}
+ul,ol{margin:0 0 18px;padding-left:22px;max-width:70ch}li{margin-bottom:9px}
+strong{font-weight:700;color:var(--ink)}em{font-style:italic}
+a{color:var(--accent)}
+code,.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+code{font-size:.88em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* metrics */
+.mx{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);margin:30px 0}
+.act.dark .mx{background:#243029;border-color:#243029}
+.mx>div{background:var(--surface);padding:18px 20px}
+.act.dark .mx>div{background:#111C16}
+.mx .v{font-family:var(--mono);font-size:clamp(22px,3.2vw,30px);font-weight:600;
+  letter-spacing:-.035em;display:block;line-height:1.05;font-variant-numeric:tabular-nums}
+.mx .v.bad{color:var(--alert)}.mx .v.good{color:var(--accent)}
+.mx .k{font-family:var(--sans);font-size:12.5px;line-height:1.35;color:var(--ink-soft);
+  display:block;margin-top:8px}
+.act.dark .mx .k{color:var(--on-deep-soft)}
+
+/* tables */
+.sc{overflow-x:auto;margin:24px 0;border:1px solid var(--rule);background:var(--surface)}
+.act.dark .sc{border-color:#243029;background:#111C16}
+table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:13.5px;line-height:1.45}
+th,td{text-align:left;padding:11px 13px;vertical-align:top;border-bottom:1px solid var(--rule-soft)}
+.act.dark th,.act.dark td{border-bottom-color:#1E2A23;color:var(--on-deep-soft)}
+.act.dark td strong{color:var(--on-deep)}
+thead th{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:600;background:var(--surface-2);
+  border-bottom:1px solid var(--rule);white-space:nowrap}
+.act.dark thead th{background:#18251E;border-bottom-color:#243029;color:var(--on-deep-soft)}
+tbody tr:last-child td{border-bottom:none}
+td.n,th.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.was{color:var(--ink-faint);text-decoration:line-through}
+.is{color:var(--alert);font-weight:600}
+.yes{color:var(--accent);font-weight:700}.no{color:var(--ink-faint)}
+
+/* callout */
+.co{border-left:3px solid var(--accent);background:var(--accent-soft);padding:18px 22px;margin:26px 0}
+.co.warn{border-left-color:var(--alert);background:var(--alert-soft)}
+.co p:last-child{margin-bottom:0}
+.co .big{font-family:var(--sans);font-size:clamp(18px,2.3vw,22px);font-weight:650;
+  letter-spacing:-.018em;line-height:1.32;margin-bottom:10px;color:var(--ink)}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);margin:26px 0}
+.cards>div{background:var(--surface);padding:22px}
+.act.dark .cards{background:#243029;border-color:#243029}
+.act.dark .cards>div{background:#111C16}
+.cards h5{font-family:var(--sans);font-size:16.5px;font-weight:660;letter-spacing:-.012em;
+  margin:0 0 9px;color:var(--ink)}
+.act.dark .cards h5{color:var(--on-deep)}
+.cards p{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0 0 9px}
+.cards p:last-child{margin-bottom:0}
+
+.chip{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;padding:2px 7px;border:1px solid var(--rule);color:var(--ink-soft);
+  background:var(--ground);white-space:nowrap;vertical-align:middle}
+.chip.a{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.chip.w{border-color:var(--alert);color:var(--alert);background:var(--alert-soft)}
+
+/* ============ BROWSER MOCKUP ============ */
+.mock{border:1px solid var(--rule);background:var(--surface);margin:26px 0;
+  box-shadow:0 1px 0 var(--rule-soft);overflow:hidden}
+.mock-bar{display:flex;align-items:center;gap:9px;padding:9px 13px;background:var(--surface-2);
+  border-bottom:1px solid var(--rule)}
+.mock-dots{display:flex;gap:5px;flex:none}
+.mock-dots i{width:9px;height:9px;border-radius:50%;background:var(--rule);display:block}
+.mock-url{flex:1;font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);
+  background:var(--ground);border:1px solid var(--rule-soft);padding:4px 10px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock-body{padding:0;overflow-x:auto}
+.mock-cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-faint);margin:-14px 0 30px;padding-left:2px}
+
+/* app chrome inside mockup */
+.app-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:13px 18px;border-bottom:1px solid var(--rule);background:var(--surface)}
+.app-logo{font-family:var(--sans);font-weight:750;font-size:15px;letter-spacing:-.02em;color:var(--accent)}
+.app-nav{display:flex;gap:16px;font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+.app-pane{padding:20px 18px}
+
+/* comparison grid */
+.cmp{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;min-width:660px}
+.cmp th,.cmp td{padding:9px 12px;border-bottom:1px solid var(--rule-soft);vertical-align:middle}
+.cmp thead th{background:var(--surface-2);border-bottom:1px solid var(--rule);
+  font-family:var(--sans);font-size:13.5px;font-weight:680;color:var(--ink);
+  text-transform:none;letter-spacing:-.01em}
+.cmp thead th small{display:block;font-family:var(--mono);font-size:9.5px;font-weight:400;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-top:3px}
+.cmp td.f{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-faint);width:180px}
+.cmp td.d{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px}
+.cmp tr.hl td{background:var(--accent-soft)}
+.cmp tr.hl td.d{font-weight:700;font-size:14.5px}
+.cmp .win{color:var(--accent);font-weight:700}
+.cmp .lose{color:var(--alert);font-weight:700}
+.cmp .muted{color:var(--ink-faint);font-size:11.5px}
+.verdict{background:var(--deep);color:var(--on-deep);padding:16px 18px;
+  font-family:var(--sans);font-size:13.5px;line-height:1.5}
+.verdict b{color:#8FD6AC}
+
+/* negatives module */
+.neg{border:1px solid var(--rule);margin-bottom:10px;background:var(--ground)}
+.neg-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;
+  border-bottom:1px solid var(--rule-soft);background:var(--surface-2)}
+.neg-h b{font-family:var(--sans);font-size:13.5px;font-weight:660;letter-spacing:-.01em;flex:1;min-width:180px}
+.neg-b{padding:11px 14px;font-family:var(--sans);font-size:12.5px;line-height:1.5;color:var(--ink-soft)}
+.neg-b .src{font-family:var(--mono);font-size:10px;color:var(--ink-faint);
+  letter-spacing:.05em;display:block;margin-top:7px}
+.neg-b .mit{color:var(--accent);display:block;margin-top:8px}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;
+  padding:16px;background:var(--surface-2);border:1px solid var(--rule)}
+.field label{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
+.field .box{font-family:var(--mono);font-size:16px;font-weight:600;padding:9px 11px;
+  background:var(--ground);border:1px solid var(--rule);color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.field .box.out{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.field .box.bad{background:var(--alert-soft);border-color:var(--alert);color:var(--alert)}
+
+/* map mock */
+.map{position:relative;height:270px;background:
+  repeating-linear-gradient(0deg,transparent 0 26px,var(--rule-soft) 26px 27px),
+  repeating-linear-gradient(90deg,transparent 0 26px,var(--rule-soft) 26px 27px),var(--surface-2);
+  border:1px solid var(--rule);overflow:hidden}
+.corridor{position:absolute;height:5px;border-radius:3px}
+.pin{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;
+  background:var(--ground);border:1px solid var(--rule);padding:3px 7px;white-space:nowrap;
+  transform:translate(-50%,-50%);color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;padding:12px 0 0;font-family:var(--mono);
+  font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.legend i{display:inline-block;width:20px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+/* density bar */
+.dbar{height:10px;background:var(--rule-soft);position:relative;margin:6px 0 4px;border:1px solid var(--rule)}
+.dbar span{position:absolute;top:0;left:0;bottom:0;background:var(--accent)}
+.dbar span.warn{background:var(--alert)}
+.dmark{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+
+/* funnel */
+.funnel{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:26px 0}
+.fstep{background:var(--surface);padding:14px 18px;display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;gap:14px;align-items:center}
+.fstep .s{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:-.01em}
+.fstep .s em{display:block;font-family:var(--sans);font-size:12px;font-weight:400;
+  font-style:normal;color:var(--ink-soft);margin-top:2px}
+.fstep .r{font-family:var(--mono);font-size:12px;color:var(--ink-faint);text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.fstep .q{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--accent);
+  text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:82px}
+
+/* org */
+.org{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);margin:22px 0}
+.org>div{background:var(--surface);padding:18px}
+.org h5{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  margin:0 0 12px;color:var(--accent);font-weight:600}
+.org ul{list-style:none;padding:0;margin:0;font-family:var(--sans);font-size:12.5px}
+.org li{display:flex;justify-content:space-between;gap:10px;padding:5px 0;
+  border-bottom:1px solid var(--rule-soft);color:var(--ink-soft)}
+.org li:last-child{border-bottom:none}
+.org li b{color:var(--ink);font-weight:600}
+.org li span{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);
+  font-variant-numeric:tabular-nums;flex:none}
+
+/* phase rail */
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);margin:26px 0}
+.phases>div{background:var(--surface);padding:24px}
+.phases .pn{font-family:var(--mono);font-size:34px;font-weight:700;letter-spacing:-.04em;
+  color:var(--accent);line-height:1;margin-bottom:4px}
+.phases .pt{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);margin-bottom:14px}
+.phases h5{font-family:var(--sans);font-size:18px;font-weight:680;letter-spacing:-.018em;margin:0 0 10px}
+.phases p{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0 0 12px}
+.phases ul{padding-left:18px;font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin:0}
+.phases li{margin-bottom:6px}
+
+footer{border-top:2px solid var(--ink);margin-top:0;padding:26px 0 60px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+</style>
+
+<nav class="nav">
+  <ol>
+    <li><a href="#opportunity"><b>01</b>Opportunity</a></li>
+    <li><a href="#initiate"><b>02</b>How we initiate</a></li>
+    <li><a href="#platforms"><b>03</b>Platforms &amp; why</a></li>
+    <li><a href="#content"><b>04</b>Content engine</a></li>
+    <li><a href="#website"><b>05</b>The website</a></li>
+    <li><a href="#machine"><b>06</b>How marketing runs</a></li>
+    <li><a href="#bypass"><b>07</b>Bypassing competitors</a></li>
+    <li><a href="#team"><b>08</b>Team &amp; cost</a></li>
+    <li><a href="#scale"><b>09</b>Hyderabad → global</a></li>
+    <li><a href="#numbers"><b>10</b>The numbers</a></li>
+  </ol>
+</nav>
+
+<!-- ===== COVER ===== -->
+<div class="act dark" style="padding:88px 0 76px">
+  <div class="w">
+    <div class="lbl">OTHO Realty &middot; Marketing &amp; Platform Model &middot; August 2026</div>
+    <h1 style="max-width:16ch">Everyone else is selling property.<br>We're selling the truth about it.</h1>
+    <p class="lead" style="color:var(--on-deep-soft);max-width:56ch">A launch, acquisition and platform model built for the Hyderabad market as it actually is in 2026 — not as the brochures describe it.</p>
+    <div class="mx" style="margin-top:44px">
+      <div><span class="v bad">19 mo</span><span class="k">Hyderabad inventory overhang — the worst of any major Indian city</span></div>
+      <div><span class="v bad">~97,000</span><span class="k">Unsold units sitting in the market right now</span></div>
+      <div><span class="v good">45%</span><span class="k">Of all office leasing taken by GCCs — demand is intact</span></div>
+      <div><span class="v good">₹15–23cr</span><span class="k">Phase 1 revenue target, 18 months, one city</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 01 OPPORTUNITY ===== -->
+<section class="act" id="opportunity">
+  <div class="w">
+    <div class="lbl">01 &middot; The opportunity</div>
+    <h2>The market is oversupplied. That is the whole opportunity.</h2>
+    <p class="lead">Hyderabad is not short of property. It is short of judgement. That single fact determines the model.</p>
+
+    <div class="sc">
+      <table>
+        <thead><tr><th>What people assume</th><th>What the 2026 data shows</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td><span class="was">Inventory is tight, ~4 months</span></td><td><span class="is">19-month overhang — highest in India.</span> National avg ~14 mo; Bengaluru 8</td><td class="n">Anarock</td></tr>
+          <tr><td><span class="was">Prices ₹9,430/sq ft</span></td><td><span class="is">₹8,258/sq ft</span>, +7% YoY</td><td class="n">Knight Frank H1'26</td></tr>
+          <tr><td><span class="was">Demand booming</span></td><td>Sales <span class="is">+1%</span> H1'26 · launches still exceed sales · top-7 sales <span class="is">−6% YoY</span></td><td class="n">Knight Frank / Anarock</td></tr>
+          <tr><td><span class="was">Kokapet/Neopolis is the hot zone</span></td><td>Neopolis <span class="is">~40% unsold</span>, with price cuts</td><td class="n">Trade press</td></tr>
+          <tr><td><span class="was">Metro Phase 2 is coming</span></td><td><span class="is">Financial sanction still pending.</span> Construction not begun on most corridors. Opening 2028–30</td><td class="n">Verified Aug'26</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>But the demand <em>engine</em> is genuinely national-best: GCCs took <strong>3.4 mn sq ft — 45% of all office leasing</strong> in H1 2026, and Hyderabad is <strong>India's #1 GCC destination</strong>. Jobs and incomes are being created. They are simply not converting into transactions.</p>
+
+    <div class="co">
+      <p class="big">This is not a demand collapse. It is a distribution failure.</p>
+      <p>Buyers cannot tell 97,000 options apart, and the channel that is supposed to help them is optimised for spam. That produces the two commercial facts this entire model rests on.</p>
+    </div>
+
+    <div class="cards">
+      <div>
+        <h5>Fact 1 — Developers are the desperate party</h5>
+        <p>Their capital is locked in unsold towers. Every month of overhang is carrying cost they cannot recover.</p>
+        <p><strong>They do not need more leads. They need clearance.</strong> A firm that can prove it clears faster than the 19-month baseline has real pricing power on exclusive mandates — 2.5–4% against a 1–3% standard channel rate.</p>
+      </div>
+      <div>
+        <h5>Fact 2 — Buyers face paralysis, not scarcity</h5>
+        <p>With 97,000 options, "help me find a property" is worthless. <strong>"Tell me which of these will not destroy my capital"</strong> is the product.</p>
+        <p>Loading factor, UDS, true density and honest negatives aren't ethics. In a glut they are <em>the core utility</em> — and nobody in India publishes them.</p>
+      </div>
+      <div>
+        <h5>The window is open now</h5>
+        <p>Portals cannot follow us. Their revenue <em>is</em> reselling your phone number to eight brokers — they cannot promise not to without killing their own P&amp;L.</p>
+        <p>Meanwhile TRAI and DPDP enforcement is making that model legally expensive. We arrive exactly as the incumbent model starts failing publicly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 INITIATE ===== -->
+<section class="act" id="initiate">
+  <div class="w">
+    <div class="lbl">02 &middot; How we initiate</div>
+    <h2>Authority first. Inventory second. Platform third.</h2>
+    <p class="lead">We do not open by asking developers for exclusivity. We open by publishing the number that quantifies their problem — and let them call us.</p>
+
+    <h3>The move that starts everything: <em>The Hyderabad Inventory Report</em></h3>
+    <p>A free quarterly research report on <strong>inventory overhang by micro-market</strong>. Unsold units by area and price band, months-of-overhang, launch-vs-absorption, price <em>per carpet foot</em> (not per SBA foot — that alone is newsworthy), and a possession-delay index computed from TG-RERA filings.</p>
+
+    <div class="cards">
+      <div><h5>It inverts the sales conversation</h5><p>We never cold-pitch. We publish "Neopolis is at 40% unsold and 26 months of overhang" — and the Neopolis developers need to talk to us. <strong>The report is the business development engine.</strong></p></div>
+      <div><h5>It manufactures press</h5><p>Financial journalists need hyper-local numbers and have none. Tier-1 backlinks that no budget buys — and the foundation of both search and AI citation.</p></div>
+      <div><h5>It is the trust proof</h5><p>Publishing an unflattering number about the market you earn from is the costly signal that makes "radical transparency" believable rather than a slogan.</p></div>
+      <div><h5>It is the future data product</h5><p>Phase 2's paid B2B subscription is this exact report, productised. We build the asset while using it as marketing.</p></div>
+    </div>
+
+    <h3>Then one deliberately uncomfortable article</h3>
+    <div class="co warn">
+      <p class="big">"We could earn commission on 14 projects in Kokapet. We're recommending 8. Here's the arithmetic on the other 6."</p>
+      <p>Grounded only in computed, defensible metrics — loading above the 25–35% norm without amenity justification, density above tolerance, UDS below peer set, possession slippage against TG-RERA dates. This single piece does more for trust than a year of advertising, because it is <strong>verifiably against our own short-term interest.</strong></p>
+    </div>
+
+    <h3>Mandate acquisition — sequenced, never sprayed</h3>
+    <p>The instinct is to chase 10–15 mandates immediately. That produces ten thin, under-resourced campaigns and no proof point. The sequence matters more than the count.</p>
+    <div class="sc">
+      <table>
+        <thead><tr><th class="n">When</th><th>Step</th><th>What we do</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td class="n">M4–6</td><td><strong>Anchor mandate</strong></td><td><strong>One</strong> Tier-1 developer, on a deliberately <strong>stuck</strong> project</td><td>A stuck project has low opportunity cost, so exclusivity is cheap to grant — and clearing it is the most persuasive case study obtainable</td></tr>
+          <tr><td class="n">M6–10</td><td><strong>Proof</strong></td><td>Clear it measurably faster than 19 months</td><td>That number <em>becomes</em> the sales deck for every mandate after it</td></tr>
+          <tr><td class="n">M8–14</td><td><strong>Expand</strong></td><td>4–6 mandates, same developers, better projects</td><td>Land-and-expand inside existing relationships beats chasing new logos</td></tr>
+          <tr><td class="n">M12–18</td><td><strong>Scale</strong></td><td>10–15 mandates across 4+ developer groups</td><td>Concentration cap: no single developer above 35% of mandate GMV</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Terms we negotiate into Mandate #1 — while nobody is thinking about them yet</h4>
+    <ul>
+      <li><strong>2.5–4% commission</strong> vs the 1–3% standard channel rate, justified by exclusivity and full-funnel ownership.</li>
+      <li><strong>Developer-funded media, at our discretion.</strong> This is how Anarock and Square Yards scale without burning their own balance sheet. It creates two separate P&amp;Ls — mandate media (ROAS-governed) and our brand media (CAC-governed).</li>
+      <li><strong>Data rights</strong> on anonymised absorption and transaction data. This is what becomes the B2B product.</li>
+      <li><strong>Right of reply, not right of veto</strong> on honest negatives — agreed upfront, so it is never a fight discovered later.</li>
+    </ul>
+
+    <div class="co warn">
+      <p><strong>Blocking, week one:</strong> TG-RERA agent registration (₹10,000/day penalty for operating without it), RERA number templated into every ad format, TRAI telemarketer registration, DPDP consent architecture. TG-RERA has already issued ~₹10cr in penalties and notices to Godrej, Navanami and Vertex for advertising violations. For a firm selling trust, one sloppy campaign is an existential event — and once done, all of it becomes a marketing claim nobody else can make.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 PLATFORMS ===== -->
+<section class="act" id="platforms">
+  <div class="w">
+    <div class="lbl">03 &middot; The platforms, and why each one</div>
+    <h2>Four channels, four different jobs, one buying decision</h2>
+    <p class="lead">A ₹1–5 crore purchase takes 6–9 months, involves 2–4 people, and 70–80% of bookings happen after the second, third or fourth interaction. No single channel can hold that.</p>
+
+    <div class="sc">
+      <table>
+        <thead><tr><th>Channel</th><th>The job it does</th><th>Who it reaches</th><th class="n">Benchmark CPL</th><th>How we judge it</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Google Search</strong></td><td>Intercept the buyer already <em>eliminating</em> options</td><td>The researcher — highest intent moment that exists</td><td class="n">₹700–2,000</td><td>Cost per <em>qualified</em> lead</td></tr>
+          <tr><td><strong>Meta</strong><br><span class="chip">FB + IG</span></td><td>Build the consideration set and hold presence for 6–9 months</td><td>The household — spouse, parents, the group chat</td><td class="n">₹400–900<br>₹1,500+ luxury</td><td>CPQL + assisted conversions. <strong>Never raw CPL</strong></td></tr>
+          <tr><td><strong>AI answer engines</strong><br><span class="chip a">The one nobody's doing</span></td><td>Be the source quoted <em>before</em> a search ever happens</td><td>Everyone — this now sits upstream of Google</td><td class="n">Organic</td><td>Citation share on a 50-query panel</td></tr>
+          <tr><td><strong>WhatsApp</strong></td><td>Convert. This is where Indian property decisions actually get made</td><td>The buyer + the family deciding together</td><td class="n">₹0.12–1.02<br>per message</td><td>Speed-to-lead, site-visit booking rate</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Google — and the campaign nobody else can run</h3>
+    <p>Standard campaigns bid on desire: <code>4 BHK Kokapet</code>, <code>luxury apartments Financial District</code>. Every developer bids there, CPCs run ₹150–400, and we will compete there too.</p>
+    <div class="co">
+      <p class="big">But nobody bids on doubt.</p>
+      <p><code>[project] review</code> &middot; <code>[project] problems</code> &middot; <code>Kokapet traffic</code> &middot; <code>[area] waterlogging</code> &middot; <code>[A] vs [B]</code> &middot; <code>[project] possession delay</code></p>
+      <p>Near-zero competition, very high intent, low CPC — and <strong>we are the only advertiser in the market with honest content to land it on.</strong> A developer cannot bid on "Project X problems" and send you to a page that answers it. This is structural, not tactical. It is the first campaign we build, and we expect it to be our cheapest quality source at <strong>≤₹500 CPL</strong>.</p>
+    </div>
+    <p>The second Google lever is Quality Score — worth a <strong>20–40% cost advantage</strong> on the identical keyword. Ours is structural too: a comparison result and a dictionary page are genuinely the most relevant possible destinations for comparison and definitional queries. A developer microsite cannot match that relevance, because it only ever has one answer.</p>
+
+    <h3>Meta — visual storytelling, then relentless retargeting</h3>
+    <p>Real estate is visual and Meta is where the household is. But Meta leads convert far worse than search leads, so <strong>we optimise it on cost per qualified lead, never raw CPL.</strong> Optimising Meta on raw CPL is the single most expensive mistake in Indian real estate marketing — it trains the algorithm to find people who click, not people who buy.</p>
+    <div class="cards">
+      <div><h5>Top — demand creation</h5><p>Micro-market documentaries: <em>"We drove Kokapet to HITEC City at 9am. Here's the real number."</em> Honest-negative clips. Podcast cuts. <strong>No lead-gen objectives here</strong> — ThruPlay and qualified traffic only.</p></div>
+      <div><h5>Middle — tools that qualify</h5><p>Comparison carousels with real numbers. The Loading Factor Calculator. The Inventory Report. Someone who completes a UDS calculation is a fundamentally different prospect from someone who taps "Get Price."</p></div>
+      <div><h5>Bottom — dynamic retargeting</h5><p>Keyed to the exact comparison you viewed, 30-day window. IT professionals in the Gachibowli corridor. NRIs in the US, UAE, UK and Singapore — on <strong>FEMA-safety creative, not lifestyle</strong>, because the remote buyer's dominant emotion is fear of being cheated at distance.</p></div>
+    </div>
+    <p><strong>Two technical requirements that are not optional:</strong> server-side Conversions API with hashed CRM identifiers, and <strong>offline conversion upload</strong> — pushing site-visit and booking events back from CRM into Google and Meta. That is the difference between an algorithm optimising for form-fills and one optimising for actual buyers. It is the highest-ROI technical task in the entire plan.</p>
+
+    <h3>AI answer engines — the channel the category has not noticed</h3>
+    <div class="mx">
+      <div><span class="v bad">83%</span><span class="k">Of searches showing an AI Overview produce no click at all</span></div>
+      <div><span class="v good">+35%</span><span class="k">More organic clicks for brands cited in AI Overviews</span></div>
+      <div><span class="v good">+91%</span><span class="k">More paid clicks for those same cited brands</span></div>
+      <div><span class="v good">~3×</span><span class="k">AI-referral traffic converts vs other channels</span></div>
+    </div>
+    <p>If we want to be "the Google of real estate," being absent from AI answers is disqualifying. The way in is exactly the content we were already going to build: <strong>direct definitional answers, explicit formulae, sourced original data.</strong> AI engines quote precision and skip prose. And original data gets cited — aggregated commentary does not. <strong>Our quarterly report is the citation engine.</strong></p>
+
+    <h3>WhatsApp — and a cost lever worth knowing</h3>
+    <p>Marketing messages cost <span class="n">₹0.86 + 18% GST = ₹1.02</span>. Utility messages cost <span class="n">₹0.115</span> — and are <strong>free inside the 24-hour customer service window until 1 Oct 2026.</strong></p>
+    <div class="co"><p>So we architect flows where the <em>customer</em> opens the window via click-to-WhatsApp, then run all qualification and nurture as utility messages inside it. Roughly an <strong>8× per-message cost difference</strong> — and it converts better, because they initiated.</p></div>
+  </div>
+</section>
+
+<!-- ===== 04 CONTENT ===== -->
+<section class="act" id="content">
+  <div class="w">
+    <div class="lbl">04 &middot; The content engine</div>
+    <h2>Content is not marketing support. It is the acquisition engine and the mandate credential.</h2>
+
+    <h3>Five things we produce</h3>
+    <div class="sc">
+      <table>
+        <thead><tr><th class="n">#</th><th>What</th><th>Cadence</th><th>Why it exists commercially</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td><strong>The Analytics Dictionary</strong><br><span class="muted">Loading factor, UDS, carpet vs SBA, ~40 entries + calculators</span></td><td class="n">8–12/mo,<br>front-loaded</td><td>The brand claim, the cheapest traffic in the category, and the most AI-citable content shape that exists</td></tr>
+          <tr><td class="n">2</td><td><strong>Micro-market intelligence</strong><br><span class="muted">Data-led area guides with negatives built in</span></td><td class="n">2/mo</td><td>Owns the highest-volume local search queries</td></tr>
+          <tr><td class="n">3</td><td><strong>Project comparisons</strong><br><span class="muted">Generated from the verified dataset</span></td><td class="n">10–20/mo</td><td>Highest commercial intent, near-zero competition</td></tr>
+          <tr><td class="n">4</td><td><strong>NRI &amp; legal</strong><br><span class="muted">FEMA, repatriation, tax, power of attorney</span></td><td class="n">2/mo</td><td>Highest-ticket segment, extreme trust dependency</td></tr>
+          <tr><td class="n">5</td><td><strong>Prop-Talk podcast</strong><br><span class="muted">Filmed, 40–55 min</span></td><td class="n">Biweekly,<br>24/yr</td><td>Founder authority, developer access, and ~50 derivative assets per episode</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>How Prop-Talk actually gets made</h3>
+    <p>Most branded podcasts die at episode 8, because they are scheduled weekly and produced one at a time. We design against that failure mode from the start.</p>
+    <div class="cards">
+      <div><h5>Batch production</h5><p><strong>Four episodes in a single studio day, once a quarter.</strong> The only model that survives contact with founder calendars. One day buys a whole quarter of content.</p></div>
+      <div><h5>Guest ladder — hardest last</h5><p>Episodes 1–6: <strong>practitioners</strong> — RERA lawyers, structural engineers, urban planners, valuers. They say yes immediately and their content is evergreen.<br>7–14: analysts, CREDAI, PropTech founders.<br><strong>15+: developers.</strong> Not before.</p></div>
+      <div><h5>Why developers come last</h5><p>Opening with developers and ministers inverts the difficulty curve — and makes the show look like paid advertorial from episode one. We earn the access rather than leading with it.</p></div>
+      <div><h5>One day → ~50 assets</h5><p>Per episode: long-form video, audio, 6–10 vertical clips, an SEO article from the transcript, a LinkedIn carousel, quote graphics, a newsletter section, 2–3 Meta creatives.</p><p><strong>This is the economics that make the whole content plan affordable.</strong></p></div>
+    </div>
+
+    <h3>Honest Negatives — the charter that makes it shippable</h3>
+    <p>This is our biggest differentiator and our biggest execution risk. We earn from developers while publishing unflattering facts about their locations. That needs structure, not courage.</p>
+    <div class="sc">
+      <table>
+        <thead><tr><th>We publish only these three</th><th>Example</th><th>Legal exposure</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Civic &amp; environmental</strong> — public record</td><td>"TG PCB station recorded PM2.5 of N µg/m³, Nov–Jan average"</td><td class="yes">Low — factual, attributed</td></tr>
+          <tr><td><strong>Computed structural</strong> — arithmetic from filings</td><td>"Loading factor 41% against a 25–35% norm"</td><td class="yes">Low — maths from TG-RERA</td></tr>
+          <tr><td><strong>Measured &amp; timestamped</strong> — our own audit</td><td>"Drive time to HITEC City: 52 min at 09:15, Tue 12 Aug 2026"</td><td class="yes">Low — disclosed method</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co warn">
+      <p><strong>"This project has a 41% loading factor against a 25–35% norm"</strong> is a defensible arithmetic statement.<br><strong>"This builder cheats you on area"</strong> is litigable.</p>
+      <p>We publish only the first kind — and to an analytical buyer the first kind is <em>more</em> persuasive anyway. Never subjective quality judgements, never allegations about developer character, never unverified forum claims.</p>
+    </div>
+    <h4>Three rules that keep it credible</h4>
+    <ul>
+      <li><strong>Right of reply, never right of veto.</strong> 7 days' notice, unedited developer response published alongside.</li>
+      <li><strong>Negatives apply to our own mandates too.</strong> Non-negotiable. Exempt our own inventory and the whole asset is worthless — buyers will notice within a quarter. KPI: <strong>≥1 published negative per mandate.</strong></li>
+      <li><strong>Always pair a negative with mitigation.</strong> <em>"Kokapet has peak congestion on the ORR approach and localised monsoon waterlogging. Eastern-edge towers with the elevated approach are materially less affected — commute before 08:30 and the delta is ~18 minutes."</em> That is what converts a transparency reader into a lead.</li>
+    </ul>
+    <h4>And how we sell it to the developer</h4>
+    <p><strong>The negatives are already public</strong> — on Reddit, on X, in society WhatsApp groups, in Google reviews. The choice was never published-vs-unpublished. It is <em>contextualised with mitigation, or uncontrolled.</em> And a developer sitting at 28% loading and 88 units/acre <strong>gains enormously</strong> when those become standard comparison fields. Transparency is a weapon for the well-built project. We lead the mandate pitch with that, and the objection becomes the selling point.</p>
+  </div>
+</section>
+
+<!-- ===== 05 THE WEBSITE ===== -->
+<section class="act dark" id="website">
+  <div class="w">
+    <div class="lbl">05 &middot; The website</div>
+    <h2 style="max-width:26ch">The website is a viewer. The dataset is the product.</h2>
+    <p class="lead" style="color:var(--on-deep-soft)">Competitors can copy a screen in a quarter. They cannot copy a physically-audited dataset, and they cannot copy exclusive inventory. Here is what we actually build.</p>
+  </div>
+</section>
+
+<section class="act" style="border-top:none;padding-top:56px">
+  <div class="w">
+    <h3 style="margin-top:0">1 &middot; The Granular Comparison Engine</h3>
+    <p>Two to four projects, ~120 structured fields, <strong>difference-first</strong> — we hide what's identical and surface what isn't. Every number carries its source and date. And unlike any portal, <strong>it concludes.</strong></p>
+
+    <div class="mock">
+      <div class="mock-bar"><div class="mock-dots"><i></i><i></i><i></i></div>
+        <div class="mock-url">otho.in/compare/dsr-valar-kokapet__vs__sattva-lakeridge-financial-district</div></div>
+      <div class="mock-body">
+        <div class="app-top"><span class="app-logo">OTHO</span>
+          <span class="app-nav"><span>Compare</span><span>Dictionary</span><span>Micro-markets</span><span>Infrastructure</span><span>NRI</span></span></div>
+        <table class="cmp">
+          <thead><tr><th style="width:180px">Comparing 4 BHK</th>
+            <th>DSR Valar<small>Kokapet · RERA P02400005583</small></th>
+            <th>Sattva Lakeridge<small>Financial District · RERA approved</small></th></tr></thead>
+          <tbody>
+            <tr><td class="f">Advertised rate</td><td class="d">₹9,994 <span class="muted">/sq ft</span></td><td class="d">₹9,483 <span class="muted">/sq ft &nbsp;— looks 5% cheaper</span></td></tr>
+            <tr><td class="f">Saleable area (SBA)</td><td class="d">3,242 sq ft</td><td class="d">3,480 sq ft</td></tr>
+            <tr><td class="f">Loading factor</td><td class="d win">31%</td><td class="d lose">41%</td></tr>
+            <tr><td class="f">RERA carpet area</td><td class="d">2,475 sq ft</td><td class="d">2,468 sq ft <span class="muted">— near identical</span></td></tr>
+            <tr class="hl"><td class="f" style="color:var(--accent)">True cost per usable ft</td><td class="d win">₹13,091</td><td class="d lose">₹13,371 <span class="muted" style="font-weight:400">— actually 2% MORE</span></td></tr>
+            <tr><td class="f">Total price</td><td class="d">₹3.24 Cr</td><td class="d">₹3.30 Cr</td></tr>
+            <tr><td class="f">UDS (land you own)</td><td class="d win">431 sq ft</td><td class="d lose">352 sq ft <span class="muted">— 18% less land</span></td></tr>
+            <tr><td class="f">True density</td><td class="d win">94 units/acre <span class="muted">283 units · 3.0 ac</span></td><td class="d lose">118 units/acre</td></tr>
+            <tr><td class="f">Units per lift</td><td class="d win">35</td><td class="d lose">48</td></tr>
+            <tr><td class="f">Possession (RERA)</td><td class="d">Oct 2027</td><td class="d">Jun 2028</td></tr>
+            <tr><td class="f">Developer delay record</td><td class="d">+4 mo avg <span class="muted">last 5 projects</span></td><td class="d">+2 mo avg <span class="muted">last 7 projects</span></td></tr>
+          </tbody>
+        </table>
+        <div class="verdict"><b>OTHO verdict —</b> On near-identical usable area, Sattva Lakeridge advertises 5% cheaper and costs <b>2% more per usable square foot</b>, with <b>18% less land ownership</b> and 26% higher density. For an end-user or an investor, DSR Valar is the better-value asset. Sattva wins on possession certainty and walk-to-work location. <span style="color:var(--on-deep-soft)">Verified 12 Aug 2026 · A. Analyst · site visited</span></div>
+      </div>
+    </div>
+    <p class="mock-cap">Figures illustrative — computed from published price and SBA. Loading factors to be confirmed against filed TG-RERA carpet areas.</p>
+
+    <div class="co"><p class="big">This one screen is the whole pitch.</p><p>Every portal in India would show you two rows: "₹9,994/sq ft" and "₹9,483/sq ft" — and you would pick the wrong flat. <strong>We convert every price to cost-per-usable-foot by default.</strong> SBA is shown only as a secondary, labelled field. That single design decision makes honest comparison structurally unavoidable.</p></div>
+
+    <h3>2 &middot; Honest Negatives — a standard section, not a buried disclaimer</h3>
+    <div class="mock">
+      <div class="mock-bar"><div class="mock-dots"><i></i><i></i><i></i></div>
+        <div class="mock-url">otho.in/hyderabad/kokapet</div></div>
+      <div class="mock-body"><div class="app-pane">
+        <div style="display:flex;gap:10px;align-items:baseline;margin-bottom:4px">
+          <span style="font-family:var(--sans);font-size:19px;font-weight:700;letter-spacing:-.02em">Kokapet</span>
+          <span class="chip a">OTHO Verified · 12 Aug 2026</span></div>
+        <p style="font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin:0 0 16px">₹10,600–15,000/sq ft · 18–22% YoY · 14 projects tracked · 8 recommended</p>
+        <h4 style="margin-top:0">What we'd want to know before buying here</h4>
+
+        <div class="neg"><div class="neg-h"><b>Peak-hour congestion on the ORR approach</b><span class="chip w">Material</span></div>
+          <div class="neg-b">Measured 52 minutes to HITEC City at 09:15 on a Tuesday against a 26-minute off-peak baseline.
+            <span class="src">Source: OTHO field audit · drive test 12 Aug 2026 · repeated 3× </span>
+            <span class="mit">→ Mitigation: eastern-edge towers with the elevated approach lose ~18 fewer minutes. Departing before 08:30 or after 10:30 substantially closes the gap.</span></div></div>
+
+        <div class="neg"><div class="neg-h"><b>Localised monsoon waterlogging on internal roads</b><span class="chip w">Material</span></div>
+          <div class="neg-b">Recurring complaints logged at two junctions during the 2025 monsoon; storm-water works are in progress but incomplete.
+            <span class="src">Source: GHMC complaint records, 2025 monsoon season</span>
+            <span class="mit">→ Mitigation: affects the low-lying western pocket. Check plinth level and basement pump redundancy before committing.</span></div></div>
+
+        <div class="neg"><div class="neg-h"><b>Construction-phase air quality</b><span class="chip">Advisory</span></div>
+          <div class="neg-b">Elevated particulate readings during winter months, consistent with an active high-rise construction cluster. Expected to ease as the corridor completes.
+            <span class="src">Source: TG PCB monitoring station data, Nov 2025 – Jan 2026</span></div></div>
+
+        <div class="neg"><div class="neg-h"><b>Supply overhang — 40% of Neopolis inventory unsold</b><span class="chip w">Significant</span></div>
+          <div class="neg-b">Roughly 40% of ~10,000 homes in the Neopolis cluster remain unsold, with visible price cutting.
+            <span class="src">Source: OTHO Hyderabad Inventory Report, Q3 2026</span>
+            <span class="mit">→ This is buyer leverage. Expect to negotiate floor-rise waivers and furnishing packages worth ₹10–30 lakh.</span></div></div>
+      </div></div>
+    </div>
+
+    <h3>3 &middot; The Analytics Dictionary — with live calculators</h3>
+    <p>Every entry: plain definition in the first 50 words → the formula → a worked Hyderabad example → what it costs you in rupees → a calculator → affected projects. This is simultaneously our brand claim, our cheapest traffic, and the exact content shape AI engines cite.</p>
+    <div class="mock">
+      <div class="mock-bar"><div class="mock-dots"><i></i><i></i><i></i></div>
+        <div class="mock-url">otho.in/dictionary/loading-factor</div></div>
+      <div class="mock-body"><div class="app-pane">
+        <div style="font-family:var(--sans);font-size:19px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px">Loading Factor</div>
+        <p style="font-family:var(--sans);font-size:14px;line-height:1.5;margin:0 0 6px;max-width:64ch">The gap between the area you are <em>sold</em> and the area you can actually <em>use</em>, as a percentage of carpet area. A 1,000 sq ft flat marketed as 1,400 sq ft carries a 40% loading factor.</p>
+        <p style="font-family:var(--mono);font-size:13px;color:var(--accent);margin:0 0 16px">Loading Factor = (SBA − Carpet) ÷ Carpet × 100</p>
+        <div class="calc">
+          <div class="field"><label>Super built-up area</label><div class="box">3,242 sq ft</div></div>
+          <div class="field"><label>RERA carpet area</label><div class="box">2,475 sq ft</div></div>
+          <div class="field"><label>Loading factor</label><div class="box out">31.0%</div></div>
+          <div class="field"><label>You are paying for</label><div class="box bad">767 sq ft you cannot use</div></div>
+        </div>
+        <p style="font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin:14px 0 0">
+          <strong>Is 31% normal?</strong> Yes. Standard apartments run <strong>25–35%</strong>. Large integrated townships with central parks and sports facilities can legitimately reach <strong>35–45%</strong> for genuinely shared amenities. Above 45% without a matching amenity footprint, ask what you are buying.</p>
+      </div></div>
+    </div>
+    <div class="co"><p>Note that we publish the <em>defence</em> of high loading too. That nuance is what makes the metric credible rather than alarmist — and it protects us from the charge that we simply attack projects we don't represent.</p></div>
+
+    <h3>4 &middot; Infrastructure ROI maps — with a confidence index</h3>
+    <p>This is where the category lies most, and where honesty becomes the product. Every developer brochure in West Hyderabad implies the metro is arriving imminently. <strong>Metro Phase 2 has not received financial sanction.</strong></p>
+    <div class="mock">
+      <div class="mock-bar"><div class="mock-dots"><i></i><i></i><i></i></div>
+        <div class="mock-url">otho.in/infrastructure/west-hyderabad?year=2029</div></div>
+      <div class="mock-body"><div class="app-pane">
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+          <span style="font-family:var(--sans);font-size:16px;font-weight:680;letter-spacing:-.018em">West corridor · scenario: 2029</span>
+          <span style="font-family:var(--mono);font-size:11px;color:var(--ink-faint)">◀ 2026 ——●—— 2030 ▶</span></div>
+        <div class="map">
+          <div class="corridor" style="background:var(--accent);width:47%;left:6%;top:38%;transform:rotate(-7deg)"></div>
+          <div class="corridor" style="background:var(--alert);width:38%;left:40%;top:63%;transform:rotate(6deg);opacity:.55;border:1px dashed var(--alert)"></div>
+          <div class="corridor" style="background:var(--ink-faint);width:26%;left:56%;top:20%;transform:rotate(-14deg);opacity:.35"></div>
+          <div class="pin" style="left:16%;top:33%">HITEC City</div>
+          <div class="pin" style="left:38%;top:47%">Financial District</div>
+          <div class="pin" style="left:53%;top:70%">Narsingi</div>
+          <div class="pin" style="left:76%;top:60%">Tellapur</div>
+          <div class="pin" style="left:80%;top:26%">Kollur</div>
+          <div class="pin" style="left:26%;top:74%;border-color:var(--accent);color:var(--accent)">Kokapet ● 8 projects</div>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--accent)"></i>Operational — ORR / Metro Ph 1</span>
+          <span><i style="background:var(--alert);opacity:.55"></i>Metro Phase 2 — approved, unfunded</span>
+          <span><i style="background:var(--ink-faint);opacity:.35"></i>Radial Road — announced, alignment not final</span>
+        </div>
+        <h4>Infrastructure Confidence Index</h4>
+        <div class="sc" style="margin-top:0">
+          <table>
+            <thead><tr><th>Layer</th><th>Status</th><th class="n">Weight</th><th>What that means for your forecast</th></tr></thead>
+            <tbody>
+              <tr><td>ORR · Metro Phase 1</td><td><span class="chip a">Operational</span></td><td class="n">100%</td><td>Model at full confidence</td></tr>
+              <tr><td><strong>Metro Phase 2</strong></td><td><span class="chip w">Approved — unfunded</span></td><td class="n"><strong>30%</strong></td><td>DPR submitted, in-principle 50:50 nod, <strong>financial sanction pending</strong>. Construction not begun. Opening 2028–30</td></tr>
+              <tr><td>Bharat Future City</td><td><span class="chip">Partially committed</span></td><td class="n">55%</td><td>AWS foundation laid Jul 2026 (300 acres) — a hard anchor. Master plan + DCRs due Dec 2026</td></tr>
+              <tr><td>Ratan Tata Radial Road</td><td><span class="chip w">Announced</span></td><td class="n">10%</td><td>Alignment not final. We will not draw a confident line on a map</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin:12px 0 0"><strong>Forecast, stated as a range:</strong> if Phase 2 opens on schedule in 2029, comparable corridor evidence supports a 12–18% premium for Narsingi and Tellapur. If it slips to 2032, 4–7%. <em>We never publish a single-point appreciation number.</em></p>
+      </div></div>
+    </div>
+    <div class="co"><p class="big">Publishing "Metro Phase 2: 30% confidence" is a headline, not a caveat.</p><p>It is the single most memorable thing on the platform, because every competitor is implying the opposite. And if Phase 2 never gets funded, we are the only firm in Hyderabad that didn't mislead anyone.</p></div>
+
+    <h3>5 &middot; True Density — the congestion profile</h3>
+    <p>Units-per-acre alone under-delivers. We publish what density actually <em>feels</em> like.</p>
+    <div class="mock"><div class="mock-body"><div class="app-pane">
+      <div style="font-family:var(--sans);font-size:15px;font-weight:680;margin-bottom:14px">DSR Valar — density profile <span class="chip a" style="margin-left:6px">Comfortable</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px">
+        <div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase">Units per acre</div>
+          <div style="font-family:var(--mono);font-size:22px;font-weight:600">94.3</div>
+          <div class="dbar"><span style="width:52%"></span><i class="dmark" style="left:62%"></i></div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--ink-faint)">12% below Kokapet median (107) ▲</div></div>
+        <div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase">Persons per acre</div>
+          <div style="font-family:var(--mono);font-size:22px;font-weight:600">321</div>
+          <div class="dbar"><span style="width:48%"></span></div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--ink-faint)">at 3.4 avg household size</div></div>
+        <div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase">Units per lift</div>
+          <div style="font-family:var(--mono);font-size:22px;font-weight:600">35</div>
+          <div class="dbar"><span style="width:44%"></span></div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--ink-faint)">est. peak lift wait 45–70 sec</div></div>
+        <div><div style="font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase">Clubhouse per unit</div>
+          <div style="font-family:var(--mono);font-size:22px;font-weight:600">127 sq ft</div>
+          <div class="dbar"><span style="width:71%"></span></div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--ink-faint)">36,000 sq ft ÷ 283 units</div></div>
+      </div>
+    </div></div></div>
+
+    <h3>What else is in the platform</h3>
+    <div class="cards">
+      <div><h5>NRI Gateway</h5><p>FEMA decoder — what NRIs may and may not buy. Repatriation pathways, NRE/NRO mechanics, Form 15CA/15CB. <strong>Section 13 penalties of up to 3× the transaction amount</strong> for using the wrong account — that one fact drives more NRI enquiry than any lifestyle creative. Plus PoA toolkit by country and verified site-visit video.</p></div>
+      <div><h5>Lead architecture — the promise, in code</h5><p><strong>One lead, one advisor.</strong> No resale, enforced in the data model rather than in policy. Stated on every form: <em>"Your number goes to one OTHO advisor. Never to a developer's call centre. Never to another broker."</em> DPDP consent dashboard, TRAI 9am–9pm window hard-coded into CRM send logic.</p></div>
+      <div><h5>The data pipeline</h5><p>The genuinely hard part. Ingestion from TG-RERA filings, HMDA/GHMC approvals and IGRS registration data → one canonical schema storing <strong>RERA carpet as primary</strong>, SBA derived → human verification with a named analyst and date → automatic computation so metrics can never be selectively omitted.</p></div>
+      <div><h5>Stack &amp; build order</h5><p>Next.js · PostgreSQL + PostGIS · headless CMS · LeadSquared or Erino CRM · server-side Meta CAPI.<br><strong>MVP M3–6:</strong> pipeline + 50 verified projects, dictionary, 2-way compare.<br><strong>V1 M7–12:</strong> full engine, density suite, infra map, NRI gateway.<br><strong>V2 M13–18:</strong> personalisation, alerts, B2B dashboard.</p></div>
+    </div>
+    <div class="co warn"><p><strong>We launch with 50 deeply-verified projects, not 5,000 shallow ones.</strong> Depth is the differentiator. Breadth is what the portals already have, and it has not helped them.</p></div>
+  </div>
+</section>
+
+<!-- ===== 06 MACHINE ===== -->
+<section class="act" id="machine">
+  <div class="w">
+    <div class="lbl">06 &middot; How the marketing actually runs</div>
+    <h2>From ₹1 of media to a registered booking</h2>
+    <p class="lead">This is the part the sales floor lives inside. Every number below is a target we hold ourselves to weekly.</p>
+
+    <div class="funnel">
+      <div class="fstep"><span class="s">Media spend<em>Google 55% · Meta 35% · AEO &amp; amplification 10%</em></span><span class="r">blended CPL<br>target ≤₹1,200</span><span class="q">₹12L/mo</span></div>
+      <div class="fstep"><span class="s">Raw leads<em>First-party. Never bought, never resold.</em></span><span class="r">—</span><span class="q">1,000</span></div>
+      <div class="fstep"><span class="s">Contacted &amp; qualified<em>&lt;5 min to first human contact, 9am–9pm, 7 days</em></span><span class="r">38–45%<br><span style="color:var(--accent)">industry 10–20%</span></span><span class="q">400</span></div>
+      <div class="fstep"><span class="s">Site visits<em>Buyer arrives already educated by the comparison engine</em></span><span class="r">28–32%</span><span class="q">120</span></div>
+      <div class="fstep"><span class="s">Bookings<em>Fewer surprises on site → fewer walk-aways</em></span><span class="r">14–18%<br><span style="color:var(--accent)">industry 8–20%</span></span><span class="q">18</span></div>
+      <div class="fstep" style="background:var(--accent-soft)"><span class="s">Revenue<em>18 bookings × ₹4.8L gross commission @ 3% on ₹1.6cr avg</em></span><span class="r">media cost/booking<br>₹66,700</span><span class="q" style="color:var(--accent)">₹86L</span></div>
+    </div>
+
+    <div class="co">
+      <p class="big">₹12 lakh of media → ₹86 lakh of gross commission. Media is ~14% of revenue.</p>
+      <p>Industry cost-per-booking on paid alone runs ₹50,000–₹2,50,000. We sit at the healthy end — <strong>but only because of the conversion advantages</strong>, not because we buy media more cleverly.</p>
+    </div>
+
+    <h3>Where the advantage actually comes from</h3>
+    <div class="sc">
+      <table>
+        <thead><tr><th>Lever</th><th>What we do</th><th class="n">Effect</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Leads are never resold</strong></td><td>A portal lead reaches you alongside 5–10 brokers. Ours reaches one advisor. The buyer isn't already hostile when we call</td><td class="n">Contact rate 10–20% → <strong>38–45%</strong></td></tr>
+          <tr><td><strong>Speed-to-lead under 5 minutes</strong></td><td>Instant WhatsApp acknowledgement, human within 5 min, round-robin escalation if unclaimed in 90 seconds</td><td class="n">Lead→visit 2–8% → <strong>10–14%</strong></td></tr>
+          <tr><td><strong>Pre-educated buyers</strong></td><td>They arrive having read the negatives and run the loading calculator. The bad-surprise walk-away is designed out</td><td class="n">Visit→booking <strong>14–18%</strong></td></tr>
+          <tr><td><strong>Offline conversion upload</strong></td><td>Site-visit and booking events pushed back to Google and Meta so the algorithms optimise for buyers, not form-fills</td><td class="n">Compounds monthly</td></tr>
+          <tr><td><strong>Zero lead leakage</strong></td><td>Every source in one CRM. No lead sits in a platform inbox</td><td class="n">&lt;2% uncontacted at 24h</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co warn"><p><strong>The honest risk, stated plainly.</strong> This model assumes we beat portal conversion benchmarks substantially. If the funnel performs at industry average instead, cost per booking runs ₹150,000+ and the economics get marginal. <strong>The conversion advantage is not a bonus — it is the business model.</strong> It is the first thing we validate on the anchor mandate, and it is why speed-to-lead and no-resale are engineering requirements rather than policies.</p></div>
+
+    <h3>What we measure — and what we deliberately ignore</h3>
+    <div class="cards">
+      <div><h5 style="color:var(--accent)">The North Star</h5><p style="font-family:var(--sans);font-size:15px;color:var(--ink)"><strong>Inventory Clearance Velocity</strong> — months to clear mandate inventory vs the 19-month market baseline.</p><p>Year 1 target <strong>≤13 months</strong> (32% better than market). Year 2 <strong>≤10 months</strong>. It prices our mandates, it's externally benchmarkable, and it cannot be faked — you cannot invent a sold unit.</p></div>
+      <div><h5>What we hold weekly</h5><p>Cost per <em>qualified</em> lead ≤₹3,000 · cost per site visit ≤₹11,000 · cost per booking ≤₹70,000 · ROAS ≥6:1 on mandate campaigns · speed-to-lead &lt;5 min median · lead leakage &lt;2% · <strong>leads shared with third parties: 0%, permanently</strong>.</p></div>
+      <div><h5 style="color:var(--alert)">What we refuse to optimise</h5><p><strong>Raw lead volume</strong> — that's the classifieds metric; chasing it rebuilds what we exist to replace. <strong>Raw CPL</strong> — Meta will happily sell ₹200 leads that never answer. <strong>Page views, followers, app downloads.</strong> And <strong>GMV</strong> — the Square Yards trap: ₹1,410cr revenue on 3.3% EBITDA.</p></div>
+      <div><h5>Attribution built for a 9-month cycle</h5><p>Cohort by first-touch month, then track to booking — monthly CPA snapshots actively mislead here and will make us kill the campaigns that are working. Plus self-reported attribution on every form, to catch the podcast and dark-social contribution no pixel sees.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 BYPASS ===== -->
+<section class="act dark" id="bypass">
+  <div class="w">
+    <div class="lbl">07 &middot; How we bypass every competitor</div>
+    <h2 style="max-width:24ch">We are not a better portal. We are a different category.</h2>
+    <p class="lead" style="color:var(--on-deep-soft)">The incumbents cannot follow us — not because they lack the engineering, but because following us would destroy their own revenue model.</p>
+
+    <div class="sc">
+      <table>
+        <thead><tr><th></th><th>99acres · MagicBricks · Housing</th><th>NoBroker</th><th>Anarock · Square Yards</th><th style="color:var(--accent)">OTHO</th></tr></thead>
+        <tbody>
+          <tr><td><strong>What they sell</strong></td><td>Your phone number, to many brokers</td><td>Subscriptions, owner-direct</td><td>Advisory + mandates</td><td class="yes">Exclusive mandates + intelligence</td></tr>
+          <tr><td><strong>Your number goes to</strong></td><td class="is">5–10 competing brokers</td><td>Property owners</td><td>Internal team</td><td class="yes">One named advisor. Never resold</td></tr>
+          <tr><td><strong>Area shown by default</strong></td><td class="is">Super built-up (inflated)</td><td class="is">Super built-up</td><td class="is">Super built-up</td><td class="yes">RERA carpet</td></tr>
+          <tr><td><strong>Loading factor</strong></td><td class="no">Not shown</td><td class="no">Not shown</td><td class="no">Not shown</td><td class="yes">Computed on every unit</td></tr>
+          <tr><td><strong>UDS — land you own</strong></td><td class="no">Not shown</td><td class="no">Not shown</td><td class="no">Not shown</td><td class="yes">Computed on every unit</td></tr>
+          <tr><td><strong>True density</strong></td><td class="no">Not shown</td><td class="no">Not shown</td><td class="no">Not shown</td><td class="yes">Units/acre + congestion profile</td></tr>
+          <tr><td><strong>Negatives</strong></td><td class="no">Never</td><td class="no">Never</td><td class="no">Never</td><td class="yes">Published, sourced, with mitigation</td></tr>
+          <tr><td><strong>Infrastructure claims</strong></td><td class="is">Repeats the brochure</td><td class="no">—</td><td>Research reports</td><td class="yes">Confidence Index · Metro Ph2 at 30%</td></tr>
+          <tr><td><strong>Verification</strong></td><td class="is">Self-declared "verified"</td><td>Owner-declared</td><td>Desk research</td><td class="yes">Physical audit · dated · named analyst</td></tr>
+          <tr><td><strong>Inventory access</strong></td><td>Everyone's listings</td><td>Owner listings</td><td>Some exclusives</td><td class="yes">Exclusive — not listable elsewhere</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cards">
+      <div><h5>Why the portals structurally cannot follow</h5><p>Their revenue <em>is</em> the shared lead. "We never resell your number" is not a feature they can ship — it is their P&amp;L. And publishing negatives about projects whose developers pay them subscription fees is commercially impossible.</p></div>
+      <div><h5>Why Anarock and Square Yards don't occupy this</h5><p>They are consultancies with reports, not consumer products with tools. Neither publishes loading factor or UDS at unit level to buyers. And Square Yards shows the cost of the volume route: <strong>₹1,410cr revenue, ₹46cr EBITDA — 3.3%.</strong></p></div>
+      <div><h5>The moat is not the features</h5><p>Any competent team copies a comparison screen in a quarter. What they cannot copy: <strong>exclusive inventory</strong> they are not allowed to list, a <strong>physically-audited dataset</strong> built site by site, and a <strong>trust brand</strong> that costs money to maintain.</p></div>
+      <div><h5>And the regulator is on our side</h5><p>TRAI issued 731,000+ notices to unregistered telemarketers in 2025 and capped commercial consent at 7 days. DPDP requires purpose-specific consent and one-click withdrawal by 2027. <strong>The spam-and-resell model is becoming legally expensive. We are already compliant by design.</strong></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08 TEAM ===== -->
+<section class="act" id="team">
+  <div class="w">
+    <div class="lbl">08 &middot; Team &amp; effort required</div>
+    <h2>What it actually takes to run this</h2>
+    <p class="lead">Three staffing waves over 18 months, from 11 people to 35. Costed honestly, including the parts that are unglamorous.</p>
+
+    <div class="phases">
+      <div>
+        <div class="pn">11</div><div class="pt">Wave 1 · Months 1–3 · Foundation</div>
+        <h5>Build the asset before the audience</h5>
+        <p>Nothing customer-facing ships. We register with TG-RERA, audit the first 50 projects, and build the data pipeline.</p>
+        <div class="org" style="grid-template-columns:1fr;margin:14px 0 0;border:none;background:none;gap:0">
+          <div style="padding:0;background:none">
+            <ul>
+              <li><b>Sales Head</b><span>1</span></li>
+              <li><b>Research / Data Lead</b><span>1</span></li>
+              <li><b>Field Audit Executives</b><span>2</span></li>
+              <li><b>Performance Marketing Mgr</b><span>1</span></li>
+              <li><b>Content Lead</b><span>1</span></li>
+              <li><b>Product Manager</b><span>1</span></li>
+              <li><b>Data Engineer</b><span>1</span></li>
+              <li><b>Full-stack Engineer</b><span>1</span></li>
+              <li><b>Designer</b><span>1</span></li>
+              <li><b>Legal / compliance</b><span>retained</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pn">21</div><div class="pt">Wave 2 · Months 4–9 · Launch</div>
+        <h5>Turn on the funnel</h5>
+        <p>MVP ships, first report publishes, anchor mandate signs. The sales floor comes online — and speed-to-lead becomes the whole game.</p>
+        <div class="org" style="grid-template-columns:1fr;margin:14px 0 0;border:none;background:none;gap:0">
+          <div style="padding:0;background:none">
+            <ul>
+              <li><b>Senior Relationship Mgrs</b><span>+3</span></li>
+              <li><b>Inside Sales / Pre-sales</b><span>+3</span></li>
+              <li><b>Site Experience Execs</b><span>+2</span></li>
+              <li><b>Marketing Ops / CRM</b><span>+1</span></li>
+              <li><b>Perf. Marketing Exec</b><span>+1</span></li>
+              <li><b>SEO / AEO Specialist</b><span>+1</span></li>
+              <li><b>Video / Podcast Producer</b><span>+1</span></li>
+              <li><b>Full-stack Engineer</b><span>+1</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pn">35</div><div class="pt">Wave 3 · Months 10–18 · Scale</div>
+        <h5>Multiply what's proven</h5>
+        <p>Mandate count goes to 10–15. Advisory capacity becomes the binding constraint, so tooling must raise revenue-per-advisor.</p>
+        <div class="org" style="grid-template-columns:1fr;margin:14px 0 0;border:none;background:none;gap:0">
+          <div style="padding:0;background:none">
+            <ul>
+              <li><b>Senior Relationship Mgrs</b><span>+3</span></li>
+              <li><b>Inside Sales / Pre-sales</b><span>+3</span></li>
+              <li><b>Site Experience Execs</b><span>+2</span></li>
+              <li><b>Research Analyst</b><span>+1</span></li>
+              <li><b>Field Audit Executive</b><span>+1</span></li>
+              <li><b>Content Writers</b><span>+2</span></li>
+              <li><b>Full-stack Engineer</b><span>+1</span></li>
+              <li><b>Finance / Admin</b><span>+1</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>What it costs to run, per month</h3>
+    <div class="sc">
+      <table>
+        <thead><tr><th>Wave</th><th class="n">Headcount</th><th class="n">People</th><th class="n">Media</th><th class="n">Tech, tools, legal, studio</th><th class="n">Total burn / month</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Foundation</strong> · M1–3</td><td class="n">11</td><td class="n">₹14.2L</td><td class="n">₹4L</td><td class="n">₹4L</td><td class="n"><strong>≈ ₹22L</strong></td></tr>
+          <tr><td><strong>Launch</strong> · M4–9</td><td class="n">21</td><td class="n">₹25L</td><td class="n">₹10L</td><td class="n">₹4L</td><td class="n"><strong>≈ ₹39L</strong></td></tr>
+          <tr><td><strong>Scale</strong> · M10–18</td><td class="n">35</td><td class="n">₹36L</td><td class="n">₹20L</td><td class="n">₹6L</td><td class="n"><strong>≈ ₹62L</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mx">
+      <div><span class="v">₹8.6 cr</span><span class="k">Total 18-month investment, all-in</span></div>
+      <div><span class="v good">₹15–23 cr</span><span class="k">Phase 1 revenue against it</span></div>
+      <div><span class="v bad">₹6–7 cr</span><span class="k">Peak funding requirement, before revenue catches up</span></div>
+      <div><span class="v">M14–16</span><span class="k">Expected monthly operating breakeven</span></div>
+    </div>
+
+    <div class="co warn">
+      <p><strong>The cash-flow point the room should hear.</strong> Commission is paid on <em>registration</em>, not booking — a 3–6 month lag. So revenue trails bookings by roughly two quarters, and peak cash need (₹6–7cr) is materially higher than the net 18-month position suggests. Two mitigations go into every mandate contract: <strong>milestone-based commission release</strong>, and <strong>developer-funded campaign media</strong> so we are not fronting ad spend against back-ended income.</p>
+    </div>
+
+    <h3>Three roles that decide whether this works</h3>
+    <div class="cards">
+      <div><h5>Data Engineer <span class="chip w">Hire first</span></h5><p>The comparison engine is a data acquisition and verification problem, not a UI problem — TG-RERA filings, HMDA approvals, IGRS records, brochures, physical audit, all into one schema. <strong>This is where PropTech companies fail.</strong> Underhire here and nothing else in the plan matters.</p></div>
+      <div><h5>Sales Head</h5><p>Owns Inventory Clearance Velocity — the North Star. Not a lead-volume manager: a conversion-rate owner. The entire unit economic model rests on beating portal conversion benchmarks, and that is this person's mandate.</p></div>
+      <div><h5>Research / Data Lead</h5><p>Produces the quarterly Inventory Report — which is simultaneously our business development engine, our PR engine, our AI-citation engine and our future B2B product. One person, four jobs, and probably the highest-leverage hire in the company.</p></div>
+    </div>
+    <h4>What we deliberately do not hire</h4>
+    <p>No in-house creative studio (agency + the podcast producer covers it) · no separate PR agency (the report <em>is</em> the PR) · no full-time legal (retained counsel) · <strong>and no lead-generation team</strong> — the moment we staff for lead volume rather than lead quality, we have become the thing we set out to replace.</p>
+  </div>
+</section>
+
+<!-- ===== 09 SCALE ===== -->
+<section class="act" id="scale">
+  <div class="w">
+    <div class="lbl">09 &middot; Hyderabad → India → Global</div>
+    <h2>Prove it once, then clone the machine</h2>
+    <p class="lead">The calculators, the schema and the Confidence Index methodology are jurisdiction-agnostic. RERA is national. That is what makes this transferable — and what makes premature expansion so tempting.</p>
+
+    <div class="phases">
+      <div>
+        <div class="pn">01</div><div class="pt">Months 1–18 · Hyderabad</div>
+        <h5>Total domination of one market</h5>
+        <p>Ruthlessly hyper-local: Kokapet, Financial District, Narsingi, Tellapur, Kollur, Miyapur/Bachupally.</p>
+        <ul>
+          <li>10–15 exclusive mandates</li>
+          <li>Clearance velocity ≤13 months</li>
+          <li>50 → 300 verified projects</li>
+          <li>Revenue ₹15–23cr</li>
+          <li>The playbook written down while doing it</li>
+        </ul>
+      </div>
+      <div>
+        <div class="pn">02</div><div class="pt">Months 19–36 · Pan-India</div>
+        <h5>Bengaluru first — and deliberately so</h5>
+        <p>Not the biggest market: the one where the thesis transfers most cleanly. GCC-driven, high-information buyers, and an <strong>8-month overhang</strong> — which tests whether the model works in a <em>healthy</em> market, not just a glutted one.</p>
+        <ul>
+          <li><strong>Bengaluru → Pune → Chennai → NCR</strong> (NCR last: most fragmented, most legally complex)</li>
+          <li>35–50 mandates · revenue ₹60–90cr</li>
+          <li><strong>B2B data subscription goes live</strong> — the Inventory Report productised for developers, HFCs and PE funds. ₹3–6cr ARR, ~45% margin</li>
+          <li>City launch cost drops sharply — schema, calculators and content templates all travel</li>
+        </ul>
+      </div>
+      <div>
+        <div class="pn">03</div><div class="pt">Months 37+ · Global</div>
+        <h5>Follow the capital, not the map</h5>
+        <p>We do not open offices in cities. We open them in <strong>capital corridors</strong> — where NRI money already originates.</p>
+        <ul>
+          <li><strong>Dubai first</strong> — largest Indian diaspora, 1.5-hr timezone gap, existing property-investing culture</li>
+          <li>Then <strong>Singapore</strong>, then <strong>US &amp; UK</strong></li>
+          <li>Digital gateway first, physical advisory desk only once the corridor proves volume</li>
+          <li>Eventually the reverse flow: advising Indian UHNIs on international assets — the highest-margin advisory there is</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>The gates that stop us expanding too early</h3>
+    <div class="sc">
+      <table>
+        <thead><tr><th>Gate</th><th class="n">When</th><th>Every one of these must be true before we move</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1 → Launch</strong></td><td class="n">~M3</td><td>TG-RERA registered · 50 projects verified · legal sign-off on the negatives charter · CRM live with no-resale architecture</td></tr>
+          <tr><td><strong>2 → Scale</strong></td><td class="n">~M18</td><td>10+ mandates live · clearance velocity ≤13 months · CAC ≤40% of commission · contribution margin ≥55% · 40,000 organic sessions/mo · NPS ≥60</td></tr>
+          <tr><td><strong>3 → Second city</strong></td><td class="n">~M30</td><td>Hyderabad contribution ≥60% · mandate renewal ≥75% · B2B ARR ≥₹3cr · a written, transferable playbook · <strong>management depth to run Hyderabad without the founders</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="co warn"><p><strong>The most likely way this business fails is opening Bengaluru at month 20 because growth looks good — before Hyderabad's unit economics are proven.</strong> Gate 3 exists for exactly one reason: to make that decision impossible to take on optimism alone.</p></div>
+  </div>
+</section>
+
+<!-- ===== 10 NUMBERS ===== -->
+<section class="act" id="numbers">
+  <div class="w">
+    <div class="lbl">10 &middot; The numbers</div>
+    <h2>What we are asking for, and what it returns</h2>
+
+    <div class="sc">
+      <table>
+        <thead><tr><th>Metric</th><th class="n">Phase 1 · M1–18<br>Hyderabad</th><th class="n">Phase 2 · M19–36<br>Pan-India</th></tr></thead>
+        <tbody>
+          <tr><td>Exclusive mandates</td><td class="n">10–15</td><td class="n">35–50</td></tr>
+          <tr><td>Mandate GMV under management</td><td class="n">₹3,000–5,000cr</td><td class="n">₹12,000–18,000cr</td></tr>
+          <tr><td><strong>Inventory Clearance Velocity</strong></td><td class="n"><strong>≤13 months</strong></td><td class="n"><strong>≤10 months</strong></td></tr>
+          <tr><td>Bookings closed</td><td class="n">300–450</td><td class="n">1,200–1,800</td></tr>
+          <tr><td>GMV transacted</td><td class="n">₹480–720cr</td><td class="n">₹1,900–2,900cr</td></tr>
+          <tr><td><strong>Revenue</strong></td><td class="n"><strong>₹15–23cr</strong></td><td class="n"><strong>₹60–90cr</strong></td></tr>
+          <tr><td>B2B data ARR</td><td class="n">— (building)</td><td class="n">₹3–6cr</td></tr>
+          <tr><td>Blended CAC</td><td class="n">≤40% of commission</td><td class="n">≤35%</td></tr>
+          <tr><td>Contribution margin</td><td class="n">≥55%</td><td class="n">≥60%</td></tr>
+          <tr><td>Investment required</td><td class="n">₹8.6cr</td><td class="n">Self-funding from M18</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The discipline that protects the margin</h3>
+    <div class="cards">
+      <div><h5>Refuse any mandate below 55% contribution margin</h5><p>Square Yards built ₹1,410cr of revenue and kept ₹46cr of it. Volume in Indian PropTech is a trap. We would rather run 10 profitable mandates than 30 that flatter the GMV slide.</p></div>
+      <div><h5>Two P&amp;Ls, never blended</h5><p>Mandate media is developer-funded and judged on ROAS. Brand media is ours and judged on CAC. Mixing them makes both numbers meaningless — and is how agencies hide underperformance.</p></div>
+      <div><h5>Concentration cap</h5><p>No single developer above 35% of mandate GMV in Phase 1, 25% in Phase 2. One relationship souring should never be an existential event.</p></div>
+      <div><h5>The comparables</h5><p>Anarock: <strong>₹946cr FY26</strong>, +25%, advisory + mandates. PropEquity: <strong>₹50.7cr at ~45% EBITDA</strong> — data is high-margin but small. We are building Anarock's revenue architecture with PropEquity's margin layer attached.</p></div>
+    </div>
+
+    <h3>First 90 days — what happens the moment this is approved</h3>
+    <div class="sc">
+      <table>
+        <thead><tr><th class="n">Weeks</th><th>What ships</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1–2</td><td>TG-RERA agent registration filed <span class="chip w">Blocking</span> · defamation counsel retained and briefed on the negatives standard · TRAI telemarketer registration · positioning and brand system locked</td></tr>
+          <tr><td class="n">3–6</td><td>Canonical data schema defined — <strong>RERA carpet as the primary field</strong> · first 20 project audits begin (Kokapet, Financial District, Narsingi) · CRM configured with the no-resale architecture and the 5-minute SLA · Negatives Charter drafted and shown to two friendly developers</td></tr>
+          <tr><td class="n">7–10</td><td>50 projects audited and computed · first 25 dictionary entries + loading factor, UDS and density calculators built · Q3 Inventory Report drafted · <strong>Google Ads live, starting with the elimination cluster</strong> · studio booked, first four podcast guests confirmed</td></tr>
+          <tr><td class="n">11–13</td><td><strong>Inventory Report published</strong> + press outreach (ET, Moneycontrol, Telangana Today, Deccan Chronicle) · <strong>The Kokapet Report published</strong> · MVP site live · four podcast episodes recorded in one day · <strong>anchor-mandate conversations open with three Tier-1 developers — using the published report as the opening, not a pitch deck</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="co">
+      <p class="big">The one thing to remember from this room.</p>
+      <p>Hyderabad has 97,000 unsold homes and no honest way to choose between them. Every competitor is paid to keep it that way. <strong>We are the only firm whose business model improves when buyers know more.</strong></p>
+    </div>
+  </div>
+</section>
+
+<div class="w">
+  <footer>
+    <span>OTHO Realty &middot; Marketing &amp; Platform Model</span>
+    <span>All market figures verified Aug 2026 · sources in the companion evidence base</span>
+    <span>Hyderabad</span>
+  </footer>
+</div>

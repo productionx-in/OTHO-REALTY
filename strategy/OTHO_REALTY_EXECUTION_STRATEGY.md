@@ -897,10 +897,11 @@ ahead on carrying cost alone.
 | KPI | Definition | Phase 1 target (M1–18) | Phase 2 (M19–36) |
 |---|---|---|---|
 | Exclusive mandates signed | Live, contracted | **10–15** | 35–50 |
-| Mandate GMV under management | Total value of mandated inventory | ₹1,200–1,800cr | ₹5,000cr+ |
+| Mandate GMV under management | Total value of mandated inventory | ₹3,000–5,000cr | ₹12,000–18,000cr |
 | **Inventory Clearance Velocity** | Months to clear vs 19-month baseline | **≤13 months** | ≤10 months |
-| Bookings closed | Registered transactions | 110–160 | 500+ |
-| Revenue | Commission + advisory + data | ₹18–28cr | ₹75–110cr |
+| Bookings closed | Registered transactions | 300–450 | 1,200–1,800 |
+| GMV transacted | Value of units sold | ₹480–720cr | ₹1,900–2,900cr |
+| Revenue | Commission + advisory + data | ₹15–23cr | ₹60–90cr |
 | Contribution margin | Post-CAC | ≥55% | ≥60% |
 | Mandate renewal rate | Developers granting a second mandate | ≥70% | ≥80% |
 | Developer concentration | Largest developer's share of GMV | **<35%** | <25% |
