@@ -1,0 +1,917 @@
+<title>Marketing Neopolis</title>
+<style>
+  :root {
+    --paper:        #F4F5F3;
+    --surface:      #FFFFFF;
+    --surface-sunk: #EBEDE9;
+    --ink:          #16211F;
+    --ink-soft:     #3E4B48;
+    --ink-mute:     #6B7671;
+    --rule:         #D9DDD7;
+    --rule-strong:  #BFC6BE;
+    --blueprint:    #0E6E78;
+    --blueprint-bg: #E2EFF0;
+    --survey:       #B54A00;
+    --survey-bg:    #F7E9DC;
+    --good:         #2F6B45;
+    --good-bg:      #E4EFE7;
+
+    --f-display: "Avenir Next", Avenir, "Segoe UI", Tahoma, "Helvetica Neue", sans-serif;
+    --f-body:    "Avenir Next", Avenir, "Segoe UI", Tahoma, "Helvetica Neue", sans-serif;
+    --f-serif:   Charter, "Bitstream Charter", "Iowan Old Style", Cambria, Georgia, serif;
+    --f-mono:    ui-monospace, "SF Mono", SFMono-Regular, Consolas, "Roboto Mono", monospace;
+
+    --measure: 68ch;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:        #111817;
+      --surface:      #182120;
+      --surface-sunk: #0C1211;
+      --ink:          #E8EDEA;
+      --ink-soft:     #B8C2BE;
+      --ink-mute:     #8A958F;
+      --rule:         #2A3533;
+      --rule-strong:  #3D4A47;
+      --blueprint:    #4FB8C2;
+      --blueprint-bg: #10302F;
+      --survey:       #E8873C;
+      --survey-bg:    #35210F;
+      --good:         #6FBF8C;
+      --good-bg:      #14291C;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:        #111817;
+    --surface:      #182120;
+    --surface-sunk: #0C1211;
+    --ink:          #E8EDEA;
+    --ink-soft:     #B8C2BE;
+    --ink-mute:     #8A958F;
+    --rule:         #2A3533;
+    --rule-strong:  #3D4A47;
+    --blueprint:    #4FB8C2;
+    --blueprint-bg: #10302F;
+    --survey:       #E8873C;
+    --survey-bg:    #35210F;
+    --good:         #6FBF8C;
+    --good-bg:      #14291C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px 120px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 72px 0 40px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    font-family: var(--f-display);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    margin: 0 0 22px;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    font-family: var(--f-serif);
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .masthead-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: 34px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+  .masthead-meta span strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ---------- provenance legend ---------- */
+
+  .legend {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--blueprint);
+    padding: 24px 26px;
+    margin: 40px 0 0;
+  }
+  .legend h2 {
+    font-family: var(--f-display);
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    font-weight: 700;
+  }
+  .legend p {
+    margin: 0 0 18px;
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: var(--measure);
+  }
+  .legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+  }
+  .legend-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  /* ---------- provenance tags ---------- */
+
+  .tag {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+    font-weight: 600;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: 2px;
+  }
+  .tag-src   { background: var(--blueprint-bg); color: var(--blueprint); }
+  .tag-bench { background: var(--survey-bg);    color: var(--survey); }
+  .tag-meas  { background: var(--surface-sunk); color: var(--ink-mute); border: 1px solid var(--rule-strong); }
+
+  /* ---------- sections ---------- */
+
+  section {
+    padding-top: 76px;
+  }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 1px solid var(--rule-strong);
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+  }
+  .sec-head h2 {
+    font-family: var(--f-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .sec-kicker {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  p, li { max-width: var(--measure); }
+
+  p {
+    margin: 0 0 18px;
+    color: var(--ink-soft);
+  }
+  p strong, li strong { color: var(--ink); font-weight: 600; }
+
+  h3 {
+    font-family: var(--f-display);
+    font-size: 1.12rem;
+    letter-spacing: -0.012em;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    color: var(--ink);
+  }
+
+  ul, ol { padding-left: 22px; margin: 0 0 20px; }
+  li { margin-bottom: 9px; color: var(--ink-soft); }
+
+  /* ---------- pull statement ---------- */
+
+  .statement {
+    font-family: var(--f-serif);
+    font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+    line-height: 1.4;
+    color: var(--ink);
+    border-left: 3px solid var(--survey);
+    padding: 4px 0 4px 24px;
+    margin: 32px 0;
+    max-width: 54ch;
+  }
+
+  /* ---------- channel map ---------- */
+
+  .stage {
+    margin-bottom: 40px;
+  }
+  .stage-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+  .stage-head h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .stage-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .stage-note {
+    font-size: 14px;
+    color: var(--ink-mute);
+    margin: 0 0 18px;
+    max-width: var(--measure);
+  }
+
+  .channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+    gap: 12px;
+  }
+  .ch {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 16px 17px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ch-name {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.008em;
+    color: var(--ink);
+  }
+  .ch-what {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: none;
+  }
+  .ch-cadence {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px dotted var(--rule-strong);
+  }
+
+  /* ---------- tables ---------- */
+
+  .scroll {
+    overflow-x: auto;
+    margin: 0 0 26px;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 620px;
+    font-size: 14.5px;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  th {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 600;
+    background: var(--surface-sunk);
+    white-space: nowrap;
+  }
+  td { color: var(--ink-soft); }
+  td strong { color: var(--ink); font-weight: 600; }
+  tbody tr:last-child td { border-bottom: none; }
+  .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ---------- phase blocks ---------- */
+
+  .phase {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 22px;
+    padding: 22px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .phase:last-of-type { border-bottom: 1px solid var(--rule); }
+  .phase-when {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--survey);
+    font-weight: 600;
+    padding-top: 3px;
+    line-height: 1.5;
+  }
+  .phase-body h4 {
+    font-family: var(--f-display);
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .phase-body ul { margin-bottom: 0; }
+  .phase-body li { font-size: 14.5px; }
+
+  /* ---------- callout ---------- */
+
+  .callout {
+    background: var(--survey-bg);
+    border: 1px solid var(--survey);
+    padding: 20px 22px;
+    margin: 28px 0;
+  }
+  .callout h4 {
+    font-family: var(--f-display);
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--survey);
+    letter-spacing: 0.005em;
+  }
+  .callout p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+  .callout p + p { margin-top: 12px; }
+
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--blueprint);
+    padding: 18px 20px;
+    margin: 26px 0;
+  }
+  .note p { margin: 0; font-size: 15px; }
+  .note p + p { margin-top: 10px; }
+
+  /* ---------- two-col ---------- */
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 26px;
+  }
+  .cols > div > h3:first-child { margin-top: 0; }
+  .cols p, .cols li { max-width: none; }
+
+  /* ---------- footer ---------- */
+
+  .colophon {
+    margin-top: 90px;
+    padding-top: 26px;
+    border-top: 2px solid var(--ink);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-mute);
+    letter-spacing: 0.02em;
+  }
+  .colophon a { color: var(--blueprint); }
+
+  a { color: var(--blueprint); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, .ch:focus-visible {
+    outline: 2px solid var(--survey);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 18px 80px; }
+    .masthead { padding-top: 48px; }
+    .phase { grid-template-columns: 1fr; gap: 10px; }
+    .sec-kicker { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Marketing proposal · Project one of a repeatable pattern</p>
+    <h1>Marketing Neopolis</h1>
+    <p class="standfirst">Every channel we'd put the project on, how the work actually gets run week to week, and what we'd have to prove before asking you to scale it.</p>
+    <div class="masthead-meta">
+      <span><strong>Project</strong> Neopolis, Kokapet</span>
+      <span><strong>Scope</strong> Full-funnel brand + demand</span>
+      <span><strong>Horizon</strong> First 90 days</span>
+      <span><strong>Prepared</strong> August 2026</span>
+    </div>
+  </header>
+
+  <div class="legend">
+    <h2>Where every number in this document comes from</h2>
+    <p>You have been in this market for two decades. I am not going to hand you figures I cannot stand behind, so each one is tagged with its origin and you can dismiss any of them on the spot.</p>
+    <div class="legend-grid">
+      <div class="legend-item"><span class="tag tag-src">Sourced</span><span>Published third-party data. Knight Frank, Anarock, TG&#8209;RERA, TRAI. Checkable.</span></div>
+      <div class="legend-item"><span class="tag tag-bench">Benchmark</span><span>Industry range from trade sources. A ballpark, never a promise.</span></div>
+      <div class="legend-item"><span class="tag tag-meas">We measure</span><span>Unknown until we run it. I will not invent these before day 30.</span></div>
+    </div>
+  </div>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>The brief as I understand it</h2>
+      <span class="sec-kicker">Read back</span>
+    </div>
+
+    <p>Before anything else, let me repeat the assignment back so you can correct me early rather than halfway through the meeting.</p>
+
+    <ul>
+      <li><strong>One project first.</strong> Neopolis. Not a company-wide programme, not a five-city plan. Get one project's marketing working end to end.</li>
+      <li><strong>Brand awareness across every channel</strong> — the ask is presence and recognition, not only a lead count. Those need different work, and I have separated them throughout.</li>
+      <li><strong>A pattern you can copy.</strong> Whatever we build for Neopolis should be a template the next project inherits, so project two starts at week six instead of week one.</li>
+      <li><strong>You own the market knowledge.</strong> My job is channels, production, distribution and measurement — not telling you about Kokapet.</li>
+    </ul>
+
+    <div class="statement">If any of those four is wrong, the rest of this document is pointed in the wrong direction. Please stop me here.</div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>What I will not be doing today</h2>
+      <span class="sec-kicker">Boundaries</span>
+    </div>
+
+    <p>I am not going to explain the Hyderabad market to people who have been transacting in it since before I started working. You know the absorption problem in Kokapet better than any report describes it, and a slide telling you so would waste your time and my credibility.</p>
+
+    <p>I am also not going to forecast revenue. I have no baseline yet — no historical cost per lead for your projects, no site-visit-to-booking ratio from your sales team, no idea what your creative assets look like. Any number I produced today would be arithmetic dressed as insight, and you would spot it.</p>
+
+    <div class="note">
+      <p><strong>What I will commit to:</strong> a full channel plan, an operating rhythm you can hold me to, a 90-day sequence with named deliverables, and a measurement framework that produces real targets at day 30 — from your data, not from a benchmark table.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>The problem marketing actually owns</h2>
+      <span class="sec-kicker">The wedge</span>
+    </div>
+
+    <p>There is one fact in the public record I want to build the whole plan around, because it is a marketing problem rather than a sales problem, and it is the clearest case for funding this work.</p>
+
+    <p>Neopolis inventory is being quoted by agents at around <strong class="num">₹6,300/sq ft</strong> against official pricing of <strong class="num">₹11,000–12,000/sq ft</strong> <span class="tag tag-src">Sourced</span> — a gap of nearly half, reported in the trade press alongside roughly <strong>40% of some 10,000 launched homes unsold</strong> across the layout.</p>
+
+    <p>When a project's price is set in the grey market by whoever is most desperate to move a unit, three things happen, and all three are brand damage:</p>
+
+    <ul>
+      <li><strong>The advertised price stops being believed.</strong> Every serious buyer now assumes the real number is lower and opens by asking for the discount.</li>
+      <li><strong>The discounter sets your positioning.</strong> Whoever quotes lowest defines the project in the buyer's mind, and it is never the developer.</li>
+      <li><strong>Honest buyers feel punished.</strong> Anyone who paid list price learns they overpaid, and they say so publicly.</li>
+    </ul>
+
+    <div class="statement">Discounting is what happens when demand is not being generated. The marketing answer is enough direct, attributable demand that you are never negotiating from a position of needing this month's booking.</div>
+
+    <p>That reframing is the reason to run marketing properly rather than buy portal leads: it is the difference between paying for access to buyers and owning the relationship with them.</p>
+
+    <div class="callout">
+      <h4>The part I need you to check</h4>
+      <p>The pricing gap above comes from trade reporting on the Neopolis micro-market generally, not from your books. You will know whether it reflects what is actually happening with your inventory. If it does not, tell me — the diagnosis changes and so does the plan.</p>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>What is included: the channel map</h2>
+      <span class="sec-kicker">The inventory</span>
+    </div>
+
+    <p>This is the direct answer to "what all is included in the marketing." Every channel we would run, grouped by the job it does. Channels are grouped by funnel job rather than numbered, because they run in parallel, not in sequence.</p>
+
+    <div class="stage">
+      <div class="stage-head"><h3>Awareness</h3><span class="stage-rule"></span></div>
+      <p class="stage-note">Getting the project known to people who are not yet looking. This is where the brand mandate mostly lives, and it is judged on reach and recall, not on leads.</p>
+      <div class="channels">
+        <div class="ch"><span class="ch-name">Instagram &amp; Facebook</span><p class="ch-what">Reach and video-view campaigns to Hyderabad geo plus interest and income layers. Carries the visual identity of the project.</p><span class="ch-cadence">Always on · creative refresh fortnightly</span></div>
+        <div class="ch"><span class="ch-name">YouTube</span><p class="ch-what">Bumper and pre-roll against property, finance and Hyderabad-lifestyle viewing. Cheapest large-scale video reach available.</p><span class="ch-cadence">Always on · new cut monthly</span></div>
+        <div class="ch"><span class="ch-name">Google Display &amp; Discovery</span><p class="ch-what">Broad visual presence across news, finance and property sites. Primarily a frequency and recall channel.</p><span class="ch-cadence">Always on</span></div>
+        <div class="ch"><span class="ch-name">LinkedIn</span><p class="ch-what">The GCC employee base is the actual buyer pool for this price band. Targeting by employer, seniority and function.</p><span class="ch-cadence">Always on · B2B tone</span></div>
+        <div class="ch"><span class="ch-name">PR &amp; earned media</span><p class="ch-what">Telangana Today, Deccan Chronicle, Siasat, property trade press. Milestone stories, construction progress, leadership commentary.</p><span class="ch-cadence">Monthly pitch cycle</span></div>
+        <div class="ch"><span class="ch-name">Creators &amp; influencers</span><p class="ch-what">Hyderabad property YouTubers and reviewers who already hold the audience deciding between Kokapet projects.</p><span class="ch-cadence">Quarterly waves</span></div>
+        <div class="ch"><span class="ch-name">Outdoor into digital</span><p class="ch-what">Hoardings and site signage carrying a QR and a vanity URL, so offline spend becomes measurable rather than assumed.</p><span class="ch-cadence">Per campaign burst</span></div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-head"><h3>Consideration</h3><span class="stage-rule"></span></div>
+      <p class="stage-note">They know the project exists and are comparing it against four others. This is where most projects lose people silently, and where content does the work.</p>
+      <div class="channels">
+        <div class="ch"><span class="ch-name">Search engine optimisation</span><p class="ch-what">Project name, locality, and comparison terms. Buyers search "Kokapet vs Financial District" long before they search a project.</p><span class="ch-cadence">Weekly publishing</span></div>
+        <div class="ch"><span class="ch-name">AI answer engines</span><p class="ch-what">Structuring content so ChatGPT, Gemini and Perplexity cite the project when asked about Kokapet. Increasingly the first place buyers ask.</p><span class="ch-cadence">Built into every piece</span></div>
+        <div class="ch"><span class="ch-name">Long-form video</span><p class="ch-what">Full walkthroughs, floor-plan explainers, monthly construction updates, and location drives showing the actual commute.</p><span class="ch-cadence">Two per month</span></div>
+        <div class="ch"><span class="ch-name">Comparison content</span><p class="ch-what">Straight answers on carpet versus super built-up area, loading factor and UDS. Whoever answers honestly earns the trust.</p><span class="ch-cadence">Weekly</span></div>
+        <div class="ch"><span class="ch-name">Retargeting</span><p class="ch-what">Meta and Google sequences segmented by what the person actually viewed — a floor-plan visitor gets different creative from a video viewer.</p><span class="ch-cadence">Always on</span></div>
+        <div class="ch"><span class="ch-name">Email nurture</span><p class="ch-what">For enquiries not ready to visit. Construction progress, pricing changes, locality developments. Low cost, long memory.</p><span class="ch-cadence">Fortnightly</span></div>
+        <div class="ch"><span class="ch-name">WhatsApp broadcast</span><p class="ch-what">Opt-in updates within consent rules. Highest open rate available in this market, and the fastest to get suspended if abused.</p><span class="ch-cadence">Monthly, strictly opt-in</span></div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-head"><h3>Conversion</h3><span class="stage-rule"></span></div>
+      <p class="stage-note">Actively shortlisting. Small audience, high intent, highest cost per click — and the only place where slow response destroys the spend upstream.</p>
+      <div class="channels">
+        <div class="ch"><span class="ch-name">Google Search</span><p class="ch-what">Project name, competitor names, and high-intent locality terms. Expensive per click and the most qualified traffic in the plan.</p><span class="ch-cadence">Always on · daily pacing</span></div>
+        <div class="ch"><span class="ch-name">Performance Max</span><p class="ch-what">Run only once conversion tracking is trustworthy. Before that it optimises toward the wrong signal and wastes budget quietly.</p><span class="ch-cadence">From week 6</span></div>
+        <div class="ch"><span class="ch-name">Property portals</span><p class="ch-what">MagicBricks, 99acres, Housing, NoBroker. Necessary for coverage, but leads are shared — treated as a source to convert fast, never the core.</p><span class="ch-cadence">Always on · listings weekly</span></div>
+        <div class="ch"><span class="ch-name">WhatsApp conversation</span><p class="ch-what">Where enquiries actually want to talk. Handled by a person, inside legal hours, with the thread visible in CRM.</p><span class="ch-cadence">Daily, 9am–9pm</span></div>
+        <div class="ch"><span class="ch-name">Site-visit booking</span><p class="ch-what">A booking flow with real slots rather than a callback form. Removes the wait that loses people to whoever answers first.</p><span class="ch-cadence">Always on</span></div>
+        <div class="ch"><span class="ch-name">CRM &amp; lead routing</span><p class="ch-what">Every source into one system, auto-assigned, with a response clock running. This is where most developer marketing leaks.</p><span class="ch-cadence">Monitored daily</span></div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-head"><h3>Enablement &amp; retention</h3><span class="stage-rule"></span></div>
+      <p class="stage-note">The channels most developers under-run. Channel partners carry the majority of residential sales in India <span class="tag tag-src">Sourced</span>, and existing buyers are the cheapest source of the next one.</p>
+      <div class="channels">
+        <div class="ch"><span class="ch-name">Channel partner kit</span><p class="ch-what">Current collateral, approved creative, co-branded assets and a live price sheet — so partners sell the project as you position it.</p><span class="ch-cadence">Refreshed monthly</span></div>
+        <div class="ch"><span class="ch-name">Partner lead attribution</span><p class="ch-what">Unique links and codes per partner. Ends the argument about who sourced a walk-in, and shows which partners actually produce.</p><span class="ch-cadence">Reported monthly</span></div>
+        <div class="ch"><span class="ch-name">Buyer update programme</span><p class="ch-what">Construction milestones to people who have already booked. Directly reduces cancellation and anxiety-driven calls to sales.</p><span class="ch-cadence">Monthly</span></div>
+        <div class="ch"><span class="ch-name">Referral programme</span><p class="ch-what">Structured incentive for existing buyers. In this segment, referred buyers close faster and negotiate less.</p><span class="ch-cadence">Always on</span></div>
+        <div class="ch"><span class="ch-name">Testimonial capture</span><p class="ch-what">Filming buyers at handover and after moving in. The asset that feeds every other channel and cannot be bought later.</p><span class="ch-cadence">Ongoing</span></div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-head"><h3>Owned infrastructure</h3><span class="stage-rule"></span></div>
+      <p class="stage-note">Not campaigns — the foundation everything else reports into. If this is not right in the first three weeks, no amount of spend produces reliable numbers.</p>
+      <div class="channels">
+        <div class="ch"><span class="ch-name">Project microsite</span><p class="ch-what">The destination every channel points to. Floor plans, pricing logic, location, construction status, booking flow.</p><span class="ch-cadence">Built weeks 2–5</span></div>
+        <div class="ch"><span class="ch-name">Tracking &amp; analytics</span><p class="ch-what">Analytics, conversion tracking, call tracking, source tagging on every link. Built before spend starts, not after.</p><span class="ch-cadence">Weeks 1–3</span></div>
+        <div class="ch"><span class="ch-name">Consent management</span><p class="ch-what">Opt-in capture and withdrawal, as required under DPDP. Also what keeps WhatsApp and calling channels usable long term.</p><span class="ch-cadence">Weeks 1–3</span></div>
+        <div class="ch"><span class="ch-name">Asset library</span><p class="ch-what">One organised source for renders, plans, videos, logos and approved copy. Removes the recurring hunt for the current file.</p><span class="ch-cadence">Week 1, maintained</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>How I run it</h2>
+      <span class="sec-kicker">Operating rhythm</span>
+    </div>
+
+    <p>"How do you handle it" is a fair question, and the honest answer is a calendar rather than a philosophy. This is the rhythm I would hold to, and the one you should hold me to.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Cadence</th><th>What happens</th><th>Who sees it</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Daily</strong></td><td>Lead response times checked against the SLA. Spend pacing reviewed. Comments and DMs answered. Anything broken gets fixed same day.</td><td>Me, and sales on exceptions</td></tr>
+          <tr><td><strong>Weekly</strong></td><td>Channel performance review, creative rotated where fatigued, content published, competitor activity logged, and a standing call with your sales lead on lead quality.</td><td>Weekly note to you</td></tr>
+          <tr><td><strong>Fortnightly</strong></td><td>Creative production sprint — new cuts, new copy, new formats. Site-visit-to-booking conversation with the sales team on what buyers are objecting to.</td><td>Sales + me</td></tr>
+          <tr><td><strong>Monthly</strong></td><td>Full funnel report, budget reallocated across channels on evidence, next month's content calendar approved, compliance audit of every live ad.</td><td>Formal review with you</td></tr>
+          <tr><td><strong>Quarterly</strong></td><td>Positioning and messaging revisited, channel mix rebalanced, and an honest account of what did not work and what I would stop.</td><td>Founders' review</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>What I decide, and what I bring to you</h3>
+    <p>You have run this business for twenty years. You should not be approving ad copy variations, and I should not be repositioning the project on my own judgement. The line I would draw:</p>
+
+    <div class="cols">
+      <div>
+        <h3>I run without asking</h3>
+        <ul>
+          <li>Creative variations within approved messaging</li>
+          <li>Budget shifts between channels inside the agreed total</li>
+          <li>Targeting, bidding and audience changes</li>
+          <li>Publishing schedule and content topics</li>
+          <li>Pausing anything underperforming</li>
+        </ul>
+      </div>
+      <div>
+        <h3>I bring to you first</h3>
+        <ul>
+          <li>Anything that changes price or offer</li>
+          <li>New positioning or a change to core messaging</li>
+          <li>Total budget changes</li>
+          <li>Anything naming a competitor</li>
+          <li>Public response to a complaint or negative press</li>
+          <li>Any claim about delivery dates or approvals</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>First 90 days on Neopolis</h2>
+      <span class="sec-kicker">Sequence</span>
+    </div>
+
+    <p>These phases are genuinely sequential — each depends on the one before. Spending before tracking works is the single most common way developer marketing budgets disappear without evidence.</p>
+
+    <div class="phase">
+      <div class="phase-when">Days<br>1–15</div>
+      <div class="phase-body">
+        <h4>Audit and access</h4>
+        <ul>
+          <li>Inventory every existing asset — renders, plans, videos, brochures, approved copy</li>
+          <li>Access to ad accounts, analytics, CRM, portal accounts, social handles</li>
+          <li>Sit with the sales team: what do buyers actually ask, and where do they walk away</li>
+          <li>Establish the current baseline — enquiry volume, sources, response times, conversion, as they stand today</li>
+          <li>Compliance check on everything currently running</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-when">Days<br>16–30</div>
+      <div class="phase-body">
+        <h4>Foundations</h4>
+        <ul>
+          <li>Tracking and attribution built and verified end to end with test leads</li>
+          <li>CRM configured — routing rules, response SLA, source tagging, stage definitions agreed with sales</li>
+          <li>Consent capture and withdrawal in place</li>
+          <li>Microsite build begins; messaging and creative direction locked with you</li>
+          <li>First production shoot planned</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-when">Days<br>31–60</div>
+      <div class="phase-body">
+        <h4>Launch, in sequence</h4>
+        <ul>
+          <li>Search and portals first — existing demand, immediate feedback on message-market fit</li>
+          <li>Meta and YouTube next, once we know which messages hold attention</li>
+          <li>Content engine starts publishing weekly; SEO and AI-answer groundwork laid</li>
+          <li>Channel partner kit issued with per-partner attribution</li>
+          <li>Retargeting switched on once there is an audience to retarget</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-when">Days<br>61–90</div>
+      <div class="phase-body">
+        <h4>Optimise, and set real targets</h4>
+        <ul>
+          <li>Reallocate budget on 60 days of evidence rather than assumption</li>
+          <li>Creative testing at volume; retire the losers</li>
+          <li>Full-funnel report using <em>your</em> numbers — this is where forecasting becomes legitimate</li>
+          <li>Documented playbook, so project two inherits it instead of restarting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>The content engine</h2>
+      <span class="sec-kicker">Production</span>
+    </div>
+
+    <p>Running this many channels sounds like it needs a large team. It does not, provided production is organised around multiplication instead of one-off requests.</p>
+
+    <p>One properly planned shoot day at site yields the raw material for roughly a month of output across every channel:</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>One shoot day produces</th><th>Feeds</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Full walkthrough video</strong></td><td>YouTube long-form, microsite hero, sales presentation, WhatsApp share asset</td></tr>
+          <tr><td><strong>Drone and exterior footage</strong></td><td>Awareness video ads, construction updates, PR imagery</td></tr>
+          <tr><td><strong>Vertical cutdowns</strong></td><td>Instagram Reels, YouTube Shorts, Meta ad creative, status updates</td></tr>
+          <tr><td><strong>Stills</strong></td><td>Portal listings, display ads, brochures, partner kit, press</td></tr>
+          <tr><td><strong>Location drive footage</strong></td><td>Commute-reality content — consistently the most-watched format in this category</td></tr>
+          <tr><td><strong>Construction progress</strong></td><td>Monthly update to existing buyers, credibility content for prospects</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Alongside that, weekly written content answers the questions buyers are already searching — how loading factor changes the real price per usable foot, what UDS means for long-term value, how Kokapet compares to the alternatives on the specifics rather than the adjectives.</p>
+
+    <div class="statement">Answering the awkward questions honestly is the cheapest trust you can buy, and in a market with this much unsold stock it is also the most persuasive.</div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>Staying inside the rules</h2>
+      <span class="sec-kicker">Compliance</span>
+    </div>
+
+    <p>You will have seen enforcement tighten. I am raising it here because it constrains channel design from day one, not because it is a formality — and because getting it wrong is expensive in a way that is visible to your buyers.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Regime</th><th>What it requires</th><th>Exposure</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>TG&#8209;RERA</strong> <span class="tag tag-src">Sourced</span></td>
+            <td>Registration number in every advertisement, across print, digital and outdoor. Projects registered before any marketing begins.</td>
+            <td>TG&#8209;RERA has issued notices to developers for misleading and pre-launch advertising and levied roughly <span class="num">₹10cr</span> in penalties.</td>
+          </tr>
+          <tr>
+            <td><strong>TRAI TCCCPR</strong> <span class="tag tag-src">Sourced</span></td>
+            <td>Commercial calls only between 9am and 9pm. Consent for commercial contact is short-lived and must be current. Complaint windows are now days, not weeks.</td>
+            <td><span class="num">₹1 lakh</span> first violation, <span class="num">₹2 lakh</span> subsequent. Enforcement at scale against telemarketers through 2025.</td>
+          </tr>
+          <tr>
+            <td><strong>DPDP Act &amp; Rules</strong> <span class="tag tag-src">Sourced</span></td>
+            <td>Consent must be specific, informed and separate from terms and conditions. Withdrawal as easy as granting.</td>
+            <td>Core obligations phase in through the notified runway. Building it in now costs nothing; retrofitting later costs a rebuild.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <p>Practically, this means the lead capture, the calling window, the WhatsApp opt-in and the ad templates all get designed once, correctly, in the first three weeks. It is unglamorous work and it is why the launch phase starts at day 31 rather than day 3.</p>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>How we measure</h2>
+      <span class="sec-kicker">Accountability</span>
+    </div>
+
+    <p>This is the section where I could most easily impress you and least honestly. So here is the sequence instead.</p>
+
+    <h3>Reported from day one</h3>
+    <p>These need no forecast — they are simply observed, and you see them weekly from the first week of spend:</p>
+    <ul>
+      <li>Spend by channel, against plan</li>
+      <li>Reach and frequency on brand channels</li>
+      <li>Enquiries by source, with cost per enquiry</li>
+      <li>Response time — how long a lead waits before a human replies</li>
+      <li>Site visits booked, and site visits actually held</li>
+      <li>Bookings, attributed to source</li>
+    </ul>
+
+    <h3>The benchmark ranges</h3>
+    <p>So you have a ballpark for budgeting, these are published industry ranges. They describe the market, not a commitment from me, and your project may sit outside them in either direction:</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Metric</th><th>Published range</th><th>Origin</th></tr></thead>
+        <tbody>
+          <tr><td>Cost per lead — Google, Hyderabad new launches</td><td class="num">₹700–2,000</td><td><span class="tag tag-bench">Benchmark</span></td></tr>
+          <tr><td>Cost per lead — Google, luxury and premium</td><td class="num">₹2,500–6,000</td><td><span class="tag tag-bench">Benchmark</span></td></tr>
+          <tr><td>Cost per lead — Meta, tier-one cities</td><td class="num">₹550–1,400</td><td><span class="tag tag-bench">Benchmark</span></td></tr>
+          <tr><td>Raw lead to site visit</td><td class="num">2–8%</td><td><span class="tag tag-bench">Benchmark</span></td></tr>
+          <tr><td>Site visit to booking</td><td class="num">8–20%</td><td><span class="tag tag-bench">Benchmark</span></td></tr>
+          <tr><td><strong>Neopolis cost per booking</strong></td><td><strong>Unknown</strong></td><td><span class="tag tag-meas">We measure</span></td></tr>
+          <tr><td><strong>Neopolis conversion at each stage</strong></td><td><strong>Unknown</strong></td><td><span class="tag tag-meas">We measure</span></td></tr>
+          <tr><td><strong>Budget required per booking</strong></td><td><strong>Set at day 30</strong></td><td><span class="tag tag-meas">We measure</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <h4>The commitment I am willing to make</h4>
+      <p>At day 30 I bring you real numbers from your own funnel and we set targets against them together. At day 60 I show progress against those targets. At day 90 you have enough evidence to decide whether this pattern is worth copying to the next project.</p>
+      <p>If the numbers at day 30 say the approach is not working, I will tell you that rather than reframe it.</p>
+    </div>
+  </section>
+
+  <!-- ============ 10 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>Making it repeatable</h2>
+      <span class="sec-kicker">Project two</span>
+    </div>
+
+    <p>The reason to accept a slower first 90 days is that most of the work is built once and reused. When the next project starts, this is what already exists:</p>
+
+    <div class="cols">
+      <div>
+        <h3>Inherited, near-zero setup</h3>
+        <ul>
+          <li>Tracking and attribution architecture</li>
+          <li>CRM configuration, routing and SLA</li>
+          <li>Consent and compliance templates</li>
+          <li>Ad account structure and audiences</li>
+          <li>Reporting formats and review rhythm</li>
+          <li>Channel partner kit structure</li>
+          <li>Production workflow and shoot checklist</li>
+          <li>Content formats proven to work</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Rebuilt per project</h3>
+        <ul>
+          <li>Positioning and messaging</li>
+          <li>Creative assets and shoot</li>
+          <li>Microsite content</li>
+          <li>Locality and comparison content</li>
+          <li>Budget and channel weighting</li>
+          <li>Audience definition</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>By my estimate, project two reaches launch in roughly a third of the time. That estimate is judgement from the structure of the work, not a measured figure <span class="tag tag-meas">We measure</span> — and Neopolis is what will tell us the real number.</p>
+  </section>
+
+  <!-- ============ 11 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>What I need from you</h2>
+      <span class="sec-kicker">To start</span>
+    </div>
+
+    <p>None of this works without a few things only you can provide:</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Need</th><th>Why</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td><strong>One decision-maker</strong></td><td>A single person who can approve creative and messaging. Approval by committee is the most reliable way to miss a launch window.</td><td>Day 1</td></tr>
+          <tr><td><strong>Account access</strong></td><td>Ad accounts, analytics, CRM, portals, social handles. Without these I am guessing at the baseline.</td><td>Week 1</td></tr>
+          <tr><td><strong>Existing assets</strong></td><td>Renders, plans, approvals, brochures, prior campaign data — including what failed, which is more useful than what worked.</td><td>Week 1</td></tr>
+          <tr><td><strong>Sales team time</strong></td><td>A standing weekly slot. Marketing that does not hear what buyers object to keeps generating leads sales cannot close.</td><td>Ongoing</td></tr>
+          <tr><td><strong>A budget band</strong></td><td>Not a precise figure — a range I can plan against. The channel mix changes materially depending on the number.</td><td>Before week 4</td></tr>
+          <tr><td><strong>Site and shoot access</strong></td><td>Half a day at site with a crew, plus permission to film progress monthly.</td><td>By week 3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="statement">Give me 90 days, honest access, and a decision-maker — and at the end of it you will have evidence rather than opinions about whether this is worth repeating.</div>
+  </section>
+
+  <footer class="colophon">
+    <p>
+      Marketing proposal — Neopolis, Kokapet · Prepared August 2026<br>
+      Market figures tagged <span class="tag tag-src">Sourced</span> are drawn from published Knight Frank and Anarock research, TG&#8209;RERA and TRAI notifications, and Hyderabad trade press. Figures tagged <span class="tag tag-bench">Benchmark</span> are published industry ranges and are indicative only. Items tagged <span class="tag tag-meas">We measure</span> are deliberately unquantified pending baseline data.<br>
+      No revenue, booking or return forecast appears in this document by design.
+    </p>
+  </footer>
+
+</div>
