@@ -103,7 +103,7 @@ function band(s, x, y, w, h, dark) {
     ["STARTING", "Neopolis, Kokapet"],
     ["FIRST MILESTONE", "90 days"],
     ["THE MODEL", "CarWale, for property"],
-    ["HORIZON", "Hyderabad → India → global"]
+    ["HORIZON", "Hyderabad, India, global"]
   ];
   facts.forEach((f, i) => {
     const x = cx(i, 4), w = cw(4);
@@ -113,7 +113,7 @@ function band(s, x, y, w, h, dark) {
     });
     s.addText(f[1], {
       x, y: 5.72, w, h: 0.42,
-      fontFace: HEAD, fontSize: 15, bold: true, color: D1, margin: 0, valign: "middle"
+      fontFace: HEAD, fontSize: 13.5, bold: true, color: D1, margin: 0, valign: "middle"
     });
   });
   s.addText("Strategy & launch plan for OTHO Realty   ·   August 2026", {
