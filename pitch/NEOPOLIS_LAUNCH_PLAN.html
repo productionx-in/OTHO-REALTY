@@ -15,6 +15,8 @@
     --amber-bg:#FAEFD9;
     --green:   #1F6B47;
     --green-bg:#E2F0E8;
+    --red:     #A32B21;
+    --red-bg:  #FAE8E6;
 
     --f-display: "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
     --f-body:    "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -37,6 +39,8 @@
       --amber-bg:#2E2210;
       --green:   #63BC90;
       --green-bg:#12291E;
+      --red:     #E88178;
+      --red-bg:  #2E1512;
     }
   }
 
@@ -55,6 +59,8 @@
     --amber-bg:#2E2210;
     --green:   #63BC90;
     --green-bg:#12291E;
+    --red:     #E88178;
+    --red-bg:  #2E1512;
   }
 
   * { box-sizing: border-box; }
@@ -75,74 +81,40 @@
 
   .cover { padding: 64px 0 46px; }
 
-  .brandbar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 60px;
-  }
+  .brandbar { display: flex; align-items: center; gap: 12px; margin-bottom: 60px; flex-wrap: wrap; }
   .brandmark {
     font-family: var(--f-display);
-    font-weight: 800;
-    font-size: 15px;
-    letter-spacing: -0.02em;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 6px 10px;
+    font-weight: 800; font-size: 15px; letter-spacing: -0.02em;
+    background: var(--ink); color: var(--paper); padding: 6px 10px;
   }
   .brandfor {
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-3);
   }
 
   h1 {
-    font-family: var(--f-display);
-    font-weight: 800;
+    font-family: var(--f-display); font-weight: 800;
     font-size: clamp(2.8rem, 7vw, 5rem);
-    line-height: 0.98;
-    letter-spacing: -0.042em;
-    margin: 0 0 26px;
-    text-wrap: balance;
+    line-height: 0.98; letter-spacing: -0.042em;
+    margin: 0 0 26px; text-wrap: balance;
   }
 
   .deck {
     font-size: clamp(1.1rem, 2.1vw, 1.35rem);
-    line-height: 1.45;
-    color: var(--ink-2);
-    max-width: 54ch;
-    margin: 0;
+    line-height: 1.45; color: var(--ink-2);
+    max-width: 54ch; margin: 0;
   }
 
-  .coverfacts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-    margin-top: 46px;
-    border-top: 2px solid var(--ink);
-  }
-  .coverfact {
-    flex: 1 1 190px;
-    padding: 16px 20px 16px 0;
-    border-right: 1px solid var(--rule);
-  }
+  .coverfacts { display: flex; flex-wrap: wrap; margin-top: 46px; border-top: 2px solid var(--ink); }
+  .coverfact { flex: 1 1 190px; padding: 16px 20px 16px 0; border-right: 1px solid var(--rule); }
   .coverfact:last-child { border-right: none; }
   .coverfact dt {
-    font-family: var(--f-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 5px;
+    font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.11em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px;
   }
   .coverfact dd {
-    margin: 0;
-    font-family: var(--f-display);
-    font-weight: 700;
-    font-size: 1.02rem;
-    letter-spacing: -0.015em;
+    margin: 0; font-family: var(--f-display); font-weight: 700;
+    font-size: 1.02rem; letter-spacing: -0.015em;
   }
 
   /* ---------- sections ---------- */
@@ -150,148 +122,90 @@
   section { padding-top: 74px; }
 
   .sechead {
-    display: flex;
-    align-items: baseline;
-    gap: 18px;
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 11px;
-    margin-bottom: 28px;
+    display: flex; align-items: baseline; gap: 18px;
+    border-bottom: 2px solid var(--ink); padding-bottom: 11px; margin-bottom: 28px;
   }
   .secnum {
-    font-family: var(--f-mono);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--blue);
-    letter-spacing: 0.06em;
-    flex-shrink: 0;
+    font-family: var(--f-mono); font-size: 12px; font-weight: 600;
+    color: var(--blue); letter-spacing: 0.06em; flex-shrink: 0;
   }
   .sechead h2 {
-    font-family: var(--f-display);
-    font-weight: 800;
+    font-family: var(--f-display); font-weight: 800;
     font-size: clamp(1.45rem, 3.1vw, 2.05rem);
-    letter-spacing: -0.032em;
-    margin: 0;
-    text-wrap: balance;
+    letter-spacing: -0.032em; margin: 0; text-wrap: balance;
   }
 
   p { margin: 0 0 17px; color: var(--ink-2); max-width: 68ch; }
   p strong, li strong, td strong { color: var(--ink); font-weight: 650; }
 
   h3 {
-    font-family: var(--f-display);
-    font-weight: 750;
-    font-size: 1.1rem;
-    letter-spacing: -0.018em;
-    margin: 34px 0 12px;
-    color: var(--ink);
+    font-family: var(--f-display); font-weight: 750; font-size: 1.1rem;
+    letter-spacing: -0.018em; margin: 34px 0 12px; color: var(--ink);
   }
-  h4 {
-    font-family: var(--f-display);
-    font-weight: 700;
-    font-size: 0.97rem;
-    letter-spacing: -0.01em;
-    margin: 0 0 9px;
-  }
+  h4 { font-family: var(--f-display); font-weight: 700; font-size: 0.97rem; letter-spacing: -0.01em; margin: 0 0 9px; }
 
   ul, ol { padding-left: 21px; margin: 0 0 18px; }
   li { margin-bottom: 8px; color: var(--ink-2); max-width: 68ch; }
 
-  .lead {
-    font-size: 1.12rem;
-    line-height: 1.5;
-    color: var(--ink);
-    max-width: 60ch;
-    margin-bottom: 22px;
-  }
+  .lead { font-size: 1.12rem; line-height: 1.5; color: var(--ink); max-width: 60ch; margin-bottom: 22px; }
 
-  .kicker {
-    font-family: var(--f-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin: 0 0 10px;
-  }
-
-  /* ---------- big statement ---------- */
+  /* ---------- statement ---------- */
 
   .pull {
-    font-family: var(--f-display);
-    font-weight: 700;
+    font-family: var(--f-display); font-weight: 700;
     font-size: clamp(1.3rem, 3vw, 1.85rem);
-    line-height: 1.24;
-    letter-spacing: -0.028em;
-    color: var(--ink);
-    max-width: 24ch;
-    margin: 34px 0;
-    padding-left: 20px;
+    line-height: 1.24; letter-spacing: -0.028em; color: var(--ink);
+    max-width: 24ch; margin: 34px 0; padding-left: 20px;
     border-left: 4px solid var(--blue);
   }
 
-  /* ---------- fact strip ---------- */
+  /* ---------- facts ---------- */
 
   .facts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
-    margin-bottom: 26px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 26px;
   }
-  .fact {
-    background: var(--surface);
-    padding: 20px 18px;
-  }
+  .fact { background: var(--surface); padding: 20px 18px; }
   .fact .n {
-    font-family: var(--f-display);
-    font-weight: 800;
-    font-size: 1.9rem;
-    letter-spacing: -0.035em;
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-    display: block;
-    margin-bottom: 8px;
+    font-family: var(--f-display); font-weight: 800; font-size: 1.9rem;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums;
+    display: block; margin-bottom: 8px;
   }
-  .fact .t {
-    font-size: 14px;
-    line-height: 1.4;
-    color: var(--ink-2);
-  }
+  .fact .t { font-size: 14px; line-height: 1.4; color: var(--ink-2); }
   .fact .src {
-    font-family: var(--f-mono);
-    font-size: 9.5px;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-top: 9px;
-    display: block;
+    font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--ink-3); margin-top: 9px; display: block;
   }
+
+  /* ---------- audit scorecard ---------- */
+
+  .audit { border: 1px solid var(--rule); background: var(--surface); margin-bottom: 22px; }
+  .audit-row {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 16px; align-items: center;
+    padding: 12px 16px; border-bottom: 1px solid var(--rule);
+  }
+  .audit-row:last-child { border-bottom: none; }
+  .audit-what { font-size: 14.5px; }
+  .audit-what b { display: block; font-family: var(--f-display); font-weight: 700; font-size: 14.5px; color: var(--ink); margin-bottom: 2px; letter-spacing: -0.01em; }
+  .audit-what span { color: var(--ink-3); font-size: 13px; }
+  .st {
+    font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.09em;
+    text-transform: uppercase; padding: 4px 8px; font-weight: 600; white-space: nowrap;
+  }
+  .st-none { background: var(--red-bg);   color: var(--red); }
+  .st-unk  { background: var(--sunk);     color: var(--ink-3); }
+  .st-ok   { background: var(--green-bg); color: var(--green); }
 
   /* ---------- tables ---------- */
 
-  .scroll {
-    overflow-x: auto;
-    border: 1px solid var(--rule);
-    background: var(--surface);
-    margin: 0 0 24px;
-  }
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); margin: 0 0 24px; }
   table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 14.5px; }
-  th, td {
-    text-align: left;
-    padding: 11px 15px;
-    border-bottom: 1px solid var(--rule);
-    vertical-align: top;
-    line-height: 1.45;
-  }
+  th, td { text-align: left; padding: 11px 15px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
   th {
-    font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    font-weight: 600;
-    background: var(--sunk);
-    white-space: nowrap;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-3); font-weight: 600;
+    background: var(--sunk); white-space: nowrap;
   }
   td { color: var(--ink-2); }
   tbody tr:last-child td { border-bottom: none; }
@@ -299,84 +213,44 @@
   .tot td { background: var(--sunk); font-weight: 650; color: var(--ink); }
   td.r, th.r { text-align: right; }
 
-  /* ---------- tag ---------- */
   .tg {
-    font-family: var(--f-mono);
-    font-size: 9.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 2px 6px;
-    font-weight: 600;
-    white-space: nowrap;
-    display: inline-block;
+    font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 2px 6px; font-weight: 600;
+    white-space: nowrap; display: inline-block;
   }
   .tg-a { background: var(--amber-bg); color: var(--amber); }
   .tg-s { background: var(--blue-bg);  color: var(--blue); }
-  .tg-g { background: var(--green-bg); color: var(--green); }
 
   /* ---------- cards ---------- */
 
   .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
-  .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); gap: 14px; }
   .grid2 p, .grid3 p, .grid2 li, .grid3 li { max-width: none; }
   .grid2 > div > h3:first-child, .grid2 > div > h4:first-child { margin-top: 0; }
 
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    padding: 18px 19px;
-  }
+  .card { background: var(--surface); border: 1px solid var(--rule); padding: 18px 19px; }
   .card h4 { margin-bottom: 8px; }
   .card p { font-size: 14.5px; margin: 0; line-height: 1.5; }
   .card ul { margin: 0; padding-left: 18px; }
   .card li { font-size: 14.5px; margin-bottom: 6px; }
 
-  /* ---------- budget tier ---------- */
+  /* ---------- budget tiers ---------- */
 
-  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 16px; margin-bottom: 26px; }
-  .tier {
-    border: 1px solid var(--rule);
-    background: var(--surface);
-    padding: 22px 20px;
-    display: flex;
-    flex-direction: column;
-  }
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 26px; }
+  .tier { border: 1px solid var(--rule); background: var(--surface); padding: 22px 20px; display: flex; flex-direction: column; }
   .tier.pick { border: 2px solid var(--blue); }
   .tier-tag {
-    font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 10px;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.11em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
   }
   .tier.pick .tier-tag { color: var(--blue); }
-  .tier-name {
-    font-family: var(--f-display);
-    font-weight: 800;
-    font-size: 1.25rem;
-    letter-spacing: -0.028em;
-    margin-bottom: 4px;
-  }
-  .tier-price {
-    font-family: var(--f-display);
-    font-weight: 800;
-    font-size: 2rem;
-    letter-spacing: -0.038em;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.05;
-    margin-bottom: 3px;
-  }
+  .tier-name { font-family: var(--f-display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.028em; margin-bottom: 4px; }
+  .tier-price { font-family: var(--f-display); font-weight: 800; font-size: 2rem; letter-spacing: -0.038em; font-variant-numeric: tabular-nums; line-height: 1.05; margin-bottom: 3px; }
   .tier-per { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px; }
   .tier ul { margin: 0; padding-left: 0; list-style: none; }
   .tier li {
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 7px 0;
-    border-bottom: 1px dotted var(--rule-2);
-    margin: 0;
+    font-size: 14px; display: flex; justify-content: space-between; gap: 14px;
+    padding: 7px 0; border-bottom: 1px dotted var(--rule-2); margin: 0;
   }
   .tier li:last-child { border-bottom: none; }
   .tier li span:last-child { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; white-space: nowrap; }
@@ -384,74 +258,31 @@
 
   /* ---------- roadmap ---------- */
 
-  .phase {
-    display: grid;
-    grid-template-columns: 118px 1fr;
-    gap: 24px;
-    padding: 21px 0;
-    border-top: 1px solid var(--rule);
-  }
+  .phase { display: grid; grid-template-columns: 118px 1fr; gap: 24px; padding: 21px 0; border-top: 1px solid var(--rule); }
   .phase:last-of-type { border-bottom: 1px solid var(--rule); }
   .phase-when {
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--blue);
-    font-weight: 600;
-    padding-top: 2px;
-    line-height: 1.55;
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--blue); font-weight: 600;
+    padding-top: 2px; line-height: 1.55;
   }
   .phase-when em { display: block; font-style: normal; color: var(--ink-3); font-size: 10px; margin-top: 3px; }
   .phase-body h4 { font-size: 1.03rem; margin-bottom: 9px; }
   .phase-body ul { margin: 0; }
   .phase-body li { font-size: 14.5px; margin-bottom: 6px; }
   .phase-out {
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: var(--ink-3);
-    margin-top: 11px;
-    padding-top: 9px;
-    border-top: 1px dotted var(--rule-2);
+    font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.04em;
+    color: var(--ink-3); margin-top: 11px; padding-top: 9px; border-top: 1px dotted var(--rule-2);
   }
   .phase-out strong { color: var(--green); font-weight: 600; }
 
   /* ---------- website mockup ---------- */
 
-  .mock {
-    border: 1px solid var(--rule-2);
-    background: var(--surface);
-    margin: 8px 0 12px;
-    overflow: hidden;
-  }
-  .mock-bar {
-    background: var(--sunk);
-    border-bottom: 1px solid var(--rule);
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
+  .mock { border: 1px solid var(--rule-2); background: var(--surface); margin: 8px 0 12px; overflow: hidden; }
+  .mock-bar { background: var(--sunk); border-bottom: 1px solid var(--rule); padding: 8px 12px; display: flex; align-items: center; gap: 7px; }
   .mock-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--rule-2); }
-  .mock-url {
-    font-family: var(--f-mono);
-    font-size: 10.5px;
-    color: var(--ink-3);
-    margin-left: 8px;
-    letter-spacing: 0.02em;
-  }
-  .mock-body { padding: 0; }
+  .mock-url { font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-3); margin-left: 8px; letter-spacing: 0.02em; }
 
-  .m-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 13px 18px;
-    border-bottom: 1px solid var(--rule);
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+  .m-nav { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid var(--rule); gap: 12px; flex-wrap: wrap; }
   .m-logo { font-family: var(--f-display); font-weight: 800; font-size: 13px; letter-spacing: -0.02em; }
   .m-links { display: flex; gap: 15px; font-size: 11px; color: var(--ink-3); flex-wrap: wrap; }
   .m-cta { background: var(--blue); color: #fff; font-size: 11px; font-weight: 600; padding: 6px 11px; white-space: nowrap; }
@@ -460,7 +291,7 @@
   .m-eyebrow { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
   .m-h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(1.4rem, 4vw, 2.1rem); letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 10px; }
   .m-sub { font-size: 13.5px; color: var(--ink-2); max-width: 46ch; margin-bottom: 16px; line-height: 1.45; }
-  .m-stats { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--rule); }
+  .m-stats { display: flex; flex-wrap: wrap; border: 1px solid var(--rule); }
   .m-stat { flex: 1 1 118px; padding: 11px 13px; border-right: 1px solid var(--rule); }
   .m-stat:last-child { border-right: none; }
   .m-stat b { display: block; font-family: var(--f-display); font-weight: 800; font-size: 1.02rem; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
@@ -477,13 +308,7 @@
   .m-row.hi { background: var(--blue-bg); }
   .m-row.hi span { color: var(--blue); font-weight: 700; }
 
-  .mock-cap {
-    font-size: 13px;
-    color: var(--ink-3);
-    margin: 0 0 26px;
-    max-width: 68ch;
-    line-height: 1.5;
-  }
+  .mock-cap { font-size: 13px; color: var(--ink-3); margin: 0 0 26px; max-width: 68ch; line-height: 1.5; }
 
   /* ---------- sitemap ---------- */
 
@@ -493,33 +318,32 @@
   .sm-t { font-family: var(--f-display); font-weight: 700; font-size: 14.5px; letter-spacing: -0.015em; margin-bottom: 5px; }
   .sm-d { font-size: 13px; color: var(--ink-2); line-height: 1.42; }
 
-  /* ---------- callout ---------- */
+  /* ---------- boxes ---------- */
 
-  .box {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-left: 4px solid var(--amber);
-    padding: 19px 21px;
-    margin: 24px 0;
-  }
+  .box { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--amber); padding: 19px 21px; margin: 24px 0; }
   .box h4 { color: var(--amber); margin-bottom: 7px; }
   .box p { margin: 0; font-size: 15px; }
   .box p + p { margin-top: 11px; }
-
   .box.b { border-left-color: var(--blue); }
   .box.b h4 { color: var(--blue); }
+  .box.g { border-left-color: var(--green); }
+  .box.g h4 { color: var(--green); }
+
+  /* ---------- episode list ---------- */
+
+  .eps { border: 1px solid var(--rule); background: var(--surface); margin-bottom: 10px; }
+  .ep { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 12px 16px; border-bottom: 1px solid var(--rule); align-items: start; }
+  .ep:last-child { border-bottom: none; }
+  .ep-n { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); font-weight: 600; padding-top: 2px; }
+  .ep-t { font-family: var(--f-display); font-weight: 700; font-size: 14.5px; letter-spacing: -0.012em; margin-bottom: 3px; }
+  .ep-g { font-size: 13px; color: var(--ink-3); }
 
   /* ---------- footer ---------- */
 
   .end {
-    margin-top: 84px;
-    padding-top: 24px;
-    border-top: 2px solid var(--ink);
-    font-family: var(--f-mono);
-    font-size: 11.5px;
-    line-height: 1.75;
-    color: var(--ink-3);
-    letter-spacing: 0.02em;
+    margin-top: 84px; padding-top: 24px; border-top: 2px solid var(--ink);
+    font-family: var(--f-mono); font-size: 11.5px; line-height: 1.75;
+    color: var(--ink-3); letter-spacing: 0.02em;
   }
 
   a { color: var(--blue); }
@@ -546,21 +370,47 @@
     </div>
 
     <h1>Neopolis Launch Plan</h1>
-    <p class="deck">Everything we run, everything we build, what it costs, and what it should return. We start with Neopolis. Once it works, the same system carries to every project after it.</p>
+    <p class="deck">Build OTHO into a name people trust, then sell Neopolis through it. Content first, advertising second — because that's what works when you're starting from nothing and spending carefully.</p>
 
     <dl class="coverfacts">
       <div class="coverfact"><dt>Project</dt><dd>Neopolis, Kokapet</dd></div>
       <div class="coverfact"><dt>Timeline</dt><dd>180 days</dd></div>
-      <div class="coverfact"><dt>Scope</dt><dd>Website, content, all channels</dd></div>
+      <div class="coverfact"><dt>From</dt><dd>₹1.2L a month</dd></div>
       <div class="coverfact"><dt>After that</dt><dd>Repeat, project by project</dd></div>
     </dl>
   </header>
 
   <!-- 01 -->
   <section>
-    <div class="sechead"><span class="secnum">01</span><h2>Where Neopolis stands</h2></div>
+    <div class="sechead"><span class="secnum">01</span><h2>Where OTHO stands today</h2></div>
 
-    <p class="lead">Three numbers from published market reporting. You'll know better than anyone whether they match what you're seeing on the ground.</p>
+    <p class="lead">We searched for OTHO Realty the way a buyer would. Here's what came back.</p>
+
+    <p><strong>Nothing.</strong> Searching the brand name returns Square Yards, 99acres and other portals. No website, no social accounts, no articles, no videos. To a buyer in Hyderabad right now, OTHO does not exist.</p>
+
+    <div class="audit">
+      <div class="audit-row"><div class="audit-what"><b>Website</b><span>Nothing found on the brand name</span></div><span class="st st-none">Missing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Google results for "OTHO Realty"</b><span>Competitors rank instead</span></div><span class="st st-none">Missing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>YouTube</b><span>No channel found</span></div><span class="st st-none">Missing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Published articles or guides</b><span>Nothing indexed</span></div><span class="st st-none">Missing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Press or third-party mentions</b><span>None found</span></div><span class="st st-none">Missing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Instagram / LinkedIn</b><span>Need to confirm with you in week one</span></div><span class="st st-unk">To check</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Google Business Profile</b><span>Need to confirm with you in week one</span></div><span class="st st-unk">To check</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Founder relationships and track record</b><span>Two decades of them. The real asset.</span></div><span class="st st-ok">Strong</span></div>
+    </div>
+
+    <p>If any of these already exist and we simply couldn't find them, that's useful information too — it means they aren't visible to buyers either, which is the same problem wearing a different shirt.</p>
+
+    <div class="pull">Starting from zero is cheaper than starting from a bad reputation.</div>
+
+    <p>There's a real advantage here. Nothing needs undoing. No dead accounts, no old campaigns, no complaints sitting on page one. We build it correctly the first time — and everything published from here compounds instead of competing with the past.</p>
+  </section>
+
+  <!-- 02 -->
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>Where Neopolis stands</h2></div>
+
+    <p class="lead">Three numbers from published market reporting. You'll know better than anyone whether they match what you're seeing.</p>
 
     <div class="facts">
       <div class="fact">
@@ -570,118 +420,141 @@
       </div>
       <div class="fact">
         <span class="n">₹6,300</span>
-        <span class="t">per sq ft being quoted by agents, against a list price of ₹11,000–12,000</span>
+        <span class="t">per sq ft quoted by agents, against a list price of ₹11,000–12,000</span>
         <span class="src">Trade press, 2026</span>
       </div>
       <div class="fact">
         <span class="n">19 months</span>
-        <span class="t">of unsold inventory in Hyderabad — the highest of any major Indian city</span>
+        <span class="t">of unsold inventory in Hyderabad — highest of any major Indian city</span>
         <span class="src">Anarock</span>
       </div>
     </div>
 
-    <p>When agents are quoting half the list price, the project's price is being set by whoever needs the sale most that week. Buyers stop believing the advertised number. Anyone who paid full price feels cheated. And the developer loses control of how the project is described.</p>
+    <p>When agents quote half the list price, the project's price gets set by whoever needs the sale most that week. Buyers stop believing the advertised number. Anyone who paid full price feels cheated.</p>
 
-    <div class="pull">Discounting is what fills the gap when demand isn't being created.</div>
-
-    <p>That's the job. Build enough direct, tracked demand that OTHO isn't negotiating from a weak position — and own the buyer relationship instead of renting it from a portal.</p>
+    <p><strong>Discounting is what fills the gap when demand isn't being created.</strong> Our job is to create enough of it that OTHO isn't negotiating from a weak position.</p>
 
     <div class="box">
-      <h4>Please correct this if it's wrong</h4>
-      <p>These figures cover the Neopolis micro-market generally, not OTHO's own inventory. If the picture on your side is different, tell us — the plan changes with it.</p>
-    </div>
-  </section>
-
-  <!-- 02 -->
-  <section>
-    <div class="sechead"><span class="secnum">02</span><h2>What we handle</h2></div>
-
-    <p class="lead">Every channel, grouped by the job it does. Awareness gets the project known. Consideration keeps it on the shortlist. Conversion brings people to site.</p>
-
-    <div class="scroll">
-      <table>
-        <thead><tr><th>Job</th><th>Channels</th><th>What runs</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><strong>Awareness</strong></td>
-            <td>Instagram, Facebook, YouTube, Google Display, LinkedIn, PR, creators, hoardings with QR</td>
-            <td>Video and visual campaigns to Hyderabad. LinkedIn targets GCC employees, who are the actual buyers at this price. PR carries construction milestones.</td>
-          </tr>
-          <tr>
-            <td><strong>Consideration</strong></td>
-            <td>Website content, SEO, AI search, long-form video, email, WhatsApp, retargeting</td>
-            <td>Walkthroughs, floor-plan explainers, monthly construction updates, commute videos, and straight answers on carpet area and loading factor.</td>
-          </tr>
-          <tr>
-            <td><strong>Conversion</strong></td>
-            <td>Google Search, Performance Max, property portals, WhatsApp, site-visit booking, CRM</td>
-            <td>High-intent search including competitor names. Portals for coverage. Every enquiry lands in one system with a response clock running.</td>
-          </tr>
-          <tr>
-            <td><strong>Partners</strong></td>
-            <td>Channel partner kit, per-partner tracking links</td>
-            <td>Current collateral and approved creative, so partners sell the project the way OTHO positions it. Unique links end the argument over who sourced a walk-in.</td>
-          </tr>
-          <tr>
-            <td><strong>Existing buyers</strong></td>
-            <td>Construction updates, referrals, testimonials</td>
-            <td>Monthly progress to people who've booked. Cuts cancellations and anxious calls to sales, and produces the testimonials everything else runs on.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="box b">
-      <h4>The one that matters most</h4>
-      <p>Speed of response. A lead that waits four hours is usually gone. We set a response clock in the CRM from day one and report against it every week. It costs nothing and it protects every rupee spent upstream.</p>
+      <h4>Correct us if this is wrong</h4>
+      <p>These figures cover the Neopolis micro-market generally, not OTHO's own inventory. If your picture is different, the plan changes with it.</p>
     </div>
   </section>
 
   <!-- 03 -->
   <section>
-    <div class="sechead"><span class="secnum">03</span><h2>Content production</h2></div>
+    <div class="sechead"><span class="secnum">03</span><h2>The approach</h2></div>
 
-    <p class="lead">This is what we do. Running this many channels sounds like it needs a big team — it doesn't, if production is built around one shoot feeding everything.</p>
+    <p class="lead">Big developers will always outspend you on advertising. So we don't compete there.</p>
 
-    <h3>One shoot day at site</h3>
-    <div class="scroll">
-      <table>
-        <thead><tr><th>We capture</th><th>It becomes</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Full walkthrough</strong></td><td>YouTube long-form, website hero video, sales presentation, WhatsApp share file</td></tr>
-          <tr><td><strong>Drone and exteriors</strong></td><td>Awareness video ads, construction updates, press images</td></tr>
-          <tr><td><strong>Vertical cutdowns</strong></td><td>Reels, Shorts, Meta ad creative, status posts</td></tr>
-          <tr><td><strong>Stills</strong></td><td>Portal listings, display ads, brochure, partner kit</td></tr>
-          <tr><td><strong>Location drive</strong></td><td>Commute-reality films — consistently the most-watched format in this category</td></tr>
-          <tr><td><strong>Progress footage</strong></td><td>Monthly update to existing buyers, credibility content for prospects</td></tr>
-        </tbody>
-      </table>
+    <p>My Home and Brigade can put ₹50 lakh a month into Google and Meta. If OTHO tries to win that fight, it loses slowly and expensively. The channel where money doesn't decide the winner is content — and that happens to be where OTHO's real advantage sits.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>What big budgets buy</h4>
+        <p>Attention, rented by the day. Stop paying and it disappears the same afternoon. Every competitor can buy the same thing.</p>
+      </div>
+      <div class="card">
+        <h4>What content builds</h4>
+        <p>Trust, owned permanently. An article that ranks brings enquiries for years. Two decades of market knowledge can't be bought by anyone else.</p>
+      </div>
     </div>
 
-    <h3>What goes out every month</h3>
-    <div class="grid3">
-      <div class="card"><h4>Video</h4><ul><li>2 long-form films</li><li>12–16 vertical cutdowns</li><li>1 construction update</li></ul></div>
-      <div class="card"><h4>Written</h4><ul><li>4 articles answering real buyer questions</li><li>Website updates</li><li>1 email to the nurture list</li></ul></div>
-      <div class="card"><h4>Design</h4><ul><li>15–20 ad creatives</li><li>Partner kit refresh</li><li>Portal listing assets</li></ul></div>
-    </div>
+    <p>So the order is deliberate. Build OTHO into a name people trust first. Sell Neopolis through that trust second. Advertising comes in as an amplifier once there's something worth amplifying.</p>
 
-    <p>Shoot day is once a month. Everything above comes out of it, plus what the site gives us naturally as construction moves.</p>
+    <p>This also happens to be the only approach that works at the budget we're proposing. At ₹1 lakh of media a month you cannot buy your way to volume — but you can absolutely publish your way to authority.</p>
+
+    <div class="box b">
+      <h4>Why this suits OTHO specifically</h4>
+      <p>Every Hyderabad property channel we found is run by a broker or a builder selling their own stock — Raja Reddy's channel, RealTalks Hyderabad, PropGo, GPR Realtors. Useful content, but everyone knows what they're there to sell.</p>
+      <p>Nobody is doing the advisory voice: someone who'll say what's <em>wrong</em> with a project. That slot is open, and it's exactly where OTHO's positioning already sits.</p>
+    </div>
   </section>
 
   <!-- 04 -->
   <section>
-    <div class="sechead"><span class="secnum">04</span><h2>The website</h2></div>
+    <div class="sechead"><span class="secnum">04</span><h2>Building the OTHO name</h2></div>
 
-    <p class="lead">Every channel points here. If this page doesn't hold attention and make it easy to book a visit, the rest of the spend leaks away.</p>
+    <p class="lead">Three things, running together. All of them cheap to produce and impossible for a competitor to copy.</p>
 
-    <h3>How it looks and behaves</h3>
+    <h3>The podcast</h3>
+    <p>A Hyderabad property conversation, on camera, fortnightly. Thirty to forty minutes with one guest. This is the single highest-value thing OTHO can do, for one reason: <strong>the founders can get people on camera that nobody else can.</strong> Twenty years of relationships with developers, architects and planners is the whole moat, and a podcast is how it becomes public.</p>
+
+    <p>Production X shoots and edits it. We already own the cameras, so this costs a fraction of what an agency would quote.</p>
+
+    <h4>First six episodes</h4>
+    <div class="eps">
+      <div class="ep"><span class="ep-n">01</span><div><div class="ep-t">Why Kokapet prices are where they are</div><div class="ep-g">Founders only — sets the tone and the honesty standard</div></div></div>
+      <div class="ep"><span class="ep-n">02</span><div><div class="ep-t">What the builder won't explain about loading factor</div><div class="ep-g">Guest: an architect or a quantity surveyor</div></div></div>
+      <div class="ep"><span class="ep-n">03</span><div><div class="ep-t">Metro Phase 2 — what's actually funded and when it opens</div><div class="ep-g">Guest: a town planner or infrastructure journalist</div></div></div>
+      <div class="ep"><span class="ep-n">04</span><div><div class="ep-t">How a developer decides your price</div><div class="ep-g">Guest: a developer willing to be straight about it</div></div></div>
+      <div class="ep"><span class="ep-n">05</span><div><div class="ep-t">Reading a RERA filing before you pay anything</div><div class="ep-g">Guest: a property lawyer</div></div></div>
+      <div class="ep"><span class="ep-n">06</span><div><div class="ep-t">Bharat Future City — the real timeline</div><div class="ep-g">Guest: someone who has actually bought land there</div></div></div>
+    </div>
+    <p class="mock-cap">Topics are a starting point. The founders will have better ones — and better guests.</p>
+
+    <p>Each episode becomes one long video on YouTube, six to eight vertical clips for Instagram and LinkedIn, one written article, one email, and an audio version on Spotify and Apple. <strong>One shoot, roughly twelve pieces of content.</strong></p>
+
+    <h3>The blog</h3>
+    <p>Four to six articles a month, most of them pulled straight from podcast material rather than written from scratch. Five topics we'd keep returning to:</p>
+
+    <div class="grid3">
+      <div class="card"><h4>Plain definitions</h4><p>Loading factor, carpet versus super built-up, UDS, RERA terms. Simple explanations of things buyers are too embarrassed to ask about.</p></div>
+      <div class="card"><h4>Locality guides</h4><p>Kokapet, Financial District, Narsingi, Tellapur, Mokila. What each is actually like, including the drawbacks.</p></div>
+      <div class="card"><h4>Monthly market note</h4><p>Registrations, prices, launches. Real numbers, published on a schedule. This is what gets OTHO quoted by journalists.</p></div>
+      <div class="card"><h4>Project comparisons</h4><p>Honest side-by-sides including what's weak. The most-read and most-shared format in this category.</p></div>
+      <div class="card"><h4>Buyer guides</h4><p>Home loans, registration, stamp duty, tax. Boring, constantly searched, and almost nobody explains it well.</p></div>
+      <div class="card"><h4>Answering AI</h4><p>Written so ChatGPT and Gemini quote OTHO when someone asks about Kokapet. Increasingly the first place buyers ask.</p></div>
+    </div>
+
+    <h3>The founders' own voice</h3>
+    <p>Two or three LinkedIn posts a week from the founders. Not company announcements — observations. What they saw at a site this week, why a project is priced oddly, what a developer told them.</p>
+    <p>Twenty years of stories is content nobody can replicate, and it costs nothing but fifteen minutes. We'll draft and they approve, or they voice-note and we write it up.</p>
+
+    <div class="box g">
+      <h4>What this looks like after six months</h4>
+      <p>Around 12 podcast episodes, 30 articles, 100+ clips, and a founder with a real following. Search and AI start sending enquiries that cost nothing per lead — and that share keeps growing every month after.</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>How we produce it</h2></div>
+
+    <p class="lead">Two shoot days a month covers everything above and everything Neopolis needs.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Shoot</th><th>What we capture</th><th>What it becomes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Studio day</strong><br><span class="num">Once a month</span></td>
+            <td>Two podcast episodes back to back, plus founder pieces to camera</td>
+            <td>2 long videos, 12–16 clips, 4 articles, 2 emails, audio versions</td>
+          </tr>
+          <tr>
+            <td><strong>Site day</strong><br><span class="num">Once a month</span></td>
+            <td>Walkthrough, drone, stills, construction progress, location drive</td>
+            <td>Project films, ad creative, portal images, progress update, partner collateral</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Roughly 30 usable pieces of content a month out of two shoot days. That's the whole reason the budget below works — production is where agencies charge the most, and it's what we do in-house.</p>
+  </section>
+
+  <!-- 06 -->
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>The website</h2></div>
+
+    <p class="lead">Everything points here — podcast, articles, ads, partner links. If it doesn't hold attention and make booking a visit easy, the rest leaks away.</p>
 
     <div class="mock">
       <div class="mock-bar">
         <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
         <span class="mock-url">otho.in/neopolis</span>
       </div>
-      <div class="mock-body">
+      <div>
         <div class="m-nav">
           <span class="m-logo">OTHO</span>
           <span class="m-links"><span>Overview</span><span>Floor plans</span><span>Location</span><span>Pricing</span><span>Progress</span><span>Compare</span></span>
@@ -713,80 +586,102 @@
         </div>
       </div>
     </div>
-    <p class="mock-cap">Layout mockup. Figures shown are placeholders to demonstrate the format — real numbers come from the RERA filing once we build it.</p>
+    <p class="mock-cap">Layout mockup. Figures are placeholders showing the format — real numbers come from the RERA filing.</p>
 
-    <h3>What's on the site</h3>
+    <h3>What's on it</h3>
     <div class="sitemap">
-      <div class="sm"><div class="sm-n">Page 01</div><div class="sm-t">Overview</div><div class="sm-d">The project in one screen. Price band, sizes, possession, location, and a visit booking button that's always visible.</div></div>
-      <div class="sm"><div class="sm-n">Page 02</div><div class="sm-t">Floor plans</div><div class="sm-d">Every unit type, zoomable, with carpet and super built-up shown side by side. Downloadable.</div></div>
-      <div class="sm"><div class="sm-n">Page 03</div><div class="sm-t">Location</div><div class="sm-d">Map with real drive times to the Financial District, ORR, airport and schools — measured at peak hour, not straight-line distance.</div></div>
-      <div class="sm"><div class="sm-n">Page 04</div><div class="sm-t">Pricing</div><div class="sm-d">Actual numbers, payment schedule, and what's included. No "price on request".</div></div>
-      <div class="sm"><div class="sm-n">Page 05</div><div class="sm-t">Progress</div><div class="sm-d">Dated construction photos, updated monthly. The single strongest trust signal in a market this nervous.</div></div>
-      <div class="sm"><div class="sm-n">Page 06</div><div class="sm-t">Compare</div><div class="sm-d">Neopolis against nearby projects on carpet area, real rate, land size and possession date. The page nobody else will build.</div></div>
-      <div class="sm"><div class="sm-n">Page 07</div><div class="sm-t">Amenities</div><div class="sm-d">What's there, what's shared, and how many families share it. Honest density, not a wish list.</div></div>
-      <div class="sm"><div class="sm-n">Page 08</div><div class="sm-t">Guides</div><div class="sm-d">Plain answers on loading factor, UDS, registration and home loans. This is what pulls search traffic and AI citations.</div></div>
-      <div class="sm"><div class="sm-n">Page 09</div><div class="sm-t">Book a visit</div><div class="sm-d">Real time slots on a calendar, confirmed on WhatsApp. Not a form that promises a callback.</div></div>
+      <div class="sm"><div class="sm-n">Page 01</div><div class="sm-t">Overview</div><div class="sm-d">The project in one screen. Price, sizes, possession, location, and a booking button always visible.</div></div>
+      <div class="sm"><div class="sm-n">Page 02</div><div class="sm-t">Floor plans</div><div class="sm-d">Every unit type, zoomable, carpet and super built-up shown side by side.</div></div>
+      <div class="sm"><div class="sm-n">Page 03</div><div class="sm-t">Location</div><div class="sm-d">Real drive times to the Financial District, ORR, airport and schools — measured at peak hour.</div></div>
+      <div class="sm"><div class="sm-n">Page 04</div><div class="sm-t">Pricing</div><div class="sm-d">Actual numbers and payment schedule. No "price on request".</div></div>
+      <div class="sm"><div class="sm-n">Page 05</div><div class="sm-t">Progress</div><div class="sm-d">Dated construction photos, updated monthly. The strongest trust signal in a nervous market.</div></div>
+      <div class="sm"><div class="sm-n">Page 06</div><div class="sm-t">Compare</div><div class="sm-d">Against nearby projects on carpet, real rate, land size and possession. The page nobody else builds.</div></div>
+      <div class="sm"><div class="sm-n">Page 07</div><div class="sm-t">Podcast</div><div class="sm-d">Every episode, with notes and transcripts. Doubles as search traffic.</div></div>
+      <div class="sm"><div class="sm-n">Page 08</div><div class="sm-t">Guides</div><div class="sm-d">Plain answers on loading factor, UDS, loans and registration. This earns the free traffic.</div></div>
+      <div class="sm"><div class="sm-n">Page 09</div><div class="sm-t">Book a visit</div><div class="sm-d">Real time slots, confirmed on WhatsApp. Not a form promising a callback.</div></div>
     </div>
-    <p class="mock-cap">Nine pages at launch. The guides section keeps growing after that — it's the part that earns free traffic.</p>
+    <p class="mock-cap">Nine pages at launch. Guides and podcast keep growing after that.</p>
 
-    <h3>Five rules we build to</h3>
-    <div class="grid2">
-      <div class="card"><h4>Phone first</h4><p>Most of this traffic arrives on a phone, often on a weak connection. The site is designed for that screen first and tested on real 4G, not on office wifi.</p></div>
-      <div class="card"><h4>Nothing hidden behind a form</h4><p>Price, floor plans and location are visible without giving a number. Gating them loses far more buyers than it captures.</p></div>
-      <div class="card"><h4>Loads in under three seconds</h4><p>Every second of delay costs enquiries. Images compressed, video streamed, page weight watched every week.</p></div>
-      <div class="card"><h4>One clear action per screen</h4><p>Book a visit, download the plan, or start a WhatsApp chat. Never all three competing for attention.</p></div>
-      <div class="card"><h4>Written for a nervous buyer</h4><p>Someone spending three crore is looking for reasons to trust you. Straight answers do more than adjectives.</p></div>
-      <div class="card"><h4>RERA number on every page</h4><p>Required in all advertising. Built into the template so it can't be forgotten.</p></div>
+    <h3>Six rules we build to</h3>
+    <div class="grid3">
+      <div class="card"><h4>Phone first</h4><p>Most traffic arrives on a phone, often on weak signal. Designed for that screen and tested on real 4G.</p></div>
+      <div class="card"><h4>Nothing behind a form</h4><p>Price, plans and location visible without giving a number. Gating loses more buyers than it captures.</p></div>
+      <div class="card"><h4>Under three seconds</h4><p>Every second of delay costs enquiries. Page weight watched weekly.</p></div>
+      <div class="card"><h4>One action per screen</h4><p>Book a visit, download the plan, or start a WhatsApp chat. Never all three at once.</p></div>
+      <div class="card"><h4>Written for a nervous buyer</h4><p>Someone spending three crore wants reasons to trust you. Straight answers beat adjectives.</p></div>
+      <div class="card"><h4>RERA number everywhere</h4><p>Required in all advertising. Built into the template so it can't be forgotten.</p></div>
     </div>
   </section>
 
-  <!-- 05 -->
+  <!-- 07 -->
   <section>
-    <div class="sechead"><span class="secnum">05</span><h2>Budget</h2></div>
+    <div class="sechead"><span class="secnum">07</span><h2>Selling Neopolis</h2></div>
 
-    <p class="lead">Three levels. Pick one and we plan to it. Media is the part that scales; production and management stay fairly flat.</p>
+    <p class="lead">With the brand layer running, the project channels do less work and cost less.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Job</th><th>Channels</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Free / owned</strong></td><td>Podcast, articles, search, AI answers, LinkedIn, YouTube, WhatsApp list, email</td><td>The engine. No cost per enquiry once it's running.</td></tr>
+          <tr><td><strong>Paid, small</strong></td><td>Google Search on project and locality terms, Meta retargeting</td><td>Only high-intent and re-engagement. We don't buy cold reach at this budget.</td></tr>
+          <tr><td><strong>Portals</strong></td><td>MagicBricks, 99acres, Housing</td><td>Needed for coverage. Leads are shared, so speed of response decides everything.</td></tr>
+          <tr><td><strong>Partners</strong></td><td>Channel partner kit, per-partner tracking links</td><td>Current collateral so partners sell it the way OTHO positions it.</td></tr>
+          <tr><td><strong>Existing buyers</strong></td><td>Monthly progress updates, referrals, testimonials</td><td>Cheapest source of the next booking.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box b">
+      <h4>The one that costs nothing and matters most</h4>
+      <p>Response time. A lead that waits four hours is usually gone. We put a response clock in the CRM from day one and report it weekly. It's free, and it protects every rupee spent upstream.</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section>
+    <div class="sechead"><span class="secnum">08</span><h2>Budget</h2></div>
+
+    <p class="lead">Three levels. Start low, move up only when the numbers justify it.</p>
 
     <div class="tiers">
       <div class="tier">
         <div class="tier-tag">Level 1</div>
-        <div class="tier-name">Start</div>
-        <div class="tier-price">₹7.5L</div>
+        <div class="tier-name">Foundation</div>
+        <div class="tier-price">₹1.2L</div>
         <div class="tier-per">per month</div>
         <ul>
-          <li><span>Media spend</span><span>₹4.5L</span></li>
-          <li><span>Content production</span><span>₹1.5L</span></li>
-          <li><span>Tools &amp; CRM</span><span>₹0.5L</span></li>
-          <li><span>Management</span><span>₹1.0L</span></li>
+          <li><span>Media spend</span><span>₹40,000</span></li>
+          <li><span>Tools &amp; CRM</span><span>₹15,000</span></li>
+          <li><span>Production X</span><span>₹65,000</span></li>
         </ul>
-        <div class="tier-foot">Enough to prove the system works. Google and Meta only, one shoot a month.</div>
+        <div class="tier-foot">Website live, podcast running, articles publishing. Paid limited to project-name search. Proves the engine works.</div>
       </div>
 
       <div class="tier pick">
         <div class="tier-tag">Level 2 · recommended</div>
-        <div class="tier-name">Standard</div>
-        <div class="tier-price">₹13L</div>
+        <div class="tier-name">Build</div>
+        <div class="tier-price">₹2.5L</div>
         <div class="tier-per">per month</div>
         <ul>
-          <li><span>Media spend</span><span>₹8.0L</span></li>
-          <li><span>Content production</span><span>₹2.5L</span></li>
-          <li><span>Tools &amp; CRM</span><span>₹0.7L</span></li>
-          <li><span>Management</span><span>₹1.8L</span></li>
+          <li><span>Media spend</span><span>₹1,00,000</span></li>
+          <li><span>Tools &amp; CRM</span><span>₹20,000</span></li>
+          <li><span>Production X</span><span>₹1,30,000</span></li>
         </ul>
-        <div class="tier-foot">All channels live. Full content calendar. The level this plan is written for.</div>
+        <div class="tier-foot">Full content calendar, two shoot days a month, search and retargeting live, portals active.</div>
       </div>
 
       <div class="tier">
-        <div class="tier-tag">Level 3</div>
-        <div class="tier-name">Push</div>
-        <div class="tier-price">₹21L</div>
+        <div class="tier-tag">Level 3 · month 7+</div>
+        <div class="tier-name">Scale</div>
+        <div class="tier-price">₹5L</div>
         <div class="tier-per">per month</div>
         <ul>
-          <li><span>Media spend</span><span>₹14.0L</span></li>
-          <li><span>Content production</span><span>₹4.0L</span></li>
-          <li><span>Tools &amp; CRM</span><span>₹0.8L</span></li>
-          <li><span>Management</span><span>₹2.2L</span></li>
+          <li><span>Media spend</span><span>₹2,60,000</span></li>
+          <li><span>Tools &amp; CRM</span><span>₹30,000</span></li>
+          <li><span>Production X</span><span>₹2,10,000</span></li>
         </ul>
-        <div class="tier-foot">For a launch window or a quarter where inventory has to move. Adds creators, PR and heavy video.</div>
+        <div class="tier-foot">Only once cost per booking is known and working. Adds Meta reach, YouTube ads and PR.</div>
       </div>
     </div>
 
@@ -795,138 +690,124 @@
       <table>
         <thead><tr><th>Item</th><th>Cost</th><th>When</th></tr></thead>
         <tbody>
-          <tr><td><strong>Website build</strong> — 9 pages, booking system, CRM connected</td><td class="num">₹5–8L</td><td>Month 1–2</td></tr>
-          <tr><td><strong>Launch shoot</strong> — walkthrough, drone, stills, location films</td><td class="num">₹2–3L</td><td>Month 1</td></tr>
-          <tr><td><strong>Brand and creative kit</strong> — templates, partner collateral</td><td class="num">₹1–1.5L</td><td>Month 1</td></tr>
-          <tr class="tot"><td>Total setup</td><td class="num">₹8–12.5L</td><td>Before launch</td></tr>
+          <tr><td><strong>Website</strong> — 9 pages, booking system, CRM connected</td><td class="num">₹1.5–2.5L</td><td>Month 1–2</td></tr>
+          <tr><td><strong>Podcast setup</strong> — we own the gear, so this is set dressing and sound only</td><td class="num">₹30–50k</td><td>Month 1</td></tr>
+          <tr><td><strong>Brand kit</strong> — logo application, templates, partner collateral</td><td class="num">₹40–60k</td><td>Month 1</td></tr>
+          <tr class="tot"><td>Total setup</td><td class="num">₹2.2–3.6L</td><td>Before launch</td></tr>
         </tbody>
       </table>
     </div>
 
-    <p>Website and brand kit are built once and reused on every project after Neopolis. Only the shoot repeats.</p>
+    <p>The website and brand kit are built once and carried to every project after Neopolis. Only the shoots repeat.</p>
   </section>
 
-  <!-- 06 -->
+  <!-- 09 -->
   <section>
-    <div class="sechead"><span class="secnum">06</span><h2>What we measure, and the return</h2></div>
-
-    <p class="lead">Reported to you weekly from the first week of spend. No estimates needed — these are just counted.</p>
+    <div class="sechead"><span class="secnum">09</span><h2>What we measure, and what it takes to break even</h2></div>
 
     <div class="scroll">
       <table>
         <thead><tr><th>KPI</th><th>What it tells you</th><th>Reported</th></tr></thead>
         <tbody>
-          <tr><td><strong>Reach and video views</strong></td><td>How many people now know the project exists</td><td>Weekly</td></tr>
-          <tr><td><strong>Enquiries by source</strong></td><td>Which channels are actually producing</td><td>Weekly</td></tr>
-          <tr><td><strong>Cost per enquiry</strong></td><td>Whether media is getting cheaper or more expensive</td><td>Weekly</td></tr>
+          <tr><td><strong>Search visibility for the brand</strong></td><td>Whether OTHO now appears when someone looks for it</td><td>Monthly</td></tr>
+          <tr><td><strong>Podcast views and watch time</strong></td><td>Whether the authority play is landing</td><td>Monthly</td></tr>
+          <tr><td><strong>Enquiries by source</strong></td><td>Which channels actually produce — free and paid separately</td><td>Weekly</td></tr>
+          <tr><td><strong>Cost per enquiry</strong></td><td>Whether paid media is getting cheaper or dearer</td><td>Weekly</td></tr>
           <tr><td><strong>Response time</strong></td><td>How long a buyer waits before someone replies</td><td>Weekly</td></tr>
-          <tr><td><strong>Site visits booked vs held</strong></td><td>Whether we're bringing serious people or curious ones</td><td>Weekly</td></tr>
-          <tr><td><strong>Bookings by source</strong></td><td>The only number that finally matters</td><td>Monthly</td></tr>
-          <tr><td><strong>Cost per booking</strong></td><td>What it costs to sell one home through marketing</td><td>Monthly</td></tr>
+          <tr><td><strong>Site visits booked vs held</strong></td><td>Whether we're bringing serious people</td><td>Weekly</td></tr>
+          <tr><td><strong>Bookings by source</strong></td><td>The number that finally matters</td><td>Monthly</td></tr>
         </tbody>
       </table>
     </div>
 
-    <h3>The return, worked through</h3>
-    <p>At the Standard level, ₹13L a month all in. Here is the arithmetic on two outcomes — a slow start and a good one. <strong>The four figures marked amber are our assumptions. Correct them and the whole model changes.</strong></p>
+    <h3>Break-even</h3>
+    <p>The useful question at this budget isn't return multiples — it's how little has to happen before this pays for itself.</p>
 
     <div class="scroll">
       <table>
-        <thead><tr><th>Line</th><th class="r">Slow</th><th class="r">Good</th><th>Basis</th></tr></thead>
+        <thead><tr><th>Line</th><th class="r">Foundation</th><th class="r">Build</th><th>Basis</th></tr></thead>
         <tbody>
-          <tr><td>Monthly media spend</td><td class="r num">₹8L</td><td class="r num">₹8L</td><td>Standard level</td></tr>
-          <tr><td>Cost per enquiry</td><td class="r num">₹2,000</td><td class="r num">₹1,200</td><td><span class="tg tg-s">Published range</span></td></tr>
-          <tr><td>Enquiries</td><td class="r num">400</td><td class="r num">665</td><td>Calculated</td></tr>
-          <tr><td>Enquiry → site visit</td><td class="r num">4%</td><td class="r num">8%</td><td><span class="tg tg-s">Published range 2–8%</span></td></tr>
-          <tr><td>Site visits</td><td class="r num">16</td><td class="r num">53</td><td>Calculated</td></tr>
-          <tr><td>Site visit → booking</td><td class="r num">10%</td><td class="r num">16%</td><td><span class="tg tg-s">Published range 8–20%</span></td></tr>
-          <tr><td><strong>Bookings per month</strong></td><td class="r num"><strong>1.6</strong></td><td class="r num"><strong>8.5</strong></td><td>Calculated</td></tr>
+          <tr><td>Monthly cost, all in</td><td class="r num">₹1.2L</td><td class="r num">₹2.5L</td><td>From section 08</td></tr>
           <tr><td>Average unit value</td><td class="r num">₹2.5 Cr</td><td class="r num">₹2.5 Cr</td><td><span class="tg tg-a">Our assumption</span></td></tr>
           <tr><td>OTHO commission</td><td class="r num">2%</td><td class="r num">2%</td><td><span class="tg tg-a">Our assumption</span></td></tr>
           <tr><td>Revenue per booking</td><td class="r num">₹5L</td><td class="r num">₹5L</td><td>Calculated</td></tr>
-          <tr class="tot"><td>Monthly revenue</td><td class="r num">₹8L</td><td class="r num">₹42.5L</td><td>Calculated</td></tr>
-          <tr class="tot"><td>Monthly cost</td><td class="r num">₹13L</td><td class="r num">₹13L</td><td>Standard level</td></tr>
-          <tr class="tot"><td>Return on spend</td><td class="r num">0.6×</td><td class="r num">3.3×</td><td>Calculated</td></tr>
+          <tr class="tot"><td>Bookings needed to break even</td><td class="r num">1 in 4 months</td><td class="r num">1 in 2 months</td><td>Calculated</td></tr>
+          <tr class="tot"><td>At 1 booking a month</td><td class="r num">4.2×</td><td class="r num">2.0×</td><td>Calculated</td></tr>
+          <tr class="tot"><td>At 2 bookings a month</td><td class="r num">8.3×</td><td class="r num">4.0×</td><td>Calculated</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="box">
-      <h4>Read this row before anything else</h4>
-      <p>The gap between losing money and making three times the spend is <strong>conversion, not media budget</strong>. Same ₹8L. The difference is how fast enquiries get answered, how good the site visit is, and how well the website filters serious buyers from browsers.</p>
-      <p>That's where we'd put the effort, and it's why response time is reported weekly rather than monthly.</p>
+      <h4>The two amber figures are ours</h4>
+      <p>We don't know OTHO's average unit value or commission rate. Give us the real numbers and this table updates in front of you — it's the only part of this plan we're guessing at.</p>
     </div>
 
-    <p>Bookings also pay on registration, not on the day of sale, so cash lands three to six months behind the marketing. Worth planning the working capital around.</p>
+    <p>Also worth planning around: commission usually pays on registration, so cash lands three to six months behind the marketing.</p>
 
     <div class="box b">
       <h4>What we'll commit to</h4>
-      <p>At day 30 we bring real numbers from the actual funnel and set targets against them together. At day 90 you can see whether the pattern is worth copying to the next project. If it isn't working, we'll say so plainly rather than reframe it.</p>
+      <p>At day 30 we bring real numbers from the actual funnel and set targets together. At day 90 you'll see whether this is worth copying to the next project. If it isn't working, we'll say so plainly rather than reframe it.</p>
     </div>
   </section>
 
-  <!-- 07 -->
+  <!-- 10 -->
   <section>
-    <div class="sechead"><span class="secnum">07</span><h2>180 days</h2></div>
-
-    <p class="lead">Six months, in thirty-day blocks. Each one has something finished at the end of it.</p>
+    <div class="sechead"><span class="secnum">10</span><h2>180 days</h2></div>
 
     <div class="phase">
       <div class="phase-when">Days 1–30<em>Setup</em></div>
       <div class="phase-body">
-        <h4>Get the plumbing right</h4>
+        <h4>Get the basics in place</h4>
         <ul>
-          <li>Collect every existing asset — renders, plans, approvals, old campaign data</li>
-          <li>Access to ad accounts, analytics, portals, social handles</li>
-          <li>Sit with the sales team: what do buyers ask, where do they walk away</li>
-          <li>Record today's baseline — enquiries, sources, response times, conversion</li>
+          <li>Confirm what exists already — accounts, assets, past campaigns</li>
+          <li>Sit with sales: what do buyers ask, where do they walk away</li>
+          <li>Record today's baseline — enquiries, sources, response times</li>
           <li>CRM set up with routing and a response clock. Tracking built and tested</li>
-          <li>Website design signed off. Launch shoot planned</li>
+          <li>Website design signed off. First two podcast episodes shot</li>
         </ul>
-        <div class="phase-out"><strong>You get:</strong> a written baseline of where things stand today, and a working CRM</div>
+        <div class="phase-out"><strong>You get:</strong> a working CRM and two episodes in hand</div>
       </div>
     </div>
 
     <div class="phase">
-      <div class="phase-when">Days 31–60<em>Build</em></div>
+      <div class="phase-when">Days 31–60<em>Publish</em></div>
       <div class="phase-body">
-        <h4>Website and first content</h4>
+        <h4>Go live</h4>
         <ul>
-          <li>Website built and live — all nine pages, booking system connected to CRM</li>
-          <li>Launch shoot completed; first films and cutdowns edited</li>
-          <li>Messaging and creative direction approved</li>
-          <li>Google Search and portals go live — existing demand first, fastest feedback</li>
-          <li>Compliance check on every ad before it runs</li>
+          <li>Website live — all nine pages, booking connected to CRM</li>
+          <li>Podcast launches, fortnightly from here</li>
+          <li>Articles start publishing weekly</li>
+          <li>Founders' LinkedIn running</li>
+          <li>Google Search on project terms, plus portal listings</li>
         </ul>
-        <div class="phase-out"><strong>You get:</strong> a live website, the first film, and the first tracked enquiries</div>
+        <div class="phase-out"><strong>You get:</strong> a live site, a published podcast, first tracked enquiries</div>
       </div>
     </div>
 
     <div class="phase">
-      <div class="phase-when">Days 61–90<em>Open up</em></div>
+      <div class="phase-when">Days 61–90<em>Widen</em></div>
       <div class="phase-body">
-        <h4>All channels running</h4>
+        <h4>Add the paid layer</h4>
         <ul>
-          <li>Meta, YouTube, LinkedIn and Display live</li>
-          <li>Retargeting switched on now there's an audience to retarget</li>
-          <li>Weekly content publishing begins</li>
-          <li>Channel partner kit issued with per-partner tracking links</li>
-          <li>First full funnel report using our own numbers — targets set here</li>
+          <li>Meta retargeting switched on now there's an audience</li>
+          <li>Site shoot done; project films and ad creative out</li>
+          <li>Channel partner kit issued with tracking links</li>
+          <li>First full funnel report — real targets set here</li>
         </ul>
-        <div class="phase-out"><strong>You get:</strong> real cost per enquiry and cost per booking, and agreed targets</div>
+        <div class="phase-out"><strong>You get:</strong> real cost per enquiry, and agreed targets</div>
       </div>
     </div>
 
     <div class="phase">
       <div class="phase-when">Days 91–120<em>Tighten</em></div>
       <div class="phase-body">
-        <h4>Cut what's not working</h4>
+        <h4>Cut what isn't working</h4>
         <ul>
-          <li>Budget moved between channels on 90 days of evidence</li>
-          <li>Creative testing at volume; weak performers retired</li>
-          <li>Website changes based on where people actually drop off</li>
-          <li>Site visit experience reviewed with sales — the highest-value fix available</li>
-          <li>Performance Max added now that conversion tracking is trustworthy</li>
+          <li>Budget shifted between channels on real evidence</li>
+          <li>Website changes based on where people drop off</li>
+          <li>Site visit experience reviewed with sales</li>
+          <li>Podcast guests move from friendly to influential</li>
         </ul>
         <div class="phase-out"><strong>You get:</strong> lower cost per booking than month three</div>
       </div>
@@ -938,11 +819,11 @@
         <h4>Free traffic starts arriving</h4>
         <ul>
           <li>Search and AI citations begin producing enquiries at no media cost</li>
+          <li>Monthly market note published — the piece journalists start quoting</li>
           <li>Referral programme live with existing buyers</li>
-          <li>Testimonials filmed and pushed into every channel</li>
-          <li>PR cycle running on construction milestones</li>
+          <li>Testimonials filmed and pushed everywhere</li>
         </ul>
-        <div class="phase-out"><strong>You get:</strong> a growing share of enquiries that cost nothing per lead</div>
+        <div class="phase-out"><strong>You get:</strong> a growing share of enquiries costing nothing per lead</div>
       </div>
     </div>
 
@@ -952,8 +833,7 @@
         <h4>Turn it into a template</h4>
         <ul>
           <li>Everything documented — what worked, what failed, what it cost</li>
-          <li>Website rebuilt as a reusable template for the next project</li>
-          <li>Creative formats, ad structures and reporting packaged</li>
+          <li>Website rebuilt as a reusable template</li>
           <li>Six-month review, and the plan for project two</li>
         </ul>
         <div class="phase-out"><strong>You get:</strong> a system, not just a campaign</div>
@@ -961,66 +841,59 @@
     </div>
   </section>
 
-  <!-- 08 -->
+  <!-- 11 -->
   <section>
-    <div class="sechead"><span class="secnum">08</span><h2>Project two, and everything after</h2></div>
+    <div class="sechead"><span class="secnum">11</span><h2>Project two, and what we need</h2></div>
 
-    <p class="lead">The reason to accept a careful first six months is that most of it is built once.</p>
+    <p class="lead">The brand layer only gets built once. Every project after Neopolis inherits it.</p>
 
     <div class="grid2">
       <div>
-        <h4>Already done — reused as is</h4>
+        <h4>Carries over as is</h4>
         <ul>
+          <li>The podcast and its audience</li>
+          <li>Everything published, still ranking</li>
           <li>Website template</li>
-          <li>CRM setup, routing and response clock</li>
-          <li>Tracking and attribution</li>
-          <li>Ad account structure and proven audiences</li>
-          <li>Creative formats that worked</li>
-          <li>Reporting and review rhythm</li>
-          <li>Partner kit structure</li>
-          <li>Compliance templates</li>
+          <li>CRM, routing, response clock</li>
+          <li>Ad accounts and proven audiences</li>
+          <li>Founders' following</li>
         </ul>
       </div>
       <div>
         <h4>Rebuilt each time</h4>
         <ul>
-          <li>Positioning and messaging</li>
-          <li>Shoot and creative assets</li>
+          <li>Project positioning</li>
+          <li>Site shoot and creative</li>
           <li>Website content and pricing</li>
-          <li>Location and comparison pages</li>
-          <li>Budget and channel weighting</li>
+          <li>Comparison pages</li>
         </ul>
       </div>
     </div>
 
-    <p>Neopolis takes 180 days because we're building the machine while running it. Project two should reach launch in about 60 — and we'll know the real figure once Neopolis is done.</p>
-  </section>
+    <p>Neopolis takes 180 days because we're building the machine while running it. Project two should launch in about 45, and start with an audience already listening.</p>
 
-  <!-- 09 -->
-  <section>
-    <div class="sechead"><span class="secnum">09</span><h2>What we need from OTHO</h2></div>
-
+    <h3>What we need from OTHO</h3>
     <div class="scroll">
       <table>
-        <thead><tr><th>What</th><th>Why it matters</th><th>When</th></tr></thead>
+        <thead><tr><th>What</th><th>Why</th><th>When</th></tr></thead>
         <tbody>
-          <tr><td><strong>One person who can approve</strong></td><td>Creative and messaging sign-off. Approval by committee is the surest way to miss a launch window.</td><td>Day 1</td></tr>
-          <tr><td><strong>Account access</strong></td><td>Ad accounts, analytics, CRM, portals, social handles. Without these we're guessing at the baseline.</td><td>Week 1</td></tr>
-          <tr><td><strong>Existing material</strong></td><td>Renders, plans, approvals, past campaign data — including what failed, which is more useful than what worked.</td><td>Week 1</td></tr>
+          <tr><td><strong>One person who can approve</strong></td><td>Approval by committee is the surest way to miss a launch window.</td><td>Day 1</td></tr>
+          <tr><td><strong>Founders on camera, twice a month</strong></td><td>Half a day. This is the part nobody else can do, and the whole plan leans on it.</td><td>From week 3</td></tr>
+          <tr><td><strong>Two guest introductions a month</strong></td><td>Your relationships are what make the podcast worth watching.</td><td>Ongoing</td></tr>
+          <tr><td><strong>Your real numbers</strong></td><td>Average unit value and commission. The break-even table is guesswork until we have them.</td><td>Before week 2</td></tr>
+          <tr><td><strong>Account access</strong></td><td>Whatever exists — ad accounts, analytics, social handles, portals.</td><td>Week 1</td></tr>
           <tr><td><strong>Weekly time with sales</strong></td><td>Marketing that doesn't hear buyer objections keeps producing leads sales can't close.</td><td>Ongoing</td></tr>
-          <tr><td><strong>Your real numbers</strong></td><td>Average unit value and commission. The ROI model above is guesswork until we have them.</td><td>Before week 2</td></tr>
-          <tr><td><strong>Site access for filming</strong></td><td>Half a day with a crew, plus permission to shoot progress monthly.</td><td>By week 3</td></tr>
         </tbody>
       </table>
     </div>
 
-    <div class="pull">Six months, honest access, and one decision-maker. At the end you'll have evidence, not opinions.</div>
+    <div class="pull">Six months, and OTHO stops being invisible.</div>
   </section>
 
   <footer class="end">
     <p>
       PRODUCTION X — Marketing proposal for OTHO Realty · Neopolis, Kokapet · August 2026<br>
-      Market figures are from published Knight Frank and Anarock research and Hyderabad trade press. Cost-per-lead and conversion ranges are published industry benchmarks and are indicative only. Budget figures are planning estimates. Items marked as assumptions are ours and need OTHO's real numbers to firm up.
+      Market figures are from published Knight Frank and Anarock research and Hyderabad trade press. The digital presence audit reflects public search results at the time of writing. Budget figures are planning estimates. Items marked as assumptions are ours and need OTHO's real numbers to firm up.
     </p>
   </footer>
 
