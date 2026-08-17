@@ -184,6 +184,18 @@
   .cmp .lose { background: var(--red-bg); color: var(--red); }
   .mock-cap { font-size: 13px; color: var(--ink-3); margin: 0 0 26px; max-width: 68ch; line-height: 1.5; }
 
+
+  /* swot */
+  .swot { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 22px; }
+  .sw { background: var(--surface); border: 1px solid var(--rule); padding: 20px 21px; }
+  .sw-h { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .sw-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+  .sw-h h4 { margin: 0; font-size: 1.08rem; }
+  .sw dl { margin: 0; }
+  .sw dt { font-family: var(--f-display); font-weight: 700; font-size: 14px; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 3px; }
+  .sw dd { margin: 0 0 13px; font-size: 14px; color: var(--ink-2); line-height: 1.48; }
+  .sw dd:last-child { margin-bottom: 0; }
+
   /* boxes */
   .box { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--amber); padding: 19px 21px; margin: 24px 0; }
   .box h4 { color: var(--amber); margin-bottom: 7px; }
@@ -262,7 +274,7 @@
     <div class="sechead"><span class="secnum">02</span><h2>The market you're entering</h2></div>
 
     <div class="facts">
-      <div class="fact"><span class="n">$30bn</span><span class="t">Indian proptech market in 2025, growing to $78bn by 2031</span><span class="src">IMARC / Ken Research</span></div>
+      <div class="fact"><span class="n">₹2.6 lakh cr</span><span class="t">Indian proptech market in 2025, reaching ₹6.9 lakh cr by 2031</span><span class="src">IMARC / Ken Research</span></div>
       <div class="fact"><span class="n">45–50%</span><span class="t">of market revenue held by just five players</span><span class="src">Industry analysis 2025</span></div>
       <div class="fact"><span class="n">19 months</span><span class="t">of unsold inventory in Hyderabad — worst of any Indian city</span><span class="src">Anarock</span></div>
       <div class="fact"><span class="n">40%</span><span class="t">of roughly 10,000 homes launched in Neopolis, still unsold</span><span class="src">Trade press 2026</span></div>
@@ -351,13 +363,90 @@
     </div>
   </section>
 
+
   <!-- 05 -->
   <section>
-    <div class="sechead"><span class="secnum">05</span><h2>The model: CarWale, for property</h2></div>
+    <div class="sechead"><span class="secnum">05</span><h2>SWOT</h2></div>
+
+    <p class="lead">What we're carrying in, what we're missing, and what could go wrong. The weaknesses column is the one worth reading twice.</p>
+
+    <div class="swot">
+      <div class="sw">
+        <div class="sw-h"><span class="sw-dot" style="background:var(--green)"></span><h4>Strengths</h4></div>
+        <dl>
+          <dt>Tier-one relationships</dt>
+          <dd>Direct access to DSR, Sattva, My Home, Aparna, Prestige. Around 70% of Indian residential sales run through channel partners. A funded startup can buy engineers; it cannot buy twenty years of trust with a developer's sales head.</dd>
+          <dt>Timing</dt>
+          <dd>A 19-month overhang means developers are actively looking for a better distribution answer right now.</dd>
+          <dt>No legacy tech debt</dt>
+          <dd>The portals are structurally locked into the shared-lead P&amp;L. OTHO can build the clean architecture from zero.</dd>
+          <dt>Regulatory tailwind</dt>
+          <dd>TRAI's calling rules and the DPDP regime make the spam-and-resell model steadily more expensive and more exposed.</dd>
+        </dl>
+      </div>
+
+      <div class="sw">
+        <div class="sw-h"><span class="sw-dot" style="background:var(--red)"></span><h4>Weaknesses</h4></div>
+        <dl>
+          <dt>No product or data engineering yet</dt>
+          <dd>The comparison engine is not a design problem. It's data acquisition, normalisation and verification across TG-RERA filings, HMDA approvals and registration records. This is the part that kills proptech startups.</dd>
+          <dt>Zero digital brand equity</dt>
+          <dd>Twenty years of word-of-mouth does not transfer to search. OTHO starts at domain authority zero.</dd>
+          <dt>Advisory doesn't scale linearly</dt>
+          <dd>Single-point-of-contact service is the promise and the constraint. Every mandate consumes senior time.</dd>
+          <dt>Key-person dependency</dt>
+          <dd>Developer relationships and podcast authority both concentrate in the founders.</dd>
+          <dt>Working capital</dt>
+          <dd>Commission pays on registration, so cash lands three to nine months behind the cost of earning it.</dd>
+        </dl>
+      </div>
+
+      <div class="sw">
+        <div class="sw-h"><span class="sw-dot" style="background:var(--blue)"></span><h4>Opportunities</h4></div>
+        <dl>
+          <dt>The overhang itself</dt>
+          <dd>Roughly 97,000 unsold units is a large, motivated mandate pipeline. Every stuck project is a sales conversation.</dd>
+          <dt>The transparency vacuum</dt>
+          <dd>No Indian portal publishes loading factor, true density or UDS as standard comparative fields. The method is mathematical and legally safe.</dd>
+          <dt>AI citation land-grab</dt>
+          <dd>Brands cited in AI answers earn substantially more clicks, and AI-referred visitors convert around three times as often. The window is open now and closes as incumbents wake up.</dd>
+          <dt>Bharat Future City</dt>
+          <dd>Master plan, zoning and development rules due December 2026 — a dateable, high-search event with no incumbent authority.</dd>
+          <dt>NRI buyers</dt>
+          <dd>Under-served, higher ticket sizes, and they need an honest proxy on the ground more than anyone.</dd>
+        </dl>
+      </div>
+
+      <div class="sw">
+        <div class="sw-h"><span class="sw-dot" style="background:var(--amber)"></span><h4>Threats</h4></div>
+        <dl>
+          <dt>Developer backlash on honest negatives</dt>
+          <dd>OTHO earns from developers while publishing unflattering facts about their projects. This needs a written editorial charter agreed up front, not improvised later.</dd>
+          <dt>Incumbent capital response</dt>
+          <dd>Housing or 99acres can copy a comparison engine faster than OTHO can build a brand. Defensibility is exclusive inventory and verified data, not features.</dd>
+          <dt>A deepening downturn</dt>
+          <dd>If the overhang passes 24 months, developers cut marketing budgets and commissions at the same time.</dd>
+          <dt>RERA exposure</dt>
+          <dd>₹10,000/day penalties and a mandatory RERA number in every advertisement. One sloppy campaign is existential for a firm selling trust.</dd>
+          <dt>Defamation risk</dt>
+          <dd>"This project is bad" is litigable. A cited pollution reading is not. The distinction has to be enforced editorially.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="box b">
+      <h4>What the SWOT forces</h4>
+      <p>The moat is not the platform — features get copied. It's the compound of <strong>exclusive inventory</strong> competitors cannot list, a <strong>verified dataset</strong> built by physically auditing projects, and a <strong>trust brand</strong> the portals cannot adopt without cannibalising their own revenue. The platform is the delivery mechanism for those three. Build in that order.</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>The model: CarWale, for property</h2></div>
 
     <p class="lead">There's a company that already solved this exact problem in a neighbouring category, and it's worth copying deliberately.</p>
 
-    <p>CarWale did not beat the classifieds by having more cars. It won by owning the step <em>before</em> the transaction — expert reviews, side-by-side comparisons, price guides, owner ratings, EMI calculators. It became where Indians go to <strong>decide</strong>. It reached 65 million car buyers and built roughly <strong class="num">$144M</strong> of revenue on the intent it had earned.</p>
+    <p>CarWale did not beat the classifieds by having more cars. It won by owning the step <em>before</em> the transaction — expert reviews, side-by-side comparisons, price guides, owner ratings, EMI calculators. It became where Indians go to <strong>decide</strong>. It reached 65 million car buyers and built roughly <strong class="num">₹1,260cr</strong> of revenue on the intent it had earned.</p>
 
     <div class="grid2">
       <div class="card">
@@ -382,9 +471,9 @@
     </div>
   </section>
 
-  <!-- 06 -->
+  <!-- 07 -->
   <section>
-    <div class="sechead"><span class="secnum">06</span><h2>The platform</h2></div>
+    <div class="sechead"><span class="secnum">07</span><h2>The platform</h2></div>
 
     <p class="lead">What we build, and who we're borrowing each idea from. Nothing here is unproven — it's proven elsewhere and missing in Indian property.</p>
 
@@ -453,9 +542,9 @@
     </div>
   </section>
 
-  <!-- 07 -->
+  <!-- 08 -->
   <section>
-    <div class="sechead"><span class="secnum">07</span><h2>What we produce</h2></div>
+    <div class="sechead"><span class="secnum">08</span><h2>What we produce</h2></div>
 
     <p class="lead">The platform is content. These are the formats, and each one does a specific job.</p>
 
@@ -479,9 +568,9 @@
     <p>All of it comes from <strong>two shoot days a month</strong> — one studio, one on site. Roughly 35 usable pieces. Production is what Production X does, which is why this costs a fraction of agency rates.</p>
   </section>
 
-  <!-- 08 -->
+  <!-- 09 -->
   <section>
-    <div class="sechead"><span class="secnum">08</span><h2>How we promote it</h2></div>
+    <div class="sechead"><span class="secnum">09</span><h2>How we promote it</h2></div>
 
     <div class="scroll">
       <table>
@@ -507,9 +596,9 @@
     </div>
   </section>
 
-  <!-- 09 -->
+  <!-- 10 -->
   <section>
-    <div class="sechead"><span class="secnum">09</span><h2>The first 90 days</h2></div>
+    <div class="sechead"><span class="secnum">10</span><h2>The first 90 days</h2></div>
 
     <p class="lead">One project — Neopolis — used to build and prove the whole system.</p>
 
@@ -567,9 +656,9 @@
     </div>
   </section>
 
-  <!-- 10 -->
+  <!-- 11 -->
   <section>
-    <div class="sechead"><span class="secnum">10</span><h2>After the first 90 days</h2></div>
+    <div class="sechead"><span class="secnum">11</span><h2>After the first 90 days</h2></div>
 
     <div class="scroll">
       <table>
@@ -583,9 +672,9 @@
     </div>
   </section>
 
-  <!-- 11 -->
+  <!-- 12 -->
   <section>
-    <div class="sechead"><span class="secnum">11</span><h2>Where this goes</h2></div>
+    <div class="sechead"><span class="secnum">12</span><h2>Where this goes</h2></div>
 
     <p class="lead">The founders' ambition is national and then global. Here is what that looks like as a sequence rather than a slogan.</p>
 
@@ -620,9 +709,9 @@
     </div>
   </section>
 
-  <!-- 12 -->
+  <!-- 13 -->
   <section>
-    <div class="sechead"><span class="secnum">12</span><h2>What we need from you</h2></div>
+    <div class="sechead"><span class="secnum">13</span><h2>What we need from you</h2></div>
 
     <div class="scroll">
       <table>
