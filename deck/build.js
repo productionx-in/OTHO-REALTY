@@ -165,10 +165,10 @@ function band(s, x, y, w, h, dark) {
   const rows = [
     ['"OTHO Realty" on Google', "Returns Square Yards, 99acres, NoBroker. Nothing about you.", "NOTHING", RED, RED_BG],
     ['"Propertunity" Hyderabad', "Returns firms in Florida, the UK and Australia. Not you.", "NOTHING", RED, RED_BG],
-    ["Website", "None found under either name", "NOTHING", RED, RED_BG],
-    ["YouTube", "No channel", "NOTHING", RED, RED_BG],
-    ["Articles, guides, press", "Nothing indexed anywhere", "NOTHING", RED, RED_BG],
-    ["Instagram, LinkedIn, GBP", "To confirm with you in week one", "TO CHECK", T3, CARD_2],
+    ["Domain", "Secured — nothing live on it yet", "CLAIMED", BRASS, "F6EEDA"],
+    ["Social accounts", "Created — nothing published yet", "CLAIMED", BRASS, "F6EEDA"],
+    ["Published content", "No articles, guides or video indexed anywhere", "NOTHING", RED, RED_BG],
+    ["Press and mentions", "No third-party coverage found", "NOTHING", RED, RED_BG],
     ["Founder relationships", "Two decades, tier-one developers. The whole asset.", "STRONG", GREEN, GREEN_BG]
   ];
   const rh = 0.58, gap = 0.06;
@@ -193,26 +193,28 @@ function band(s, x, y, w, h, dark) {
       align: "center", valign: "middle", charSpacing: 1, margin: 0
     });
   });
-  s.addNotes("This is your strongest opening. Hand them a phone and let them search. The name change from Propertunity cost nothing because there was nothing online to lose. Do not apologise for this slide - it sets up the next one.");
+  s.addNotes("This is your strongest opening. Hand them a phone and let them search. The domain and the social accounts are claimed, which is the right groundwork - but nothing has been published, so to a buyer searching today OTHO still does not exist. Do not apologise for this slide, it sets up the next one.");
 }
 
 /* ============================================================ 4 */
 {
   const s = slideD();
-  s.addText("Zero footprint means\nzero baggage.", {
+  s.addText("The plots are claimed.\nNothing is built yet.", {
     x: M, y: 1.75, w: 10.5, h: 2.1,
     fontFace: HEAD, fontSize: 50, bold: true, color: D1, lineSpacing: 60, charSpacing: -1, margin: 0, valign: "middle"
   });
   s.addText(
-    "No dead accounts. No abandoned campaigns. No complaints ranking on page one. No confused brand to unpick.",
+    "Domain secured, social accounts created — and nothing published on any of them. " +
+    "To a buyer searching today, OTHO does not exist.",
     { x: M, y: 4.25, w: 9.6, h: 0.7, fontFace: BODY, fontSize: 17, color: D1, lineSpacing: 26, margin: 0 }
   );
   s.addText(
-    "Every competitor in this deck carries years of that. OTHO gets to build it properly the first time — " +
-    "and if the ambition is national, the foundation matters more than the first campaign.",
+    "That's an advantage, not a criticism. No dead campaigns, no complaints ranking on page one, nothing to " +
+    "unpick. Every competitor here carries years of that. Everything OTHO publishes from now compounds instead " +
+    "of competing with its own past.",
     { x: M, y: 5.1, w: 9.6, h: 1.0, fontFace: BODY, fontSize: 15, color: D3, lineSpacing: 24, margin: 0 }
   );
-  s.addNotes("Turn the weakness into the argument. Starting from zero is cheaper than starting from a bad reputation. This is also why the foundation work in the first 30 days matters.");
+  s.addNotes("Credit the groundwork - the domain and handles are the right first step. Then make the argument: an empty account is still invisible, and starting clean is cheaper than starting from a bad reputation. This is why month one is foundation work.");
 }
 
 /* ============================================================ 5 */
@@ -636,6 +638,260 @@ swotSlide("SWOT — the opening, and what could go wrong",
       fontFace: BODY, fontSize: 13, italic: true, color: T3, lineSpacing: 20, margin: 0 }
   );
   s.addNotes("This is your demo moment. Walk down the column slowly. Project A looks cheaper on the advertised rate and is actually more expensive per usable foot with less land. No portal in India shows this - it is the whole product in one screen.");
+}
+
+
+/* ==================================================== MOCKUP SCREENS */
+function browser(s, y, url, active) {
+  s.addShape(pres.ShapeType.rect, { x: M, y, w: W, h: 0.34, fill: { color: CARD_2 }, line: { type: "none" } });
+  [0, 1, 2].forEach(i => {
+    s.addShape(pres.ShapeType.ellipse, {
+      x: M + 0.26 + i * 0.19, y: y + 0.12, w: 0.1, h: 0.1,
+      fill: { color: "C9C9C3" }, line: { type: "none" }
+    });
+  });
+  s.addText(url, {
+    x: M + 0.95, y, w: 4.5, h: 0.34,
+    fontFace: BODY, fontSize: 9.5, color: T3, valign: "middle", margin: 0
+  });
+
+  s.addShape(pres.ShapeType.rect, {
+    x: M, y: y + 0.34, w: W, h: 4.67, fill: { color: CARD }, line: { type: "none" }, shadow: softShadow()
+  });
+
+  const ny = y + 0.34;
+  s.addText("OTHO", {
+    x: M + 0.3, y: ny, w: 1.2, h: 0.44,
+    fontFace: HEAD, fontSize: 13.5, bold: true, color: T1, valign: "middle", margin: 0
+  });
+  ["Projects", "Compare", "Localities", "Reviews", "Guides"].forEach((l, i) => {
+    s.addText(l, {
+      x: M + 1.75 + i * 1.12, y: ny, w: 1.08, h: 0.44,
+      fontFace: BODY, fontSize: 9.5, bold: l === active,
+      color: l === active ? T1 : T3, valign: "middle", margin: 0
+    });
+  });
+  s.addShape(pres.ShapeType.rect, {
+    x: M + W - 1.92, y: ny + 0.09, w: 1.62, h: 0.27, fill: { color: INK }, line: { type: "none" }
+  });
+  s.addText("Book a site visit", {
+    x: M + W - 1.92, y: ny + 0.09, w: 1.62, h: 0.27,
+    fontFace: BODY, fontSize: 8.5, bold: true, color: D1, align: "center", valign: "middle", margin: 0
+  });
+  return ny + 0.44;
+}
+
+/* ---- MOCKUP 1: project page ---- */
+{
+  const s = slideL();
+  const y0 = head(s, "07", "What the site looks like", null);
+  const cy = browser(s, y0, "otho.in / neopolis", "Projects");
+  const IX = M + 0.3, IW = W - 0.6;
+
+  s.addText("KOKAPET  ·  NEOPOLIS LAYOUT  ·  TG-RERA P0XXXXXXX", {
+    x: IX, y: cy + 0.16, w: IW, h: 0.22,
+    fontFace: BODY, fontSize: 8, color: T3, charSpacing: 1.2, margin: 0
+  });
+  s.addText("3 & 4 BHK homes, priced in the open.", {
+    x: IX, y: cy + 0.42, w: 7.4, h: 0.58,
+    fontFace: HEAD, fontSize: 25, bold: true, color: T1, charSpacing: -0.6, margin: 0, valign: "middle"
+  });
+  s.addText("Full pricing, real carpet area, and what the commute actually takes at 9am. No callback required to see any of it.", {
+    x: IX, y: cy + 1.04, w: 7.4, h: 0.3,
+    fontFace: BODY, fontSize: 10.5, color: T2, margin: 0, valign: "middle"
+  });
+
+  const stats = [["1,850–3,400", "CARPET SQ FT"], ["₹2.1–4.6 Cr", "ALL-IN PRICE"], ["Dec 2028", "POSSESSION"], ["4.2 acres", "LAND PARCEL"]];
+  const tw = (IW - 3 * 0.07) / 4;
+  stats.forEach((st, i) => {
+    const x = IX + i * (tw + 0.07);
+    s.addShape(pres.ShapeType.rect, { x, y: cy + 1.46, w: tw, h: 0.68, fill: { color: CARD_2 }, line: { type: "none" } });
+    s.addText(st[0], {
+      x: x + 0.16, y: cy + 1.54, w: tw - 0.32, h: 0.32,
+      fontFace: HEAD, fontSize: 14, bold: true, color: T1, margin: 0, valign: "middle"
+    });
+    s.addText(st[1], {
+      x: x + 0.16, y: cy + 1.85, w: tw - 0.32, h: 0.22,
+      fontFace: BODY, fontSize: 7.5, color: T3, charSpacing: 1, margin: 0
+    });
+  });
+
+  const py = cy + 2.28;
+  s.addShape(pres.ShapeType.rect, { x: IX, y: py, w: IW, h: 1.86, fill: { color: CARD_2 }, line: { type: "none" } });
+  s.addText("What you're actually paying per usable foot", {
+    x: IX + 0.22, y: py + 0.14, w: 6.0, h: 0.28,
+    fontFace: HEAD, fontSize: 12, bold: true, color: T1, margin: 0, valign: "middle"
+  });
+  s.addText("Most listings quote super built-up. This shows both.", {
+    x: IX + 0.22, y: py + 0.42, w: 6.0, h: 0.24,
+    fontFace: BODY, fontSize: 9, color: T3, margin: 0, valign: "middle"
+  });
+  const calc = [
+    ["Super built-up area", "2,650 sq ft", false],
+    ["RERA carpet area", "1,850 sq ft", false],
+    ["Loading factor", "43%", false],
+    ["Advertised rate", "₹9,400 / sq ft", false],
+    ["Real rate on carpet", "₹13,460 / sq ft", true]
+  ];
+  calc.forEach((c, i) => {
+    const ry = py + 0.70 + i * 0.22;
+    s.addShape(pres.ShapeType.rect, {
+      x: IX + 0.22, y: ry, w: IW - 0.44, h: 0.20,
+      fill: { color: c[2] ? "E7EDF5" : CARD }, line: { type: "none" }
+    });
+    s.addText(c[0], {
+      x: IX + 0.36, y: ry, w: 5.0, h: 0.20,
+      fontFace: BODY, fontSize: 9.5, bold: c[2], color: c[2] ? BLUE : T2, valign: "middle", margin: 0
+    });
+    s.addText(c[1], {
+      x: IX + IW - 2.2, y: ry, w: 1.84, h: 0.20,
+      fontFace: BODY, fontSize: 9.5, bold: true, color: c[2] ? BLUE : T1,
+      align: "right", valign: "middle", margin: 0
+    });
+  });
+  s.addNotes("Screen one. Two things nobody else does: the price is on the page without a form, and the calculator shows the real rate on carpet. Point at the last row - advertised 9,400 becomes 13,460 once loading is exposed.");
+}
+
+/* ---- MOCKUP 2: review page, honest negatives ---- */
+{
+  const s = slideL();
+  const y0 = head(s, "07", "The review page", null);
+  const cy = browser(s, y0, "otho.in / reviews / neopolis-tower-a", "Reviews");
+  const IX = M + 0.3, IW = W - 0.6;
+
+  s.addText("OTHO PROJECT REVIEW  ·  KOKAPET", {
+    x: IX, y: cy + 0.16, w: 6.5, h: 0.22,
+    fontFace: BODY, fontSize: 8, color: T3, charSpacing: 1.2, margin: 0
+  });
+  s.addText("Neopolis — Tower A", {
+    x: IX, y: cy + 0.42, w: 6.5, h: 0.5,
+    fontFace: HEAD, fontSize: 22, bold: true, color: T1, charSpacing: -0.5, margin: 0, valign: "middle"
+  });
+  s.addText("Reviewed on site, 14 August 2026. Verified against TG-RERA filing.", {
+    x: IX, y: cy + 0.94, w: 6.5, h: 0.26,
+    fontFace: BODY, fontSize: 9.5, color: T3, margin: 0, valign: "middle"
+  });
+
+  s.addShape(pres.ShapeType.rect, {
+    x: IX + IW - 2.5, y: cy + 0.2, w: 2.5, h: 1.0, fill: { color: INK }, line: { type: "none" }
+  });
+  s.addText("7.4", {
+    x: IX + IW - 2.4, y: cy + 0.3, w: 1.0, h: 0.6,
+    fontFace: HEAD, fontSize: 30, bold: true, color: BRASS_BR, margin: 0, valign: "middle"
+  });
+  s.addText("OTHO SCORE", {
+    x: IX + IW - 1.35, y: cy + 0.4, w: 1.2, h: 0.2,
+    fontFace: BODY, fontSize: 7.5, color: D3, charSpacing: 1, margin: 0
+  });
+  s.addText("out of 10", {
+    x: IX + IW - 1.35, y: cy + 0.6, w: 1.2, h: 0.22,
+    fontFace: BODY, fontSize: 9, bold: true, color: D1, margin: 0
+  });
+
+  const panels = [
+    ["What's good", GREEN, [
+      "Lowest loading factor in the layout at 36%",
+      "18% more land per unit than the nearest comparison",
+      "Developer has delivered four projects on schedule",
+      "Genuine 9am commute to Financial District: 14 min"
+    ]],
+    ["What we'd flag", RED, [
+      "Metro Phase 2 is unfunded — do not price it in",
+      "Amenity ratio is 1 clubhouse per 640 families",
+      "Water: borewell dependent, no HMWSSB line yet",
+      "East-facing units overlook the service road"
+    ]]
+  ];
+  const pw = (IW - 0.24) / 2, py = cy + 1.42;
+  panels.forEach((p, i) => {
+    const x = IX + i * (pw + 0.24);
+    s.addShape(pres.ShapeType.rect, { x, y: py, w: pw, h: 2.72, fill: { color: CARD_2 }, line: { type: "none" } });
+    s.addShape(pres.ShapeType.ellipse, {
+      x: x + 0.22, y: py + 0.22, w: 0.13, h: 0.13, fill: { color: p[1] }, line: { type: "none" }
+    });
+    s.addText(p[0], {
+      x: x + 0.46, y: py + 0.12, w: pw - 0.68, h: 0.34,
+      fontFace: HEAD, fontSize: 13, bold: true, color: T1, valign: "middle", margin: 0
+    });
+    p[2].forEach((t, j) => {
+      const ry = py + 0.52 + j * 0.53;
+      s.addShape(pres.ShapeType.rect, { x: x + 0.18, y: ry, w: pw - 0.36, h: 0.46, fill: { color: CARD }, line: { type: "none" } });
+      s.addText(t, {
+        x: x + 0.32, y: ry, w: pw - 0.64, h: 0.46,
+        fontFace: BODY, fontSize: 9.5, color: T2, valign: "middle", lineSpacing: 13, margin: 0
+      });
+    });
+  });
+  s.addNotes("This is the moat in one screen. Every project page carries a What We Would Flag column, on a project OTHO earns money from. No portal in India publishes this. Expect the founders to react here - that reaction is the conversation worth having.");
+}
+
+/* ---- MOCKUP 3: locality + infrastructure tracker ---- */
+{
+  const s = slideL();
+  const y0 = head(s, "07", "The locality page", null);
+  const cy = browser(s, y0, "otho.in / localities / kokapet", "Localities");
+  const IX = M + 0.3, IW = W - 0.6;
+
+  s.addText("LOCALITY REPORT  ·  UPDATED MONTHLY", {
+    x: IX, y: cy + 0.16, w: 6.5, h: 0.22,
+    fontFace: BODY, fontSize: 8, color: T3, charSpacing: 1.2, margin: 0
+  });
+  s.addText("Kokapet", {
+    x: IX, y: cy + 0.42, w: 6.5, h: 0.5,
+    fontFace: HEAD, fontSize: 24, bold: true, color: T1, charSpacing: -0.5, margin: 0, valign: "middle"
+  });
+  s.addText("Infrastructure confidence — what's funded, what's promised", {
+    x: IX, y: cy + 1.0, w: 7.0, h: 0.26,
+    fontFace: HEAD, fontSize: 11.5, bold: true, color: T1, margin: 0, valign: "middle"
+  });
+
+  const infra = [
+    ["ORR access", "Operational since 2018", "CONFIRMED", GREEN, GREEN_BG],
+    ["Financial District road widening", "Funded, under construction", "LIKELY", GREEN, GREEN_BG],
+    ["Metro Phase 2 corridor", "Approved, financial sanction pending", "UNFUNDED", RED, RED_BG],
+    ["HMWSSB water line", "Proposed, no tender issued", "UNCERTAIN", BRASS, "F6EEDA"]
+  ];
+  infra.forEach((r, i) => {
+    const ry = cy + 1.30 + i * 0.50;
+    s.addShape(pres.ShapeType.rect, { x: IX, y: ry, w: IW, h: 0.44, fill: { color: CARD_2 }, line: { type: "none" } });
+    s.addText(r[0], {
+      x: IX + 0.22, y: ry, w: 3.7, h: 0.44,
+      fontFace: HEAD, fontSize: 11, bold: true, color: T1, valign: "middle", margin: 0
+    });
+    s.addText(r[1], {
+      x: IX + 4.1, y: ry, w: IW - 4.1 - 1.5, h: 0.44,
+      fontFace: BODY, fontSize: 9.5, color: T2, valign: "middle", margin: 0
+    });
+    s.addShape(pres.ShapeType.rect, {
+      x: IX + IW - 1.35, y: ry + 0.10, w: 1.13, h: 0.24, fill: { color: r[4] }, line: { type: "none" }
+    });
+    s.addText(r[2], {
+      x: IX + IW - 1.35, y: ry + 0.10, w: 1.13, h: 0.24,
+      fontFace: BODY, fontSize: 7.5, bold: true, color: r[3],
+      align: "center", valign: "middle", charSpacing: 0.6, margin: 0
+    });
+  });
+
+  const dy = cy + 3.36;
+  s.addText("Real drive times, measured at 9am on a weekday", {
+    x: IX, y: dy, w: 7.0, h: 0.26,
+    fontFace: HEAD, fontSize: 11.5, bold: true, color: T1, margin: 0, valign: "middle"
+  });
+  const dest = [["Financial District", "14 min"], ["HITEC City", "26 min"], ["Airport", "38 min"], ["Gachibowli", "19 min"]];
+  const dw = (IW - 3 * 0.07) / 4;
+  dest.forEach((d, i) => {
+    const x = IX + i * (dw + 0.07);
+    s.addShape(pres.ShapeType.rect, { x, y: dy + 0.30, w: dw, h: 0.50, fill: { color: CARD_2 }, line: { type: "none" } });
+    s.addText(d[1], {
+      x: x + 0.16, y: dy + 0.35, w: dw - 0.32, h: 0.25,
+      fontFace: HEAD, fontSize: 13, bold: true, color: T1, margin: 0, valign: "middle"
+    });
+    s.addText(d[0], {
+      x: x + 0.16, y: dy + 0.59, w: dw - 0.32, h: 0.19,
+      fontFace: BODY, fontSize: 8, color: T3, margin: 0
+    });
+  });
+  s.addNotes("Screen three. The confidence column is the point - Metro Phase 2 marked unfunded on a page about a locality that sells partly on Metro. That single label is what makes buyers trust the other three rows.");
 }
 
 /* ==================================================== 17 & 18 FEATURES */
@@ -1072,8 +1328,8 @@ featureSlide("Continued — the trust and service layer.", [
 const months = [
   ["Days 1–30  ·  Foundation", "Identity, plumbing, first content", [
     "OTHO brand applied properly — logo, templates, tone; the Propertunity change completed everywhere",
-    "Domain, hosting, analytics, CRM with routing and a response clock",
-    "Google Business, Instagram, LinkedIn, YouTube claimed and set up",
+    "Hosting, analytics and CRM live on the domain you've secured, with routing and a response clock",
+    "The social accounts you've created completed and activated — bios, links, first posts",
     "Website design signed off; comparison engine specified",
     "Sit with sales: what buyers ask, where they walk away",
     "First studio day — two podcast episodes, founder pieces to camera"
