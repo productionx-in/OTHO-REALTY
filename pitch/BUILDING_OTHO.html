@@ -1,0 +1,656 @@
+<title>Building OTHO</title>
+<style>
+  :root {
+    --paper:   #F7F7F5;
+    --surface: #FFFFFF;
+    --sunk:    #EDEDEA;
+    --ink:     #131416;
+    --ink-2:   #43464B;
+    --ink-3:   #74787E;
+    --rule:    #DEDEDA;
+    --rule-2:  #C2C2BD;
+    --blue:    #1247C7;
+    --blue-bg: #E7ECFA;
+    --amber:   #9C6100;
+    --amber-bg:#FAEFD9;
+    --green:   #1F6B47;
+    --green-bg:#E2F0E8;
+    --red:     #A32B21;
+    --red-bg:  #FAE8E6;
+
+    --f-display: "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    --f-body:    "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --f-mono:    ui-monospace, "SF Mono", SFMono-Regular, Consolas, "Roboto Mono", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:#0E0F11; --surface:#16181B; --sunk:#0A0B0D;
+      --ink:#EDEEF0; --ink-2:#B4B8BE; --ink-3:#838890;
+      --rule:#262A2F; --rule-2:#3A3F45;
+      --blue:#6C97F5; --blue-bg:#131F3D;
+      --amber:#E0A045; --amber-bg:#2E2210;
+      --green:#63BC90; --green-bg:#12291E;
+      --red:#E88178; --red-bg:#2E1512;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#0E0F11; --surface:#16181B; --sunk:#0A0B0D;
+    --ink:#EDEEF0; --ink-2:#B4B8BE; --ink-3:#838890;
+    --rule:#262A2F; --rule-2:#3A3F45;
+    --blue:#6C97F5; --blue-bg:#131F3D;
+    --amber:#E0A045; --amber-bg:#2E2210;
+    --green:#63BC90; --green-bg:#12291E;
+    --red:#E88178; --red-bg:#2E1512;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--f-body); font-size: 17px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 26px 110px; }
+
+  /* cover */
+  .cover { padding: 64px 0 46px; }
+  .brandbar { display: flex; align-items: center; gap: 12px; margin-bottom: 60px; flex-wrap: wrap; }
+  .brandmark {
+    font-family: var(--f-display); font-weight: 800; font-size: 15px; letter-spacing: -0.02em;
+    background: var(--ink); color: var(--paper); padding: 6px 10px;
+  }
+  .brandfor { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+
+  h1 {
+    font-family: var(--f-display); font-weight: 800;
+    font-size: clamp(2.8rem, 7vw, 5rem); line-height: 0.98;
+    letter-spacing: -0.042em; margin: 0 0 26px; text-wrap: balance;
+  }
+  .deck { font-size: clamp(1.1rem, 2.1vw, 1.35rem); line-height: 1.45; color: var(--ink-2); max-width: 56ch; margin: 0; }
+
+  .coverfacts { display: flex; flex-wrap: wrap; margin-top: 46px; border-top: 2px solid var(--ink); }
+  .coverfact { flex: 1 1 180px; padding: 16px 20px 16px 0; border-right: 1px solid var(--rule); }
+  .coverfact:last-child { border-right: none; }
+  .coverfact dt { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+  .coverfact dd { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.015em; }
+
+  /* sections */
+  section { padding-top: 74px; }
+  .sechead { display: flex; align-items: baseline; gap: 18px; border-bottom: 2px solid var(--ink); padding-bottom: 11px; margin-bottom: 28px; }
+  .secnum { font-family: var(--f-mono); font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.06em; flex-shrink: 0; }
+  .sechead h2 { font-family: var(--f-display); font-weight: 800; font-size: clamp(1.45rem, 3.1vw, 2.05rem); letter-spacing: -0.032em; margin: 0; text-wrap: balance; }
+
+  p { margin: 0 0 17px; color: var(--ink-2); max-width: 68ch; }
+  p strong, li strong, td strong { color: var(--ink); font-weight: 650; }
+  h3 { font-family: var(--f-display); font-weight: 750; font-size: 1.1rem; letter-spacing: -0.018em; margin: 34px 0 12px; color: var(--ink); }
+  h4 { font-family: var(--f-display); font-weight: 700; font-size: 0.97rem; letter-spacing: -0.01em; margin: 0 0 9px; }
+  ul, ol { padding-left: 21px; margin: 0 0 18px; }
+  li { margin-bottom: 8px; color: var(--ink-2); max-width: 68ch; }
+  .lead { font-size: 1.12rem; line-height: 1.5; color: var(--ink); max-width: 60ch; margin-bottom: 22px; }
+
+  .pull {
+    font-family: var(--f-display); font-weight: 700;
+    font-size: clamp(1.3rem, 3vw, 1.85rem); line-height: 1.24; letter-spacing: -0.028em;
+    color: var(--ink); max-width: 25ch; margin: 34px 0; padding-left: 20px; border-left: 4px solid var(--blue);
+  }
+
+  /* facts */
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 26px; }
+  .fact { background: var(--surface); padding: 20px 18px; }
+  .fact .n { font-family: var(--f-display); font-weight: 800; font-size: 1.85rem; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; display: block; margin-bottom: 8px; }
+  .fact .t { font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+  .fact .src { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); margin-top: 9px; display: block; }
+
+  /* audit */
+  .audit { border: 1px solid var(--rule); background: var(--surface); margin-bottom: 22px; }
+  .audit-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+  .audit-row:last-child { border-bottom: none; }
+  .audit-what b { display: block; font-family: var(--f-display); font-weight: 700; font-size: 14.5px; color: var(--ink); margin-bottom: 2px; letter-spacing: -0.01em; }
+  .audit-what span { color: var(--ink-3); font-size: 13px; }
+  .st { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase; padding: 4px 8px; font-weight: 600; white-space: nowrap; }
+  .st-none { background: var(--red-bg); color: var(--red); }
+  .st-unk { background: var(--sunk); color: var(--ink-3); }
+  .st-ok { background: var(--green-bg); color: var(--green); }
+
+  /* tables */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); margin: 0 0 24px; }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14.5px; }
+  th, td { text-align: left; padding: 11px 15px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
+  th { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; background: var(--sunk); white-space: nowrap; }
+  td { color: var(--ink-2); }
+  tbody tr:last-child td { border-bottom: none; }
+  .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tot td { background: var(--sunk); font-weight: 650; color: var(--ink); }
+  td.r, th.r { text-align: right; }
+  .yes { color: var(--green); font-weight: 700; }
+  .no  { color: var(--red);   font-weight: 700; }
+
+  .tg { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; font-weight: 600; white-space: nowrap; display: inline-block; }
+  .tg-a { background: var(--amber-bg); color: var(--amber); }
+  .tg-s { background: var(--blue-bg); color: var(--blue); }
+
+  /* cards */
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
+  .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); gap: 14px; }
+  .grid2 p, .grid3 p, .grid2 li, .grid3 li { max-width: none; }
+  .grid2 > div > h3:first-child, .grid2 > div > h4:first-child { margin-top: 0; }
+  .card { background: var(--surface); border: 1px solid var(--rule); padding: 18px 19px; }
+  .card h4 { margin-bottom: 8px; }
+  .card p { font-size: 14.5px; margin: 0; line-height: 1.5; }
+  .card ul { margin: 0; padding-left: 18px; }
+  .card li { font-size: 14.5px; margin-bottom: 6px; }
+  .card .ref { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--blue); margin-top: 10px; display: block; padding-top: 9px; border-top: 1px dotted var(--rule-2); }
+
+  /* pillars */
+  .pillars { display: grid; gap: 12px; margin-bottom: 24px; }
+  .pillar { display: grid; grid-template-columns: 132px 1fr; gap: 20px; background: var(--surface); border: 1px solid var(--rule); padding: 18px 20px; align-items: start; }
+  .pillar-when { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); font-weight: 600; line-height: 1.5; }
+  .pillar-when em { display: block; font-style: normal; color: var(--ink-3); font-size: 9.5px; margin-top: 3px; }
+  .pillar-t { font-family: var(--f-display); font-weight: 750; font-size: 1.05rem; letter-spacing: -0.018em; margin-bottom: 6px; }
+  .pillar-d { font-size: 14.5px; color: var(--ink-2); line-height: 1.5; }
+  .pillar-d b { color: var(--ink); }
+
+  /* roadmap */
+  .phase { display: grid; grid-template-columns: 118px 1fr; gap: 24px; padding: 21px 0; border-top: 1px solid var(--rule); }
+  .phase:last-of-type { border-bottom: 1px solid var(--rule); }
+  .phase-when { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--blue); font-weight: 600; padding-top: 2px; line-height: 1.55; }
+  .phase-when em { display: block; font-style: normal; color: var(--ink-3); font-size: 10px; margin-top: 3px; }
+  .phase-body h4 { font-size: 1.03rem; margin-bottom: 9px; }
+  .phase-body ul { margin: 0; }
+  .phase-body li { font-size: 14.5px; margin-bottom: 6px; }
+  .phase-out { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--ink-3); margin-top: 11px; padding-top: 9px; border-top: 1px dotted var(--rule-2); }
+  .phase-out strong { color: var(--green); font-weight: 600; }
+
+  /* mockup */
+  .mock { border: 1px solid var(--rule-2); background: var(--surface); margin: 8px 0 12px; overflow: hidden; }
+  .mock-bar { background: var(--sunk); border-bottom: 1px solid var(--rule); padding: 8px 12px; display: flex; align-items: center; gap: 7px; }
+  .mock-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--rule-2); }
+  .mock-url { font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-3); margin-left: 8px; }
+  .m-nav { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid var(--rule); gap: 12px; flex-wrap: wrap; }
+  .m-logo { font-family: var(--f-display); font-weight: 800; font-size: 13px; letter-spacing: -0.02em; }
+  .m-links { display: flex; gap: 15px; font-size: 11px; color: var(--ink-3); flex-wrap: wrap; }
+  .m-cta { background: var(--blue); color: #fff; font-size: 11px; font-weight: 600; padding: 6px 11px; white-space: nowrap; }
+  .m-body { padding: 22px 18px; }
+  .m-eyebrow { font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+  .m-h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(1.3rem, 3.6vw, 1.8rem); letter-spacing: -0.035em; line-height: 1.08; margin-bottom: 16px; }
+  .cmp { display: grid; grid-template-columns: 1.4fr 1fr 1fr; border: 1px solid var(--rule); font-size: 12.5px; }
+  .cmp > div { padding: 9px 12px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+  .cmp > div:nth-child(3n) { border-right: none; }
+  .cmp .hd { background: var(--sunk); font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  .cmp .lb { color: var(--ink-2); }
+  .cmp .vl { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .cmp .win { background: var(--green-bg); color: var(--green); }
+  .cmp .lose { background: var(--red-bg); color: var(--red); }
+  .mock-cap { font-size: 13px; color: var(--ink-3); margin: 0 0 26px; max-width: 68ch; line-height: 1.5; }
+
+  /* boxes */
+  .box { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--amber); padding: 19px 21px; margin: 24px 0; }
+  .box h4 { color: var(--amber); margin-bottom: 7px; }
+  .box p { margin: 0; font-size: 15px; }
+  .box p + p { margin-top: 11px; }
+  .box.b { border-left-color: var(--blue); } .box.b h4 { color: var(--blue); }
+  .box.g { border-left-color: var(--green); } .box.g h4 { color: var(--green); }
+
+  /* horizon */
+  .horizon { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 22px; }
+  .hz { background: var(--surface); padding: 18px 20px; display: grid; grid-template-columns: 96px 1fr; gap: 20px; align-items: start; }
+  .hz-y { font-family: var(--f-display); font-weight: 800; font-size: 1.3rem; letter-spacing: -0.03em; color: var(--blue); line-height: 1.1; }
+  .hz-y em { display: block; font-style: normal; font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin-top: 4px; }
+  .hz-t { font-family: var(--f-display); font-weight: 750; font-size: 1rem; letter-spacing: -0.018em; margin-bottom: 5px; }
+  .hz-d { font-size: 14.5px; color: var(--ink-2); line-height: 1.5; }
+
+  .end { margin-top: 84px; padding-top: 24px; border-top: 2px solid var(--ink); font-family: var(--f-mono); font-size: 11.5px; line-height: 1.75; color: var(--ink-3); letter-spacing: 0.02em; }
+  a { color: var(--blue); }
+  a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 17px 76px; }
+    .cover { padding-top: 42px; }
+    .brandbar { margin-bottom: 40px; }
+    .phase, .pillar, .hz { grid-template-columns: 1fr; gap: 9px; }
+    .coverfact { border-right: none; border-bottom: 1px solid var(--rule); flex-basis: 100%; }
+    .cmp { grid-template-columns: 1fr; }
+    .cmp > div { border-right: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="cover">
+    <div class="brandbar">
+      <span class="brandmark">PRODUCTION&nbsp;X</span>
+      <span class="brandfor">Strategy &amp; launch plan for OTHO Realty</span>
+    </div>
+    <h1>Building OTHO</h1>
+    <p class="deck">Where you stand today, what's broken in Indian property platforms, the product we build in that gap, and the first 90 days. Start with Neopolis in Hyderabad. Finish somewhere much larger.</p>
+    <dl class="coverfacts">
+      <div class="coverfact"><dt>Starting</dt><dd>Neopolis, Kokapet</dd></div>
+      <div class="coverfact"><dt>First milestone</dt><dd>90 days</dd></div>
+      <div class="coverfact"><dt>The model</dt><dd>CarWale, for property</dd></div>
+      <div class="coverfact"><dt>Horizon</dt><dd>Hyderabad → India → global</dd></div>
+    </dl>
+  </header>
+
+  <!-- 01 -->
+  <section>
+    <div class="sechead"><span class="secnum">01</span><h2>What I found</h2></div>
+
+    <p class="lead">I searched for OTHO Realty the way a buyer would. Then I searched for Propertunity. Both come back empty.</p>
+
+    <div class="audit">
+      <div class="audit-row"><div class="audit-what"><b>"OTHO Realty" on Google</b><span>Returns Square Yards, 99acres, NoBroker. Nothing about you.</span></div><span class="st st-none">Nothing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>"Propertunity" Hyderabad</b><span>Returns firms in Florida, the UK and Australia. Not you.</span></div><span class="st st-none">Nothing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Website</b><span>None found under either name</span></div><span class="st st-none">Nothing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>YouTube</b><span>No channel</span></div><span class="st st-none">Nothing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Published articles, guides, press</b><span>Nothing indexed anywhere</span></div><span class="st st-none">Nothing</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Instagram, LinkedIn, Google Business</b><span>To confirm with you in week one</span></div><span class="st st-unk">To check</span></div>
+      <div class="audit-row"><div class="audit-what"><b>Founder relationships and track record</b><span>Two decades, tier-one developers. The whole asset.</span></div><span class="st st-ok">Strong</span></div>
+    </div>
+
+    <p>The name change from Propertunity to OTHO cost nothing, because there was nothing online to lose. That sounds harsh. It's actually the best news in this deck.</p>
+
+    <div class="pull">Zero footprint means zero baggage. Everything from here compounds.</div>
+
+    <p>No dead accounts, no abandoned campaigns, no complaints ranking on page one, no confused brand. Every competitor in section 04 carries years of that. OTHO gets to build it properly the first time — and if the ambition is national, the foundation matters more than the first campaign.</p>
+  </section>
+
+  <!-- 02 -->
+  <section>
+    <div class="sechead"><span class="secnum">02</span><h2>The market you're entering</h2></div>
+
+    <div class="facts">
+      <div class="fact"><span class="n">$30bn</span><span class="t">Indian proptech market in 2025, growing to $78bn by 2031</span><span class="src">IMARC / Ken Research</span></div>
+      <div class="fact"><span class="n">45–50%</span><span class="t">of market revenue held by just five players</span><span class="src">Industry analysis 2025</span></div>
+      <div class="fact"><span class="n">19 months</span><span class="t">of unsold inventory in Hyderabad — worst of any Indian city</span><span class="src">Anarock</span></div>
+      <div class="fact"><span class="n">40%</span><span class="t">of roughly 10,000 homes launched in Neopolis, still unsold</span><span class="src">Trade press 2026</span></div>
+    </div>
+
+    <p>Two things are true at once. The category is large and growing fast. And in Hyderabad specifically, developers are sitting on stock they cannot move — agents are quoting Neopolis units near <strong class="num">₹6,300/sq ft</strong> against list prices of <strong class="num">₹11,000–12,000</strong>.</p>
+
+    <p>That gap is the opening. When a developer's own pricing is being undercut by half in the grey market, the thing they need is not another listings portal. It is someone who can bring them buyers who arrive already convinced.</p>
+  </section>
+
+  <!-- 03 -->
+  <section>
+    <div class="sechead"><span class="secnum">03</span><h2>The gap</h2></div>
+
+    <p class="lead">Every major Indian property platform is built on the same business: collect a lead, sell it to several brokers, let them fight over it. The buyer pays for that with their phone.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>What buyers actually complain about</h4>
+        <ul>
+          <li><strong>Spam is complaint number one</strong> across user reviews of every major portal</li>
+          <li>People keep a second "property phone" — or change their number entirely</li>
+          <li><strong>43%</strong> report encountering fraudulent listings</li>
+          <li>Listings cloned from other portals; AI-generated fake interiors</li>
+          <li>Same flat listed by eight brokers at six prices</li>
+        </ul>
+        <span class="ref">Source · user review analysis, industry reporting 2026</span>
+      </div>
+      <div class="card">
+        <h4>Why nobody fixes it</h4>
+        <p>They can't. Reselling one lead to eight brokers <em>is</em> the revenue model. A portal that promised never to share your number would have to dismantle its own P&amp;L to keep the promise.</p>
+        <p>That's the gap. It isn't a feature they forgot to build — it's a door their business model locks from the inside.</p>
+      </div>
+    </div>
+
+    <div class="pull">A platform with two million listings is worthless if enquiring on one gets you eight calls.</div>
+
+    <p>Meanwhile the thing buyers most want help with — <em>which of these should I actually buy?</em> — is not served by anyone. Portals answer "what is available." Nobody answers "what is good."</p>
+  </section>
+
+  <!-- 04 -->
+  <section>
+    <div class="sechead"><span class="secnum">04</span><h2>Who we're up against</h2></div>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Player</th><th>Scale</th><th>Model</th><th>Where they're weak</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>NoBroker</strong></td>
+            <td class="num">₹803cr FY24, +32%<br>34mn installs<br>3.2mn monthly users</td>
+            <td>Zero brokerage. Subscription at ₹999. Services ecosystem — loans, movers, interiors, rent agreements. Bank referrals worth ~₹120cr.</td>
+            <td>Built for rentals and resale, not new launches. Thin on premium. No advisory or research layer.</td>
+          </tr>
+          <tr>
+            <td><strong>99acres</strong></td>
+            <td class="num">~13.3mn visits/month</td>
+            <td>Classifieds. Developers and brokers pay to list and to be seen.</td>
+            <td>Pure volume play. Lead resold repeatedly. No opinion on anything.</td>
+          </tr>
+          <tr>
+            <td><strong>MagicBricks</strong></td>
+            <td class="num">~12.1mn visits/month</td>
+            <td>Classifieds plus locality data and price trend tools.</td>
+            <td>Has data but no judgement. Tools sit unused beside the same lead-resale engine.</td>
+          </tr>
+          <tr>
+            <td><strong>Housing.com</strong></td>
+            <td class="num">~9.8mn visits/month</td>
+            <td>Classifieds with better design and mapping.</td>
+            <td>Best interface of the four, same underlying business.</td>
+          </tr>
+          <tr>
+            <td><strong>Square Yards</strong></td>
+            <td class="num">₹1,410cr FY25<br>EBITDA ₹46cr</td>
+            <td>Full-service brokerage at volume.</td>
+            <td><strong>3.3% margin.</strong> Proof that chasing transaction volume in Indian property is a trap.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box">
+      <h4>The lesson in the last row</h4>
+      <p>Square Yards built ₹1,410cr of revenue and kept ₹46cr of it. Volume brokerage is a treadmill. OTHO should never compete on listing count or transaction volume — that race is won by whoever burns the most money, and the prize is a 3% margin.</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section>
+    <div class="sechead"><span class="secnum">05</span><h2>The model: CarWale, for property</h2></div>
+
+    <p class="lead">There's a company that already solved this exact problem in a neighbouring category, and it's worth copying deliberately.</p>
+
+    <p>CarWale did not beat the classifieds by having more cars. It won by owning the step <em>before</em> the transaction — expert reviews, side-by-side comparisons, price guides, owner ratings, EMI calculators. It became where Indians go to <strong>decide</strong>. It reached 65 million car buyers and built roughly <strong class="num">$144M</strong> of revenue on the intent it had earned.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>Classifieds business</h4>
+        <p>Answers "what's available." Monetises by reselling your attention to whoever pays. Wins on volume and ad spend. Buyer is the product.</p>
+      </div>
+      <div class="card">
+        <h4>Research business</h4>
+        <p>Answers "what should I buy." Monetises the intent it has already earned. Wins on trust and depth. Buyer is the customer.</p>
+      </div>
+    </div>
+
+    <p>In Indian real estate <strong>the research layer is empty.</strong> No Zestimate, no expert project reviews, no honest comparison engine, no resident ratings. Every player is fighting over the classifieds half.</p>
+
+    <div class="pull">Own the decision, and the transaction follows you.</div>
+
+    <p>This also happens to be exactly what OTHO already is. The founders' advantage is judgement built over twenty years. A research platform is simply that judgement, made public and made searchable.</p>
+
+    <div class="box b">
+      <h4>How we say it in one line</h4>
+      <p><strong>"Every property platform tells you what's for sale. OTHO tells you what's worth buying."</strong></p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section>
+    <div class="sechead"><span class="secnum">06</span><h2>The platform</h2></div>
+
+    <p class="lead">What we build, and who we're borrowing each idea from. Nothing here is unproven — it's proven elsewhere and missing in Indian property.</p>
+
+    <div class="mock">
+      <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-url">otho.in/compare</span></div>
+      <div class="m-nav">
+        <span class="m-logo">OTHO</span>
+        <span class="m-links"><span>Projects</span><span>Compare</span><span>Localities</span><span>Reviews</span><span>Guides</span></span>
+        <span class="m-cta">Book a visit</span>
+      </div>
+      <div class="m-body">
+        <div class="m-eyebrow">Comparison engine · Kokapet</div>
+        <div class="m-h1">Two projects. One is 5% cheaper<br>on the board, 2% dearer in reality.</div>
+        <div class="cmp">
+          <div class="hd">&nbsp;</div><div class="hd">Project A</div><div class="hd">Project B</div>
+          <div class="lb">Advertised rate</div><div class="vl win">₹9,483</div><div class="vl">₹9,994</div>
+          <div class="lb">RERA carpet area</div><div class="vl">1,842 sq ft</div><div class="vl">1,861 sq ft</div>
+          <div class="lb">Loading factor</div><div class="vl lose">44%</div><div class="vl win">36%</div>
+          <div class="lb">Real rate on carpet</div><div class="vl lose">₹13,720</div><div class="vl win">₹13,440</div>
+          <div class="lb">Land per unit</div><div class="vl lose">Lower</div><div class="vl win">18% more</div>
+          <div class="lb">OTHO verdict</div><div class="vl lose">Looks cheaper</div><div class="vl win">Actually cheaper</div>
+        </div>
+      </div>
+    </div>
+    <p class="mock-cap">The comparison engine — our signature screen. Figures are illustrative until pulled from live TG-RERA filings.</p>
+
+    <h3>What goes in it</h3>
+    <div class="grid3">
+      <div class="card"><h4>Comparison engine</h4><p>Any two projects side by side on carpet area, real rate, land share, density and possession date.</p><span class="ref">Borrowed from CarWale</span></div>
+      <div class="card"><h4>Expert project reviews</h4><p>OTHO rates every project it covers, with a score and a written verdict. Including the bad ones.</p><span class="ref">Borrowed from CarWale</span></div>
+      <div class="card"><h4>Resident reviews</h4><p>People who actually live there rate build quality, management and what broke first.</p><span class="ref">Borrowed from CarWale owner reviews</span></div>
+      <div class="card"><h4>Real rate calculator</h4><p>Loading factor exposed. What you pay per usable foot, not per marketing foot.</p><span class="ref">OTHO original</span></div>
+      <div class="card"><h4>Honest negatives</h4><p>Every project page lists what's wrong with it. This is the trust engine of the whole platform.</p><span class="ref">OTHO original</span></div>
+      <div class="card"><h4>Price estimate</h4><p>What a unit is actually worth, from registration data — not from the asking price.</p><span class="ref">Borrowed from Zillow's Zestimate</span></div>
+      <div class="card"><h4>Locality pages</h4><p>Price history, infrastructure status, commute times measured at peak hour, schools, water.</p><span class="ref">Borrowed from MagicBricks, done properly</span></div>
+      <div class="card"><h4>Your number stays private</h4><p>Never sold, never shared with brokers. One conversation, with OTHO.</p><span class="ref">Borrowed from NoBroker's core promise</span></div>
+      <div class="card"><h4>Verified listings only</h4><p>Every project checked against its RERA filing before it appears. No cloned photos.</p><span class="ref">The fix for the #1 buyer complaint</span></div>
+      <div class="card"><h4>Site visit booking</h4><p>Real calendar slots, confirmed on WhatsApp. Not a form promising a callback.</p><span class="ref">Borrowed from NoBroker</span></div>
+      <div class="card"><h4>Infrastructure tracker</h4><p>Metro Phase 2 and Future City with funding and construction status, not developer promises.</p><span class="ref">OTHO original</span></div>
+      <div class="card"><h4>Services layer</h4><p>Home loans, legal checks, registration, interiors. Added later, once trust exists.</p><span class="ref">Borrowed from NoBroker</span></div>
+    </div>
+
+    <h3>Built in four layers</h3>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-when">Layer 1<em>Days 1–90</em></div>
+        <div><div class="pillar-t">Trust</div><div class="pillar-d">Website, project pages, the comparison engine, reviews and guides. <b>No listings, no transactions.</b> We earn the right to be believed before we ask for anything.</div></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-when">Layer 2<em>Months 4–12</em></div>
+        <div><div class="pillar-t">Coverage</div><div class="pillar-d">Every meaningful Hyderabad project reviewed and comparable. Resident reviews live. Price estimates from registration data. <b>OTHO becomes the default place to check before buying in this city.</b></div></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-when">Layer 3<em>Year 2</em></div>
+        <div><div class="pillar-t">Transactions</div><div class="pillar-d">Exclusive developer mandates, site visits, bookings. Revenue arrives on intent we already own, so cost per booking is a fraction of what portal leads cost.</div></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-when">Layer 4<em>Year 3+</em></div>
+        <div><div class="pillar-t">Services and data</div><div class="pillar-d">Loans, legal, registration, interiors. And the data business — developers and banks paying for what OTHO knows about demand. <b>This is the high-margin end.</b></div></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h4>The sequencing is the strategy</h4>
+      <p>Every competitor started at Layer 3 and tried to reverse into trust. It doesn't work — you can't earn credibility from people already annoyed by your calls. Starting at Layer 1 is slower for six months and much harder to copy afterwards.</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section>
+    <div class="sechead"><span class="secnum">07</span><h2>What we produce</h2></div>
+
+    <p class="lead">The platform is content. These are the formats, and each one does a specific job.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Format</th><th>What it is</th><th>Volume</th><th>Job</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Project review film</strong></td><td>8–12 min walkthrough with a verdict. Good and bad, on camera.</td><td class="num">2 / month</td><td>The signature format. Builds the review library.</td></tr>
+          <tr><td><strong>Comparison film</strong></td><td>Two projects, one screen, real numbers.</td><td class="num">1 / month</td><td>Most shared format. Drives the comparison tool.</td></tr>
+          <tr><td><strong>Founder podcast</strong></td><td>30–40 min with a developer, planner, architect or lawyer.</td><td class="num">2 / month</td><td>Authority. Only OTHO can book these guests.</td></tr>
+          <tr><td><strong>Locality deep-dive</strong></td><td>Kokapet, Financial District, Tellapur, Mokila — including drawbacks.</td><td class="num">1 / month</td><td>Search traffic and AI citations.</td></tr>
+          <tr><td><strong>The dictionary</strong></td><td>Loading factor, UDS, carpet vs SBA, reading a RERA filing.</td><td class="num">2 / month</td><td>Permanent traffic. Gets OTHO quoted by AI.</td></tr>
+          <tr><td><strong>Monthly market note</strong></td><td>Registrations, prices, launches, absorption. Real data, on a schedule.</td><td class="num">1 / month</td><td>Journalists start quoting it. Free PR forever.</td></tr>
+          <tr><td><strong>Vertical clips</strong></td><td>Cut from everything above.</td><td class="num">20–25 / month</td><td>Reach on Instagram, YouTube Shorts, LinkedIn.</td></tr>
+          <tr><td><strong>Founder posts</strong></td><td>Site observations, pricing oddities, war stories.</td><td class="num">8–10 / month</td><td>Nobody can copy twenty years of stories.</td></tr>
+          <tr><td><strong>Construction updates</strong></td><td>Dated progress films for mandate projects.</td><td class="num">Per project</td><td>Cuts cancellations. Proves OTHO shows up.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>All of it comes from <strong>two shoot days a month</strong> — one studio, one on site. Roughly 35 usable pieces. Production is what Production X does, which is why this costs a fraction of agency rates.</p>
+  </section>
+
+  <!-- 08 -->
+  <section>
+    <div class="sechead"><span class="secnum">08</span><h2>How we promote it</h2></div>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Channel</th><th>What runs</th><th>Job</th></tr></thead>
+        <tbody>
+          <tr><td><strong>YouTube</strong></td><td>Review films, comparisons, podcast. The main home for everything long.</td><td>Where property research actually happens now</td></tr>
+          <tr><td><strong>Instagram</strong></td><td>Vertical clips, project reveals, founder pieces</td><td>Reach and recall</td></tr>
+          <tr><td><strong>LinkedIn</strong></td><td>Founder posts, market notes, developer commentary</td><td>Reaches GCC employees — the actual buyers at this price</td></tr>
+          <tr><td><strong>Search &amp; AI</strong></td><td>Guides, locality pages, comparisons written to be cited</td><td>Free enquiries that compound monthly</td></tr>
+          <tr><td><strong>Google Search ads</strong></td><td>Project names, locality terms, competitor names</td><td>Small budget, highest intent only</td></tr>
+          <tr><td><strong>Meta retargeting</strong></td><td>People who watched a film or opened a project page</td><td>Cheap re-engagement. No cold reach.</td></tr>
+          <tr><td><strong>WhatsApp</strong></td><td>Opt-in updates, visit confirmations, buyer conversations</td><td>Highest open rate in this market</td></tr>
+          <tr><td><strong>PR</strong></td><td>The monthly market note, pitched to Telangana Today, Deccan Chronicle, Siasat</td><td>Third-party credibility, no media cost</td></tr>
+          <tr><td><strong>Developers</strong></td><td>Co-marketing on mandate projects</td><td>They fund reach OTHO would otherwise buy</td></tr>
+          <tr><td><strong>Portals</strong></td><td>Listings for coverage only</td><td>Necessary, never the core. Speed of response decides everything.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box b">
+      <h4>The free one that matters most</h4>
+      <p>Response time. A lead that waits four hours is gone. A response clock in the CRM from day one, reported weekly. Costs nothing, protects everything spent upstream.</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section>
+    <div class="sechead"><span class="secnum">09</span><h2>The first 90 days</h2></div>
+
+    <p class="lead">One project — Neopolis — used to build and prove the whole system.</p>
+
+    <div class="phase">
+      <div class="phase-when">Days 1–30<em>Foundation</em></div>
+      <div class="phase-body">
+        <h4>Identity, plumbing, first content</h4>
+        <ul>
+          <li>OTHO brand applied properly — logo, templates, tone, the Propertunity change completed everywhere</li>
+          <li>Domain, hosting, analytics, CRM with routing and a response clock</li>
+          <li>Google Business, Instagram, LinkedIn, YouTube claimed and set up</li>
+          <li>Website design signed off; comparison engine specified</li>
+          <li>Sit with sales: what buyers ask, where they walk away</li>
+          <li>First studio day — two podcast episodes, founder pieces to camera</li>
+        </ul>
+        <div class="phase-out"><strong>End of month 1:</strong> OTHO exists online, CRM works, two episodes in hand</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-when">Days 31–60<em>Launch</em></div>
+      <div class="phase-body">
+        <h4>Website live, publishing starts</h4>
+        <ul>
+          <li>Website live — Neopolis project page, comparison engine, real rate calculator, guides, visit booking</li>
+          <li>Podcast launches, fortnightly from here</li>
+          <li>First project review film and first comparison film published</li>
+          <li>Guides and locality pages start publishing weekly</li>
+          <li>Google Search on project terms; portal listings up</li>
+          <li>Site shoot — walkthrough, drone, progress, location drive</li>
+        </ul>
+        <div class="phase-out"><strong>End of month 2:</strong> platform live, first tracked enquiries, search indexing</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-when">Days 61–90<em>Prove</em></div>
+      <div class="phase-body">
+        <h4>Widen, measure, decide</h4>
+        <ul>
+          <li>Meta retargeting on, now there's an audience to retarget</li>
+          <li>Second and third project reviews — the library starts</li>
+          <li>First monthly market note published and pitched to press</li>
+          <li>Channel partner kit with per-partner tracking links</li>
+          <li>Full funnel report from real numbers — targets set here, not before</li>
+          <li>Documented playbook so project two starts at week six</li>
+        </ul>
+        <div class="phase-out"><strong>End of month 3:</strong> real cost per enquiry, agreed targets, a repeatable system</div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h4>What we can't promise yet</h4>
+      <p>Cost per booking. We have no baseline for OTHO, so any number today would be invented. At day 90 you'll have the real one, and we'll set targets against it together.</p>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section>
+    <div class="sechead"><span class="secnum">10</span><h2>After the first 90 days</h2></div>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Window</th><th>What happens</th><th>The milestone</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Months 4–6</strong></td><td>Review library grows to 10–12 Hyderabad projects. Resident reviews open. Search and AI start delivering enquiries at no media cost. Referral programme live.</td><td>First enquiries arriving free</td></tr>
+          <tr><td><strong>Months 7–9</strong></td><td>Price estimates built from registration data. Second and third mandates onboarded using the Neopolis template. Paid media scales only if cost per booking justifies it.</td><td>Three projects on one system</td></tr>
+          <tr><td><strong>Months 10–12</strong></td><td>Every meaningful Kokapet and west Hyderabad project covered. Market note quoted by press. Services layer begins — loan and legal partners.</td><td>Default place to check in west Hyderabad</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section>
+    <div class="sechead"><span class="secnum">11</span><h2>Where this goes</h2></div>
+
+    <p class="lead">The founders' ambition is national and then global. Here is what that looks like as a sequence rather than a slogan.</p>
+
+    <div class="horizon">
+      <div class="hz">
+        <div class="hz-y">Year 1<em>Hyderabad west</em></div>
+        <div><div class="hz-t">Own one micro-market completely</div><div class="hz-d">Kokapet, Financial District, Narsingi, Tellapur. Every project reviewed, compared and honestly rated. Revenue from mandates. The goal is not scale — it's proof that the model converts better than portal leads.</div></div>
+      </div>
+      <div class="hz">
+        <div class="hz-y">Year 2<em>Hyderabad</em></div>
+        <div><div class="hz-t">The whole city, plus transactions</div><div class="hz-d">Full city coverage. Exclusive mandates as the core revenue line. Services layer live. OTHO becomes the name buyers check before they visit anything.</div></div>
+      </div>
+      <div class="hz">
+        <div class="hz-y">Years 3–4<em>South India</em></div>
+        <div><div class="hz-t">Bangalore, Chennai, Pune</div><div class="hz-d">The content and review system is city-agnostic — only the data changes. Each new city launches on the template Neopolis produced, with a local team and the same standard of honesty.</div></div>
+      </div>
+      <div class="hz">
+        <div class="hz-y">Years 5–7<em>India</em></div>
+        <div><div class="hz-t">National platform, data business</div><div class="hz-d">Top ten cities. The high-margin line arrives: developers, banks and funds paying for OTHO's demand data. This is where PropEquity earns ~45% EBITDA, and where OTHO's coverage becomes genuinely valuable.</div></div>
+      </div>
+      <div class="hz">
+        <div class="hz-y">Years 8–10<em>Global</em></div>
+        <div><div class="hz-t">NRI corridors first</div><div class="hz-d">The natural first step abroad is not a new market — it's the same market from the other side. Gulf, Singapore, US and UK buyers purchasing Indian property, who need trustworthy remote due diligence more than anyone. Then the model travels to comparable markets.</div></div>
+      </div>
+    </div>
+
+    <div class="pull">Ten years is four cities and one honest habit, repeated.</div>
+
+    <div class="box g">
+      <h4>What makes it defensible</h4>
+      <p>A competitor can copy the website in a quarter. What they cannot copy is a library of hundreds of honest project reviews built over years, the resident reviews attached to them, and a reputation for saying what's wrong with a building. That archive compounds and can't be bought.</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section>
+    <div class="sechead"><span class="secnum">12</span><h2>What we need from you</h2></div>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>What</th><th>Why</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td><strong>One person who can approve</strong></td><td>Approval by committee misses launch windows.</td><td>Day 1</td></tr>
+          <tr><td><strong>Founders on camera, twice a month</strong></td><td>Half a day. The reviews and podcast are the whole plan, and only you can front them.</td><td>From week 3</td></tr>
+          <tr><td><strong>Two guest introductions a month</strong></td><td>Your relationships are what make the podcast unmatchable.</td><td>Ongoing</td></tr>
+          <tr><td><strong>Willingness to publish the negatives</strong></td><td>The honest reviews are the moat. If we soften them to protect a developer relationship, the whole strategy collapses into another portal.</td><td>Agree now</td></tr>
+          <tr><td><strong>Your real numbers</strong></td><td>Average unit value and commission, so the model stops being our guesswork.</td><td>Week 2</td></tr>
+          <tr><td><strong>Weekly time with sales</strong></td><td>Marketing that doesn't hear objections keeps producing leads sales can't close.</td><td>Ongoing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box">
+      <h4>The one that will be hardest</h4>
+      <p>Publishing honest negatives on projects run by developers you've known for twenty years. It will be uncomfortable the first time. It is also the only reason a buyer would believe anything else on the platform — and the reason a developer's inventory moves faster when OTHO does rate it well.</p>
+    </div>
+
+    <div class="pull">Ninety days to exist. A year to be trusted. Ten to be everywhere.</div>
+  </section>
+
+  <footer class="end">
+    <p>
+      PRODUCTION X — Strategy &amp; launch plan for OTHO Realty · August 2026<br>
+      Market and competitor figures from published company financials, Knight Frank and Anarock research, Semrush traffic estimates and industry reporting. Digital presence audit reflects public search results at time of writing. Comparison and calculator figures shown in mockups are illustrative until built from live TG-RERA filings. Unit value and commission assumptions require OTHO's actual numbers.
+    </p>
+  </footer>
+
+</div>
