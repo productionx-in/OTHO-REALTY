@@ -119,9 +119,11 @@ function kicker(s, text, color) {
     ["01", "Where OTHO stands today", "The honest audit. Both names, zero footprint."],
     ["02", "The gap in the market", "Why no existing platform can fix its worst problem."],
     ["03", "SWOT", "What we have, what we lack, and what could go wrong."],
+
     ["04", "The model and the platform", "CarWale for property. What we build, borrowed from whom."],
-    ["05", "The first 90 days", "Week by week, with something finished each month."],
-    ["06", "Ten years", "Hyderabad to India to global, as a sequence."]
+    ["05", "Budget and what it returns", "Three levels, and how little has to happen to break even."],
+    ["06", "The first 90 days", "Week by week, with something finished each month."],
+    ["07", "Ten years", "Hyderabad to India to global, as a sequence."]
   ];
   rows.forEach((r, i) => {
     const y = 1.85 + i * 0.82;
@@ -809,10 +811,235 @@ function kicker(s, text, color) {
   s.addNotes("Ten channels, each with a job. If asked what we would cut first at a lower budget: cold paid reach goes, organic stays. The response time line at the bottom costs nothing and protects everything.");
 }
 
+
+// ---------- BUDGET: TIERS ----------
+{
+  const s = lightSlide();
+  sectionTitle(s, "11", "Budget");
+  kicker(s, "Three levels. Start low, move up only when the numbers justify it.");
+
+  const tiers = [
+    ["Level 1", "Foundation", "₹1.2L", [["Media spend","₹40,000"],["Tools & CRM","₹15,000"],["Production X","₹65,000"]],
+     "Website live, podcast running, articles publishing. Paid limited to project-name search.", false],
+    ["Level 2  ·  Recommended", "Build", "₹2.5L", [["Media spend","₹1,00,000"],["Tools & CRM","₹20,000"],["Production X","₹1,30,000"]],
+     "Full content calendar, two shoot days a month, search and retargeting live, portals active.", true],
+    ["Level 3  ·  Month 7+", "Scale", "₹5L", [["Media spend","₹2,60,000"],["Tools & CRM","₹30,000"],["Production X","₹2,10,000"]],
+     "Only once cost per booking is known and working. Adds Meta reach, YouTube ads and PR.", false]
+  ];
+
+  tiers.forEach((t, i) => {
+    const x = M + i * 4.0;
+    const on = t[5];
+    s.addShape(pres.ShapeType.rect, {
+      x, y: 1.72, w: 3.7, h: 4.3,
+      fill: { color: on ? NAVY : CARD },
+      line: { color: on ? NAVY : RULE, width: on ? 1.5 : 0.5 },
+      shadow: shadow()
+    });
+    s.addText(t[0].toUpperCase(), {
+      x: x + 0.26, y: 1.95, w: 3.18, h: 0.3,
+      fontFace: BODY, fontSize: 9, bold: true, color: on ? GOLD_BR : GREY_LT, charSpacing: 1.2, margin: 0
+    });
+    s.addText(t[1], {
+      x: x + 0.26, y: 2.28, w: 3.18, h: 0.42,
+      fontFace: HEAD, fontSize: 19, bold: true, color: on ? WHITE : NAVY, margin: 0
+    });
+    s.addText(t[2], {
+      x: x + 0.26, y: 2.72, w: 3.18, h: 0.72,
+      fontFace: HEAD, fontSize: 38, bold: true, color: on ? WHITE : NAVY, margin: 0
+    });
+    s.addText("PER MONTH", {
+      x: x + 0.26, y: 3.44, w: 3.18, h: 0.26,
+      fontFace: BODY, fontSize: 9, color: on ? "9AA3AD" : GREY_LT, charSpacing: 1.2, margin: 0
+    });
+    t[3].forEach((ln, j) => {
+      const ly = 3.85 + j * 0.36;
+      s.addText(ln[0], {
+        x: x + 0.26, y: ly, w: 1.95, h: 0.32,
+        fontFace: BODY, fontSize: 12, color: on ? "C9CDD3" : GREY, valign: "middle", margin: 0
+      });
+      s.addText(ln[1], {
+        x: x + 2.2, y: ly, w: 1.24, h: 0.32,
+        fontFace: BODY, fontSize: 12, bold: true, color: on ? WHITE : NAVY,
+        align: "right", valign: "middle", margin: 0
+      });
+    });
+    s.addText(t[4], {
+      x: x + 0.26, y: 5.05, w: 3.18, h: 0.85,
+      fontFace: BODY, fontSize: 11, color: on ? "9AA3AD" : GREY_LT, lineSpacing: 15, margin: 0
+    });
+  });
+
+  s.addText(
+    "Media is the part that scales. Production and management stay roughly flat, because the content engine " +
+    "runs on the same two shoot days whatever the ad budget is.",
+    { x: M, y: 6.2, w: W, h: 0.7, fontFace: BODY, fontSize: 14, color: NAVY, lineSpacing: 21, margin: 0 }
+  );
+  s.addNotes("Lead with Level 2 as the recommendation but make clear Level 1 is a real option, not a token. Say plainly: Level 3 is gated - we do not scale spend until we know what a booking actually costs. That restraint is what makes the whole budget credible.");
+}
+
+// ---------- BUDGET: SETUP ----------
+{
+  const s = lightSlide();
+  sectionTitle(s, "11", "What it costs to start");
+
+  const rows = [
+    ["Website and comparison engine v1", "9 project pages, comparison tool, real-rate calculator, guides, visit booking, CRM connected", "₹2–3L"],
+    ["Podcast setup", "We already own the cameras. This is set dressing and sound only.", "₹30–50k"],
+    ["Brand kit", "Logo application, templates, partner collateral, ad templates with RERA number built in", "₹40–60k"]
+  ];
+  rows.forEach((r, i) => {
+    const y = 1.62 + i * 0.92;
+    s.addShape(pres.ShapeType.rect, {
+      x: M, y, w: W, h: 0.82, fill: { color: CARD }, line: { color: RULE, width: 0.5 }
+    });
+    s.addText(r[0], {
+      x: M + 0.28, y, w: 3.9, h: 0.82,
+      fontFace: HEAD, fontSize: 14, bold: true, color: NAVY, valign: "middle", margin: 0
+    });
+    s.addText(r[1], {
+      x: M + 4.35, y, w: 5.9, h: 0.82,
+      fontFace: BODY, fontSize: 12, color: GREY, valign: "middle", lineSpacing: 17, margin: 0
+    });
+    s.addText(r[2], {
+      x: M + W - 1.85, y, w: 1.6, h: 0.82,
+      fontFace: HEAD, fontSize: 16, bold: true, color: NAVY,
+      align: "right", valign: "middle", margin: 0
+    });
+  });
+
+  s.addShape(pres.ShapeType.rect, {
+    x: M, y: 4.4, w: W, h: 0.82, fill: { color: NAVY }, line: { color: NAVY, width: 0.5 }
+  });
+  s.addText("Total setup, before launch", {
+    x: M + 0.28, y: 4.4, w: 6.0, h: 0.82,
+    fontFace: HEAD, fontSize: 15, bold: true, color: WHITE, valign: "middle", margin: 0
+  });
+  s.addText("₹2.7–4.1L", {
+    x: M + W - 2.4, y: 4.4, w: 2.15, h: 0.82,
+    fontFace: HEAD, fontSize: 22, bold: true, color: GOLD_BR,
+    align: "right", valign: "middle", margin: 0
+  });
+
+  s.addText("Built once, reused on every project after Neopolis. Only the shoots repeat.", {
+    x: M, y: 5.42, w: W, h: 0.4, fontFace: BODY, fontSize: 14.5, bold: true, color: NAVY, margin: 0
+  });
+  s.addText(
+    "One honest caveat: version one of the comparison engine is hand-built data for 10–15 projects. " +
+    "Automating it — pulling RERA and registration records directly — is a Layer 2 engineering cost we will " +
+    "scope properly once we know the data is worth automating.",
+    { x: M, y: 5.85, w: W, h: 0.85, fontFace: BODY, fontSize: 13, italic: true, color: GREY, lineSpacing: 19, margin: 0 }
+  );
+  s.addNotes("The caveat at the bottom is deliberate. Do not let them think the full automated platform is included for three lakh. Version one is manual data on a small set of projects, which is the right way to test whether anyone values it before building a pipeline.");
+}
+
+// ---------- KPIs ----------
+{
+  const s = lightSlide();
+  sectionTitle(s, "12", "What we measure");
+  kicker(s, "Reported from the first week of spend. These are counted, not estimated.");
+
+  const rows = [
+    ["Brand search visibility", "Whether OTHO appears when someone looks for it", "Monthly", GOLD],
+    ["Podcast views and watch time", "Whether the authority play is landing", "Monthly", GOLD],
+    ["Enquiries by source", "Which channels produce — free and paid counted separately", "Weekly", BLUE],
+    ["Cost per enquiry", "Whether paid media is getting cheaper or dearer", "Weekly", BLUE],
+    ["Response time", "How long a buyer waits before a human replies", "Weekly", BLUE],
+    ["Site visits booked vs held", "Whether we bring serious people or curious ones", "Weekly", BLUE],
+    ["Bookings by source", "The number that finally matters", "Monthly", GREEN],
+    ["Cost per booking", "What it costs to sell one home through marketing", "Monthly", GREEN]
+  ];
+  rows.forEach((r, i) => {
+    const y = 1.72 + i * 0.53;
+    s.addShape(pres.ShapeType.rect, {
+      x: M, y, w: W, h: 0.47, fill: { color: CARD }, line: { color: RULE, width: 0.5 }
+    });
+    s.addShape(pres.ShapeType.ellipse, { x: M + 0.24, y: y + 0.155, w: 0.16, h: 0.16, fill: { color: r[3] } });
+    s.addText(r[0], {
+      x: M + 0.58, y, w: 3.6, h: 0.47,
+      fontFace: HEAD, fontSize: 13, bold: true, color: NAVY, valign: "middle", margin: 0
+    });
+    s.addText(r[1], {
+      x: M + 4.35, y, w: 6.2, h: 0.47,
+      fontFace: BODY, fontSize: 12, color: GREY, valign: "middle", margin: 0
+    });
+    s.addText(r[2], {
+      x: M + W - 1.5, y, w: 1.25, h: 0.47,
+      fontFace: BODY, fontSize: 11, bold: true, color: GREY_LT,
+      align: "right", valign: "middle", margin: 0
+    });
+  });
+
+  s.addText(
+    "How this helps: these decide the budget. If cost per enquiry falls and site visits convert, we move up a level. " +
+    "If they don't, we stop and fix the funnel before spending more.",
+    { x: M, y: 6.1, w: W, h: 0.7, fontFace: BODY, fontSize: 14, color: NAVY, lineSpacing: 21, margin: 0 }
+  );
+  s.addNotes("Answer the question they are really asking - how do I know this is working. These KPIs are a decision function, not a report card. Response time is the one to watch weekly because it is free to fix and it protects everything spent upstream.");
+}
+
+// ---------- BREAK-EVEN ----------
+{
+  const s = lightSlide();
+  sectionTitle(s, "12", "What it takes to break even");
+  kicker(s, "At this budget the useful question isn't return multiples — it's how little has to happen before this pays for itself.");
+
+  const cw2 = 2.55, c0 = W - cw2 * 2 - 2.1;
+  const rows = [
+    ["", "Foundation", "Build", "", "hd"],
+    ["Monthly cost, all in", "₹1.2L", "₹2.5L", "From section 11", "n"],
+    ["Average unit value", "₹2.5 Cr", "₹2.5 Cr", "OUR ASSUMPTION", "a"],
+    ["OTHO commission", "2%", "2%", "OUR ASSUMPTION", "a"],
+    ["Revenue per booking", "₹5L", "₹5L", "Calculated", "n"],
+    ["Bookings needed to break even", "1 in 4 months", "1 in 2 months", "Calculated", "t"],
+    ["Return at 1 booking a month", "4.2×", "2.0×", "Calculated", "t"],
+    ["Return at 2 bookings a month", "8.3×", "4.0×", "Calculated", "t"]
+  ];
+
+  rows.forEach((r, i) => {
+    const y = 1.95 + i * 0.5;
+    const hd = r[4] === "hd", tot = r[4] === "t", asm = r[4] === "a";
+    const bg = hd ? NAVY : (tot ? "E9EAE7" : CARD);
+    const fg = hd ? WHITE : NAVY;
+
+    s.addShape(pres.ShapeType.rect, { x: M, y, w: c0, h: 0.5, fill: { color: bg }, line: { color: RULE, width: 0.5 } });
+    s.addText(r[0], {
+      x: M + 0.22, y, w: c0 - 0.4, h: 0.5,
+      fontFace: BODY, fontSize: 12.5, bold: hd || tot, color: fg, valign: "middle", margin: 0
+    });
+
+    [r[1], r[2]].forEach((v, j) => {
+      const x = M + c0 + j * cw2;
+      s.addShape(pres.ShapeType.rect, { x, y, w: cw2, h: 0.5, fill: { color: bg }, line: { color: RULE, width: 0.5 } });
+      s.addText(v, {
+        x, y, w: cw2, h: 0.5,
+        fontFace: hd ? BODY : HEAD, fontSize: hd ? 12 : 13.5, bold: true,
+        color: tot ? GREEN : fg, align: "center", valign: "middle", margin: 0
+      });
+    });
+
+    const x3 = M + c0 + cw2 * 2;
+    s.addShape(pres.ShapeType.rect, { x: x3, y, w: 2.1, h: 0.5, fill: { color: bg }, line: { color: RULE, width: 0.5 } });
+    s.addText(r[3], {
+      x: x3 + 0.14, y, w: 1.82, h: 0.5,
+      fontFace: BODY, fontSize: asm ? 9.5 : 10.5, bold: asm,
+      color: asm ? GOLD : (hd ? WHITE : GREY_LT),
+      charSpacing: asm ? 0.6 : 0, valign: "middle", margin: 0
+    });
+  });
+
+  s.addText(
+    "The two amber rows are ours. Give us your real unit value and commission and this table updates in front of you — " +
+    "it's the only part of the plan we're guessing at. Note too that commission pays on registration, so cash lands three to six months behind the spend.",
+    { x: M, y: 6.0, w: W, h: 0.85, fontFace: BODY, fontSize: 13, italic: true, color: GREY, lineSpacing: 19, margin: 0 }
+  );
+  s.addNotes("Volunteer the amber rows before anyone challenges them. Then land the point: Foundation pays for itself at one booking every four months. That is a much easier yes than a forecast they would want to argue with. If they give you the real numbers in the room, redo the arithmetic live.");
+}
+
 // ---------- 22 90 DAYS SECTION ----------
 {
   const s = darkSlide();
-  s.addText("11", {
+  s.addText("13", {
     x: M, y: 2.2, w: 1.0, h: 0.6, fontFace: HEAD, fontSize: 20, bold: true, color: GOLD_BR, margin: 0
   });
   s.addText("The first 90 days", {
@@ -860,7 +1087,7 @@ const months = [
 
 months.forEach((mo, idx) => {
   const s = lightSlide();
-  sectionTitle(s, "11", mo[0] + "  ·  " + mo[1]);
+  sectionTitle(s, "13", mo[0] + "  ·  " + mo[1]);
 
   s.addText(mo[2], {
     x: M, y: 1.25, w: W, h: 0.45, fontFace: HEAD, fontSize: 20, bold: true, color: NAVY, margin: 0
@@ -894,7 +1121,7 @@ months.forEach((mo, idx) => {
 // ---------- 26 AFTER 90 DAYS ----------
 {
   const s = lightSlide();
-  sectionTitle(s, "12", "After the first 90 days");
+  sectionTitle(s, "14", "After the first 90 days");
 
   const rows = [
     ["Months 4–6", "Review library grows to 10–12 Hyderabad projects. Resident reviews open. Search and AI start delivering enquiries at no media cost. Referral programme live.", "First enquiries arriving free"],
@@ -925,7 +1152,7 @@ months.forEach((mo, idx) => {
 // ---------- 27 TEN YEARS ----------
 {
   const s = lightSlide();
-  sectionTitle(s, "13", "Where this goes");
+  sectionTitle(s, "15", "Where this goes");
 
   const hz = [
     ["Year 1", "Hyderabad west", "Own one micro-market completely", "Kokapet, Financial District, Narsingi, Tellapur. Every project reviewed and honestly rated. The goal is not scale — it's proof the model converts better than portal leads."],
@@ -965,7 +1192,7 @@ months.forEach((mo, idx) => {
 // ---------- 28 WHAT WE NEED ----------
 {
   const s = lightSlide();
-  sectionTitle(s, "14", "What we need from you");
+  sectionTitle(s, "16", "What we need from you");
 
   const rows = [
     ["One person who can approve", "Approval by committee misses launch windows.", "Day 1"],

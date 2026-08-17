@@ -196,6 +196,27 @@
   .sw dd { margin: 0 0 13px; font-size: 14px; color: var(--ink-2); line-height: 1.48; }
   .sw dd:last-child { margin-bottom: 0; }
 
+
+  /* budget tiers */
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .tier { border: 1px solid var(--rule); background: var(--surface); padding: 22px 21px; display: flex; flex-direction: column; }
+  .tier.on { background: var(--ink); border-color: var(--ink); }
+  .tier-tag { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+  .tier.on .tier-tag { color: #E8B04B; }
+  .tier-name { font-family: var(--f-display); font-weight: 800; font-size: 1.3rem; letter-spacing: -0.03em; margin-bottom: 4px; }
+  .tier.on .tier-name, .tier.on .tier-price { color: var(--paper); }
+  .tier-price { font-family: var(--f-display); font-weight: 800; font-size: 2.2rem; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; line-height: 1.05; margin-bottom: 3px; }
+  .tier-per { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px; }
+  .tier ul { margin: 0 0 14px; padding-left: 0; list-style: none; }
+  .tier li { font-size: 14px; display: flex; justify-content: space-between; gap: 14px; padding: 7px 0; border-bottom: 1px dotted var(--rule-2); margin: 0; color: var(--ink-2); }
+  .tier.on li { color: #B4B8BE; border-bottom-color: #3A3F45; }
+  .tier li:last-child { border-bottom: none; }
+  .tier li span:last-child { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; white-space: nowrap; }
+  .tier.on li span:last-child { color: var(--paper); }
+  .tier-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--ink-3); line-height: 1.45; }
+  .tier.on .tier-foot { border-top-color: #3A3F45; }
+  .kpi-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 9px; vertical-align: 1px; }
+
   /* boxes */
   .box { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--amber); padding: 19px 21px; margin: 24px 0; }
   .box h4 { color: var(--amber); margin-bottom: 7px; }
@@ -596,9 +617,125 @@
     </div>
   </section>
 
+
   <!-- 10 -->
   <section>
-    <div class="sechead"><span class="secnum">10</span><h2>The first 90 days</h2></div>
+    <div class="sechead"><span class="secnum">10</span><h2>Budget</h2></div>
+
+    <p class="lead">Three levels. Start low, move up only when the numbers justify it.</p>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-tag">Level 1</div>
+        <div class="tier-name">Foundation</div>
+        <div class="tier-price">₹1.2L</div>
+        <div class="tier-per">per month</div>
+        <ul>
+          <li><span>Media spend</span><span>₹40,000</span></li>
+          <li><span>Tools &amp; CRM</span><span>₹15,000</span></li>
+          <li><span>Production X</span><span>₹65,000</span></li>
+        </ul>
+        <div class="tier-foot">Website live, podcast running, articles publishing. Paid limited to project-name search.</div>
+      </div>
+      <div class="tier on">
+        <div class="tier-tag">Level 2 · Recommended</div>
+        <div class="tier-name">Build</div>
+        <div class="tier-price">₹2.5L</div>
+        <div class="tier-per">per month</div>
+        <ul>
+          <li><span>Media spend</span><span>₹1,00,000</span></li>
+          <li><span>Tools &amp; CRM</span><span>₹20,000</span></li>
+          <li><span>Production X</span><span>₹1,30,000</span></li>
+        </ul>
+        <div class="tier-foot">Full content calendar, two shoot days a month, search and retargeting live, portals active.</div>
+      </div>
+      <div class="tier">
+        <div class="tier-tag">Level 3 · Month 7+</div>
+        <div class="tier-name">Scale</div>
+        <div class="tier-price">₹5L</div>
+        <div class="tier-per">per month</div>
+        <ul>
+          <li><span>Media spend</span><span>₹2,60,000</span></li>
+          <li><span>Tools &amp; CRM</span><span>₹30,000</span></li>
+          <li><span>Production X</span><span>₹2,10,000</span></li>
+        </ul>
+        <div class="tier-foot">Only once cost per booking is known and working. Adds Meta reach, YouTube ads and PR.</div>
+      </div>
+    </div>
+
+    <p>Media is the part that scales. Production and management stay roughly flat, because the content engine runs on the same two shoot days whatever the ad budget is.</p>
+
+    <h3>What it costs to start</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Item</th><th>What's included</th><th class="r">Cost</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Website and comparison engine v1</strong></td><td>9 project pages, comparison tool, real-rate calculator, guides, visit booking, CRM connected</td><td class="r num">₹2–3L</td></tr>
+          <tr><td><strong>Podcast setup</strong></td><td>We already own the cameras. This is set dressing and sound only.</td><td class="r num">₹30–50k</td></tr>
+          <tr><td><strong>Brand kit</strong></td><td>Logo application, templates, partner collateral, ad templates with the RERA number built in</td><td class="r num">₹40–60k</td></tr>
+          <tr class="tot"><td>Total setup, before launch</td><td>Built once, reused on every project after Neopolis. Only the shoots repeat.</td><td class="r num">₹2.7–4.1L</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box">
+      <h4>One honest caveat</h4>
+      <p>Version one of the comparison engine is <strong>hand-built data for 10–15 projects</strong>. Automating it — pulling RERA and registration records directly — is a Layer 2 engineering cost, and we'd scope it properly once we know the data is worth automating. Don't budget today for the fully automated platform.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section>
+    <div class="sechead"><span class="secnum">11</span><h2>What we measure, and how it helps</h2></div>
+
+    <p class="lead">Reported from the first week of spend. These are counted, not estimated.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>KPI</th><th>What it tells you</th><th>Reported</th></tr></thead>
+        <tbody>
+          <tr><td><span class="kpi-dot" style="background:var(--amber)"></span><strong>Brand search visibility</strong></td><td>Whether OTHO appears when someone looks for it</td><td>Monthly</td></tr>
+          <tr><td><span class="kpi-dot" style="background:var(--amber)"></span><strong>Podcast views and watch time</strong></td><td>Whether the authority play is landing</td><td>Monthly</td></tr>
+          <tr><td><span class="kpi-dot" style="background:var(--blue)"></span><strong>Enquiries by source</strong></td><td>Which channels produce — free and paid counted separately</td><td>Weekly</td></tr>
+          <tr><td><span class="kpi-dot" style="background:var(--blue)"></span><strong>Cost per enquiry</strong></td><td>Whether paid media is getting cheaper or dearer</td><td>Weekly</td></tr>
+          <tr><td><span class="kpi-dot" style="background:var(--blue)"></span><strong>Response time</strong></td><td>How long a buyer waits before a human replies</td><td>Weekly</td></tr>
+          <tr><td><span class="kpi-dot" style="background:var(--blue)"></span><strong>Site visits booked vs held</strong></td><td>Whether we bring serious people or curious ones</td><td>Weekly</td></tr>
+          <tr><td><span class="kpi-dot" style="background:var(--green)"></span><strong>Bookings by source</strong></td><td>The number that finally matters</td><td>Monthly</td></tr>
+          <tr><td><span class="kpi-dot" style="background:var(--green)"></span><strong>Cost per booking</strong></td><td>What it costs to sell one home through marketing</td><td>Monthly</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>How this helps:</strong> these decide the budget. If cost per enquiry falls and site visits convert, we move up a level. If they don't, we stop and fix the funnel before spending more. The KPIs are a decision function, not a report card.</p>
+
+    <h3>What it takes to break even</h3>
+    <p>At this budget the useful question isn't return multiples — it's how little has to happen before this pays for itself.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Line</th><th class="r">Foundation</th><th class="r">Build</th><th>Basis</th></tr></thead>
+        <tbody>
+          <tr><td>Monthly cost, all in</td><td class="r num">₹1.2L</td><td class="r num">₹2.5L</td><td>From section 10</td></tr>
+          <tr><td>Average unit value</td><td class="r num">₹2.5 Cr</td><td class="r num">₹2.5 Cr</td><td><span class="tg tg-a">Our assumption</span></td></tr>
+          <tr><td>OTHO commission</td><td class="r num">2%</td><td class="r num">2%</td><td><span class="tg tg-a">Our assumption</span></td></tr>
+          <tr><td>Revenue per booking</td><td class="r num">₹5L</td><td class="r num">₹5L</td><td>Calculated</td></tr>
+          <tr class="tot"><td>Bookings needed to break even</td><td class="r num">1 in 4 months</td><td class="r num">1 in 2 months</td><td>Calculated</td></tr>
+          <tr class="tot"><td>Return at 1 booking a month</td><td class="r num">4.2×</td><td class="r num">2.0×</td><td>Calculated</td></tr>
+          <tr class="tot"><td>Return at 2 bookings a month</td><td class="r num">8.3×</td><td class="r num">4.0×</td><td>Calculated</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box">
+      <h4>The two amber rows are ours</h4>
+      <p>We don't know OTHO's average unit value or commission rate. Give us the real numbers and this table updates in front of you — it's the only part of the plan we're guessing at.</p>
+      <p>Worth planning around too: commission usually pays on registration, so cash lands three to six months behind the spend.</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section>
+    <div class="sechead"><span class="secnum">12</span><h2>The first 90 days</h2></div>
 
     <p class="lead">One project — Neopolis — used to build and prove the whole system.</p>
 
@@ -656,9 +793,9 @@
     </div>
   </section>
 
-  <!-- 11 -->
+  <!-- 13 -->
   <section>
-    <div class="sechead"><span class="secnum">11</span><h2>After the first 90 days</h2></div>
+    <div class="sechead"><span class="secnum">13</span><h2>After the first 90 days</h2></div>
 
     <div class="scroll">
       <table>
@@ -672,9 +809,9 @@
     </div>
   </section>
 
-  <!-- 12 -->
+  <!-- 14 -->
   <section>
-    <div class="sechead"><span class="secnum">12</span><h2>Where this goes</h2></div>
+    <div class="sechead"><span class="secnum">14</span><h2>Where this goes</h2></div>
 
     <p class="lead">The founders' ambition is national and then global. Here is what that looks like as a sequence rather than a slogan.</p>
 
@@ -709,9 +846,9 @@
     </div>
   </section>
 
-  <!-- 13 -->
+  <!-- 15 -->
   <section>
-    <div class="sechead"><span class="secnum">13</span><h2>What we need from you</h2></div>
+    <div class="sechead"><span class="secnum">15</span><h2>What we need from you</h2></div>
 
     <div class="scroll">
       <table>
