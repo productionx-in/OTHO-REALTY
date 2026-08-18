@@ -108,7 +108,7 @@ function monogram(name, size) {
   var ch = (w[0] ? w[0][0] : 'O') + (w[1] ? w[1][0] : (w[0] && w[0][1] ? w[0][1] : ''));
   var s = size || 46;
   return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 46 46" aria-hidden="true" style="flex:0 0 auto">'
-    + '<rect width="46" height="46" fill="var(--ink)"/><text x="23" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="var(--brass)">' + esc(ch.toUpperCase()) + '</text></svg>';
+    + '<rect width="46" height="46" fill="var(--dark)"/><text x="23" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="var(--brass)">' + esc(ch.toUpperCase()) + '</text></svg>';
 }
 
 /* ---------- gate ---------- */
