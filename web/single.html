@@ -7,235 +7,353 @@
 <meta name="description" content="Independent reviews of Hyderabad property. Real price per usable foot, honest negatives, and your phone number never shared.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2314181D'/><text y='72' x='50' text-anchor='middle' font-size='62' font-family='Georgia' fill='%23D9B061'>O</text></svg>">
 <style>
-  :root{
-    --paper:#FAFAF8; --card:#FFFFFF; --sunk:#F1F1ED; --ink:#14181D;
-    --ink-2:#555C64; --ink-3:#8A9099; --line:#E4E4DF;
-    --brass:#9A7A25; --brass-bg:#F6EEDA;
-    --good:#2E7150; --good-bg:#E6F0EA;
-    --bad:#A8382C;  --bad-bg:#F8E9E7;
-    --info:#27548F; --info-bg:#E7EDF5;
-    --f-h:Georgia,"Iowan Old Style",Cambria,"Times New Roman",serif;
-    --f-b:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
-    --f-m:ui-monospace,"SF Mono",SFMono-Regular,Consolas,monospace;
-  }
-  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-    --paper:#0F1215; --card:#171B20; --sunk:#0A0D10; --ink:#ECEEF0;
-    --ink-2:#AEB5BC; --ink-3:#7C838B; --line:#262B31;
-    --brass:#D9B061; --brass-bg:#2C2210;
-    --good:#6CBF93; --good-bg:#132A1F; --bad:#E2857A; --bad-bg:#2C1613;
-    --info:#7BA5DF; --info-bg:#13203A;
-  }}
-  :root[data-theme="dark"]{
-    --paper:#0F1215; --card:#171B20; --sunk:#0A0D10; --ink:#ECEEF0;
-    --ink-2:#AEB5BC; --ink-3:#7C838B; --line:#262B31;
-    --brass:#D9B061; --brass-bg:#2C2210;
-    --good:#6CBF93; --good-bg:#132A1F; --bad:#E2857A; --bad-bg:#2C1613;
-    --info:#7BA5DF; --info-bg:#13203A;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-b);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-  a{color:inherit}
-  svg{max-width:100%}
+:root{
+  --paper:#FAFAF8; --card:#FFFFFF; --sunk:#F1F1ED; --ink:#14181D;
+  --ink-2:#555C64; --ink-3:#8A9099; --line:#E4E4DF;
+  --brass:#9A7A25; --brass-lt:#C9A64A; --brass-bg:#F6EEDA;
+  --good:#2E7150; --good-bg:#E6F0EA;
+  --bad:#A8382C;  --bad-bg:#F8E9E7;
+  --info:#27548F; --info-bg:#E7EDF5;
+  --sh-1:0 1px 2px rgba(20,24,29,.05);
+  --sh-2:0 4px 14px rgba(20,24,29,.08);
+  --sh-3:0 14px 38px rgba(20,24,29,.14);
+  --ease:cubic-bezier(.22,.68,.36,1);
+  --f-h:Georgia,"Iowan Old Style",Cambria,"Times New Roman",serif;
+  --f-b:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+  --f-m:ui-monospace,"SF Mono",SFMono-Regular,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1215; --card:#171B20; --sunk:#0A0D10; --ink:#ECEEF0;
+  --ink-2:#AEB5BC; --ink-3:#7C838B; --line:#262B31;
+  --brass:#D9B061; --brass-lt:#E8C88A; --brass-bg:#2C2210;
+  --good:#6CBF93; --good-bg:#132A1F; --bad:#E2857A; --bad-bg:#2C1613;
+  --info:#7BA5DF; --info-bg:#13203A;
+  --sh-1:0 1px 2px rgba(0,0,0,.4); --sh-2:0 4px 14px rgba(0,0,0,.45); --sh-3:0 14px 38px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --paper:#0F1215; --card:#171B20; --sunk:#0A0D10; --ink:#ECEEF0;
+  --ink-2:#AEB5BC; --ink-3:#7C838B; --line:#262B31;
+  --brass:#D9B061; --brass-lt:#E8C88A; --brass-bg:#2C2210;
+  --good:#6CBF93; --good-bg:#132A1F; --bad:#E2857A; --bad-bg:#2C1613;
+  --info:#7BA5DF; --info-bg:#13203A;
+  --sh-1:0 1px 2px rgba(0,0,0,.4); --sh-2:0 4px 14px rgba(0,0,0,.45); --sh-3:0 14px 38px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-b);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+a{color:inherit}
+svg{max-width:100%}
+::selection{background:var(--brass);color:#14181D}
 
-  .demo{background:var(--brass-bg);color:var(--brass);font-family:var(--f-m);font-size:11px;letter-spacing:.04em;text-align:center;padding:7px 16px}
+/* ---- reading progress ---- */
+#prog{position:fixed;top:0;left:0;height:2px;background:var(--brass);width:0;z-index:90;transition:width .12s linear}
 
-  nav{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--line)}
-  .nav-in{max-width:1120px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px}
-  .logo{font-family:var(--f-h);font-weight:700;font-size:20px;letter-spacing:-.02em;cursor:pointer;background:none;border:0;color:inherit;padding:0}
-  .nav-links{display:flex;gap:15px;font-size:13.5px;margin-left:auto;align-items:center;flex-wrap:wrap}
-  .nav-links a{color:var(--ink-3);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;white-space:nowrap}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a.on{color:var(--ink);border-bottom-color:var(--brass)}
-  .btn{background:var(--ink);color:var(--paper);border:0;font-family:var(--f-b);font-size:13px;font-weight:600;padding:9px 15px;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
-  .btn:hover{opacity:.88}
-  .btn.brass{background:var(--brass);color:#14181D}
-  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-  .btn.sm{font-size:12px;padding:6px 11px}
-  .btn.wide{width:100%}
-  .menu{display:none;background:none;border:1px solid var(--line);color:var(--ink);font-size:18px;padding:4px 11px;cursor:pointer;margin-left:auto}
-  @media(max-width:1080px){
-    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0;padding:8px 20px 14px}
-    .nav-links.open{display:flex}
-    .nav-links a{padding:10px 0;border-bottom:1px solid var(--line)}
-    .menu{display:block}
-    nav>.nav-in>.btn{display:none}
-  }
+.demo{background:var(--brass-bg);color:var(--brass);font-family:var(--f-m);font-size:11px;letter-spacing:.04em;text-align:center;padding:7px 16px}
 
-  h1{font-family:var(--f-h);font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.07;letter-spacing:-.028em;margin:0 0 14px;text-wrap:balance}
-  h2{font-family:var(--f-h);font-size:clamp(1.3rem,3vw,1.85rem);letter-spacing:-.024em;margin:0 0 10px;text-wrap:balance}
-  h3{font-family:var(--f-h);font-size:1.08rem;letter-spacing:-.016em;margin:0 0 8px}
-  .eyebrow{font-family:var(--f-m);font-size:10.5px;letter-spacing:.12em;color:var(--ink-3);margin:0 0 12px}
-  .lede{color:var(--ink-2);max-width:62ch;margin:0 0 22px}
-  .sub{font-size:clamp(1rem,2vw,1.13rem);color:var(--ink-2);max-width:54ch;margin:0 0 24px}
-  section{padding:38px 0;border-top:1px solid var(--line)}
-  section:first-of-type{border-top:0}
-  .note{font-size:13px;color:var(--ink-3);margin:12px 0 0}
-  .crumb{font-family:var(--f-m);font-size:11px;letter-spacing:.05em;color:var(--ink-3);margin:0 0 14px}
-  .crumb a{color:var(--brass);text-decoration:none}
-  .cta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+/* ---- nav ---- */
+nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:box-shadow .25s var(--ease)}
+nav.stuck{box-shadow:var(--sh-2)}
+.nav-in{max-width:1120px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px}
+.logo{font-family:var(--f-h);font-weight:700;font-size:20px;letter-spacing:-.02em;cursor:pointer;background:none;border:0;color:inherit;padding:0;transition:opacity .2s}
+.logo:hover{opacity:.7}
+.nav-links{display:flex;gap:15px;font-size:13.5px;margin-left:auto;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--ink-3);text-decoration:none;padding:4px 0;position:relative;white-space:nowrap;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--brass);transition:right .28s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.on::after{right:0}
+.nav-links a.on{color:var(--ink)}
+.btn{background:var(--ink);color:var(--paper);border:0;font-family:var(--f-b);font-size:13px;font-weight:600;padding:10px 16px;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;transition:transform .18s var(--ease),box-shadow .18s var(--ease),opacity .18s;position:relative;overflow:hidden}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--sh-2)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.brass{background:var(--brass);color:#14181D}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--brass);color:var(--brass)}
+.btn.sm{font-size:12px;padding:7px 12px}
+.btn.wide{width:100%}
+.menu{display:none;background:none;border:1px solid var(--line);color:var(--ink);font-size:18px;padding:5px 11px;cursor:pointer;margin-left:auto;transition:border-color .2s}
+@media(max-width:1080px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0;padding:8px 20px 14px;box-shadow:var(--sh-2)}
+  .nav-links.open{display:flex;animation:slideDown .28s var(--ease)}
+  .nav-links a{padding:11px 0;border-bottom:1px solid var(--line)}
+  .menu{display:block}
+  nav>.nav-in>.btn{display:none}
+}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 
-  .promise{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-  .promise div{background:var(--card);padding:17px}
-  .promise b{display:block;font-family:var(--f-h);font-size:1rem;margin-bottom:4px}
-  .promise span{font-size:13.5px;color:var(--ink-2)}
+h1{font-family:var(--f-h);font-size:clamp(1.9rem,5vw,3.15rem);line-height:1.07;letter-spacing:-.028em;margin:0 0 14px;text-wrap:balance}
+h2{font-family:var(--f-h);font-size:clamp(1.3rem,3vw,1.85rem);letter-spacing:-.024em;margin:0 0 10px;text-wrap:balance}
+h3{font-family:var(--f-h);font-size:1.08rem;letter-spacing:-.016em;margin:0 0 8px}
+.eyebrow{font-family:var(--f-m);font-size:10.5px;letter-spacing:.12em;color:var(--ink-3);margin:0 0 12px}
+.lede{color:var(--ink-2);max-width:62ch;margin:0 0 22px}
+.sub{font-size:clamp(1rem,2vw,1.13rem);color:var(--ink-2);max-width:54ch;margin:0 0 24px}
+section{padding:38px 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0}
+.note{font-size:13px;color:var(--ink-3);margin:12px 0 0}
+.crumb{font-family:var(--f-m);font-size:11px;letter-spacing:.05em;color:var(--ink-3);margin:0 0 14px}
+.crumb a{color:var(--brass);text-decoration:none}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-  .grid{display:grid;gap:14px}
-  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-  .g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-  .card{background:var(--card);border:1px solid var(--line);padding:17px;text-decoration:none;color:inherit;display:block}
-  a.card:hover{border-color:var(--brass)}
-  .card .meta{font-family:var(--f-m);font-size:10px;letter-spacing:.08em;color:var(--ink-3);margin-bottom:7px}
-  .card p{margin:6px 0 0;font-size:14px;color:var(--ink-2)}
-  .card.pad0{padding:0;overflow:hidden}
-  .card-body{padding:15px 17px}
+/* ---- view + scroll motion ---- */
+#app{animation:viewIn .34s var(--ease)}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.in{opacity:1;transform:none}
 
-  .pcard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-  .score{font-family:var(--f-h);font-size:1.4rem;line-height:1;font-variant-numeric:tabular-nums;padding:7px 10px;flex:0 0 auto}
-  .s-hi{background:var(--good-bg);color:var(--good)}
-  .s-mid{background:var(--brass-bg);color:var(--brass)}
-  .s-lo{background:var(--bad-bg);color:var(--bad)}
-  .pmeta{display:flex;gap:13px;flex-wrap:wrap;margin-top:11px;font-size:12.5px;color:var(--ink-2)}
-  .pmeta b{font-family:var(--f-m);font-variant-numeric:tabular-nums;color:var(--ink)}
-  .tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-  .tag{font-family:var(--f-m);font-size:9.5px;letter-spacing:.06em;padding:3px 7px;background:var(--sunk);color:var(--ink-3)}
+/* ---- hero ---- */
+.hero{position:relative;padding:56px 0 44px;overflow:hidden}
+.hero-bg{position:absolute;inset:-40% -20% auto -20%;height:150%;z-index:-1;
+  background:radial-gradient(46% 40% at 18% 22%,color-mix(in srgb,var(--brass) 26%,transparent),transparent 68%),
+             radial-gradient(40% 38% at 82% 8%,color-mix(in srgb,var(--info) 22%,transparent),transparent 66%),
+             radial-gradient(50% 44% at 62% 78%,color-mix(in srgb,var(--good) 16%,transparent),transparent 70%);
+  filter:blur(18px);animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-3%,2%,0) scale(1.1)}}
+.hero h1 .em{background:linear-gradient(100deg,var(--brass) 10%,var(--brass-lt) 55%,var(--brass) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-  .stat{background:var(--card);padding:14px 15px}
-  .stat b{display:block;font-family:var(--f-h);font-size:1.18rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .stat span{font-family:var(--f-m);font-size:9.5px;letter-spacing:.09em;color:var(--ink-3)}
+/* ---- promise ---- */
+.promise{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);overflow:hidden}
+.promise div{background:var(--card);padding:19px;transition:background .25s}
+.promise div:hover{background:var(--sunk)}
+.promise b{display:block;font-family:var(--f-h);font-size:1rem;margin-bottom:4px}
+.promise span{font-size:13.5px;color:var(--ink-2)}
 
-  .calc{background:var(--card);border:1px solid var(--line);padding:19px}
-  .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:13px;margin-bottom:15px}
-  label{display:block;font-family:var(--f-m);font-size:10px;letter-spacing:.09em;color:var(--ink-3);margin-bottom:5px}
-  input[type=number],input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:var(--paper);border:1px solid var(--line);color:var(--ink);font-family:var(--f-b);font-size:15px;padding:9px 11px}
-  textarea{min-height:88px;resize:vertical}
-  input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
-  input[type=range]{width:100%;accent-color:var(--brass)}
-  .out{border:1px solid var(--line)}
-  .out-row{display:flex;justify-content:space-between;gap:14px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:14.5px}
-  .out-row:last-child{border-bottom:0}
-  .out-row span:last-child{font-family:var(--f-m);font-variant-numeric:tabular-nums;font-weight:600}
-  .out-row.key{background:var(--info-bg)}
-  .out-row.key span{color:var(--info);font-weight:700}
+/* ---- cards ---- */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);padding:17px;text-decoration:none;color:inherit;display:block;box-shadow:var(--sh-1);transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
+a.card:hover,.card.lift:hover{transform:translateY(-4px);box-shadow:var(--sh-3);border-color:color-mix(in srgb,var(--brass) 40%,var(--line))}
+.card .meta{font-family:var(--f-m);font-size:10px;letter-spacing:.08em;color:var(--ink-3);margin-bottom:7px}
+.card p{margin:6px 0 0;font-size:14px;color:var(--ink-2)}
+.card.pad0{padding:0;overflow:hidden}
+.card-body{padding:15px 17px}
 
-  .scroll{overflow-x:auto;border:1px solid var(--line);background:var(--card)}
-  table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
-  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left}
-  thead th{background:var(--ink);color:#fff;font-family:var(--f-m);font-size:10px;letter-spacing:.09em;font-weight:600}
-  tbody tr:last-child td{border-bottom:0}
-  td.v{text-align:center;font-family:var(--f-m);font-variant-numeric:tabular-nums;font-weight:600}
-  td.win{background:var(--good-bg);color:var(--good)}
-  td.lose{background:var(--bad-bg);color:var(--bad)}
+/* ---- generated project visual ---- */
+.pvis{position:relative;height:168px;overflow:hidden;background:var(--sunk)}
+.pvis svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .55s var(--ease)}
+.card:hover .pvis svg{transform:scale(1.06)}
+.pvis .badge{position:absolute;left:12px;top:12px;font-family:var(--f-m);font-size:9.5px;letter-spacing:.07em;padding:4px 8px;background:color-mix(in srgb,var(--ink) 82%,transparent);color:#fff;backdrop-filter:blur(6px);z-index:2}
+.pvis .shot{position:absolute;right:10px;bottom:10px;font-family:var(--f-m);font-size:8.5px;letter-spacing:.06em;color:#fff;opacity:.55;z-index:2}
 
-  .verdict{display:flex;gap:18px;align-items:center;background:var(--ink);color:#fff;padding:19px 21px;flex-wrap:wrap;margin-bottom:16px}
-  .verdict .big{font-family:var(--f-h);font-size:2.5rem;line-height:1;color:var(--brass);font-variant-numeric:tabular-nums}
-  .verdict .lbl{font-family:var(--f-m);font-size:10px;letter-spacing:.1em;opacity:.6}
-  .verdict p{margin:0;font-size:14.5px;opacity:.86;max-width:50ch}
-  .panel{background:var(--card);border:1px solid var(--line);padding:17px}
-  .panel h3{display:flex;align-items:center;gap:9px;margin-bottom:11px;font-size:1.02rem}
-  .dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
-  .panel ul{list-style:none;margin:0;padding:0}
-  .panel li{padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-2)}
-  .panel li:last-child{border-bottom:0}
+.pcard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.pmeta{display:flex;gap:13px;flex-wrap:wrap;margin-top:11px;font-size:12.5px;color:var(--ink-2)}
+.pmeta b{font-family:var(--f-m);font-variant-numeric:tabular-nums;color:var(--ink)}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-family:var(--f-m);font-size:9.5px;letter-spacing:.06em;padding:3px 8px;background:var(--sunk);color:var(--ink-3);transition:background .2s,color .2s}
+.card:hover .tag{background:var(--brass-bg);color:var(--brass)}
 
-  .infra{border:1px solid var(--line);background:var(--card)}
-  .infra-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--line)}
-  .infra-row:last-child{border-bottom:0}
-  .infra-row b{display:block;font-size:14.5px}
-  .infra-row em{font-style:normal;font-size:13px;color:var(--ink-3)}
-  .pill{font-family:var(--f-m);font-size:9.5px;letter-spacing:.08em;padding:4px 9px;font-weight:600;white-space:nowrap}
-  .p-ok{background:var(--good-bg);color:var(--good)}
-  .p-no{background:var(--bad-bg);color:var(--bad)}
-  .p-mid{background:var(--brass-bg);color:var(--brass)}
+/* ---- score ring ---- */
+.ring{position:relative;width:56px;height:56px;flex:0 0 auto}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:5}
+.ring .trk{stroke:var(--line)}
+.ring .val{stroke-linecap:round;transition:stroke-dashoffset 1.1s var(--ease)}
+.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--f-h);font-size:16px;font-variant-numeric:tabular-nums}
 
-  .prose{max-width:66ch}
-  .prose p{color:var(--ink-2);margin:0 0 15px}
-  .prose h3{margin:26px 0 8px}
-  .prose ul,.prose ol{color:var(--ink-2);padding-left:20px}
-  .prose li{margin-bottom:7px}
-  .pullq{font-family:var(--f-h);font-size:1.2rem;line-height:1.4;border-left:3px solid var(--brass);padding-left:17px;margin:22px 0;color:var(--ink)}
+/* ---- stats ---- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);overflow:hidden}
+.stat{background:var(--card);padding:15px 16px;transition:background .25s}
+.stat:hover{background:var(--sunk)}
+.stat b{display:block;font-family:var(--f-h);font-size:1.22rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{font-family:var(--f-m);font-size:9.5px;letter-spacing:.09em;color:var(--ink-3)}
 
-  .band{background:var(--ink);color:#fff;padding:28px 24px}
-  .band h2{color:#fff}
-  .band p{opacity:.82;max-width:52ch}
-  .slots{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-  .slot{background:transparent;border:1px solid rgba(255,255,255,.28);color:#fff;font-family:var(--f-m);font-size:12px;padding:8px 12px;cursor:pointer}
-  .slot[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:#14181D;font-weight:700}
+/* ---- forms ---- */
+.calc{background:var(--card);border:1px solid var(--line);padding:20px;box-shadow:var(--sh-1)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:13px;margin-bottom:15px}
+label{display:block;font-family:var(--f-m);font-size:10px;letter-spacing:.09em;color:var(--ink-3);margin-bottom:5px}
+input[type=number],input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:var(--paper);border:1px solid var(--line);color:var(--ink);font-family:var(--f-b);font-size:15px;padding:10px 12px;transition:border-color .2s,box-shadow .2s}
+input:hover,select:hover,textarea:hover{border-color:var(--ink-3)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brass);box-shadow:0 0 0 3px color-mix(in srgb,var(--brass) 18%,transparent)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+textarea{min-height:88px;resize:vertical}
+input[type=range]{width:100%;accent-color:var(--brass);cursor:pointer}
+.out{border:1px solid var(--line);overflow:hidden}
+.out-row{display:flex;justify-content:space-between;gap:14px;padding:11px 15px;border-bottom:1px solid var(--line);font-size:14.5px;transition:background .2s}
+.out-row:last-child{border-bottom:0}
+.out-row:hover{background:var(--sunk)}
+.out-row span:last-child{font-family:var(--f-m);font-variant-numeric:tabular-nums;font-weight:600}
+.out-row.key{background:var(--info-bg)}
+.out-row.key:hover{background:var(--info-bg)}
+.out-row.key span{color:var(--info);font-weight:700}
+.flash{animation:flash .5s var(--ease)}
+@keyframes flash{0%{background:color-mix(in srgb,var(--brass) 30%,transparent)}100%{background:var(--info-bg)}}
 
-  .tabs{display:flex;gap:2px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:20px}
-  .tabs a{text-decoration:none;font-size:13.5px;color:var(--ink-3);padding:9px 13px;border-bottom:2px solid transparent;white-space:nowrap}
-  .tabs a.on{color:var(--ink);border-bottom-color:var(--brass);font-weight:600}
+/* ---- tables ---- */
+.scroll{overflow-x:auto;border:1px solid var(--line);background:var(--card);box-shadow:var(--sh-1)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+th,td{padding:12px 15px;border-bottom:1px solid var(--line);text-align:left}
+thead th{background:var(--ink);color:#fff;font-family:var(--f-m);font-size:10px;letter-spacing:.09em;font-weight:600;position:sticky;top:0}
+tbody tr{transition:background .18s}
+tbody tr:hover{background:var(--sunk)}
+tbody tr:last-child td{border-bottom:0}
+td.v{text-align:center;font-family:var(--f-m);font-variant-numeric:tabular-nums;font-weight:600}
+td.win{background:var(--good-bg);color:var(--good)}
+td.lose{background:var(--bad-bg);color:var(--bad)}
+.cbar{height:5px;background:var(--line);margin-top:5px;overflow:hidden}
+.cbar i{display:block;height:100%;width:0;transition:width .9s var(--ease)}
 
-  .frame{background:var(--sunk);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;text-align:center;padding:18px;min-height:170px}
-  .frame b{font-family:var(--f-m);font-size:10px;letter-spacing:.09em;color:var(--ink-3);font-weight:600}
-  .frame span{font-size:12.5px;color:var(--ink-3);max-width:34ch}
-  .plan-wrap{background:var(--card);border:1px solid var(--line);padding:18px}
-  .bar{height:7px;background:var(--sunk);border:1px solid var(--line);overflow:hidden}
-  .bar i{display:block;height:100%;background:var(--brass)}
+/* ---- verdict / panels ---- */
+.verdict{display:flex;gap:20px;align-items:center;background:linear-gradient(120deg,var(--ink),color-mix(in srgb,var(--ink) 84%,var(--info)));color:#fff;padding:22px;flex-wrap:wrap;margin-bottom:16px;box-shadow:var(--sh-2)}
+.verdict .lbl{font-family:var(--f-m);font-size:10px;letter-spacing:.1em;opacity:.6;margin-top:6px}
+.verdict p{margin:0;font-size:14.5px;opacity:.88;max-width:50ch}
+.panel{background:var(--card);border:1px solid var(--line);padding:18px;box-shadow:var(--sh-1)}
+.panel h3{display:flex;align-items:center;gap:9px;margin-bottom:11px;font-size:1.02rem}
+.dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+.panel ul{list-style:none;margin:0;padding:0}
+.panel li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-2);padding-left:16px;position:relative}
+.panel li::before{content:'';position:absolute;left:0;top:18px;width:6px;height:1px;background:var(--ink-3)}
+.panel li:last-child{border-bottom:0}
 
-  .chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
-  .chip{background:var(--card);border:1px solid var(--line);font-family:var(--f-m);font-size:11px;padding:6px 11px;cursor:pointer;color:var(--ink-2)}
-  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper);font-weight:600}
-  .save{background:none;border:1px solid var(--line);color:var(--ink-3);font-size:12px;font-family:var(--f-m);padding:5px 10px;cursor:pointer}
-  .save[aria-pressed="true"]{border-color:var(--brass);color:var(--brass);background:var(--brass-bg)}
+/* ---- infra ---- */
+.infra{border:1px solid var(--line);background:var(--card);overflow:hidden;box-shadow:var(--sh-1)}
+.infra-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid var(--line);transition:background .2s}
+.infra-row:hover{background:var(--sunk)}
+.infra-row:last-child{border-bottom:0}
+.infra-row b{display:block;font-size:14.5px}
+.infra-row em{font-style:normal;font-size:13px;color:var(--ink-3)}
+.pill{font-family:var(--f-m);font-size:9.5px;letter-spacing:.08em;padding:5px 10px;font-weight:600;white-space:nowrap}
+.p-ok{background:var(--good-bg);color:var(--good)}
+.p-no{background:var(--bad-bg);color:var(--bad)}
+.p-mid{background:var(--brass-bg);color:var(--brass)}
+.bar{height:7px;background:var(--sunk);border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brass),var(--brass-lt));transition:width 1s var(--ease)}
 
-  .locked{position:relative;background:var(--sunk);border:1px dashed var(--brass);padding:22px;text-align:center}
-  .locked b{display:block;font-family:var(--f-h);font-size:1.05rem;margin-bottom:5px}
-  .locked p{margin:0 0 13px;font-size:14px;color:var(--ink-2);max-width:44ch;margin-left:auto;margin-right:auto}
+/* ---- prose ---- */
+.prose{max-width:66ch}
+.prose p{color:var(--ink-2);margin:0 0 15px}
+.prose h3{margin:26px 0 8px}
+.prose ul,.prose ol{color:var(--ink-2);padding-left:20px}
+.prose li{margin-bottom:7px}
+.pullq{font-family:var(--f-h);font-size:1.22rem;line-height:1.4;border-left:3px solid var(--brass);padding-left:18px;margin:24px 0;color:var(--ink)}
 
-  /* modal */
-  .ov{position:fixed;inset:0;background:rgba(10,13,16,.62);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
-  .ov.on{display:flex}
-  .modal{background:var(--paper);border:1px solid var(--line);max-width:460px;width:100%;max-height:92vh;overflow-y:auto;padding:26px}
-  .modal h3{font-size:1.3rem;margin-bottom:6px}
-  .modal .x{float:right;background:none;border:0;color:var(--ink-3);font-size:22px;cursor:pointer;line-height:1;padding:0}
-  .otpbox{display:flex;gap:8px;margin:14px 0}
-  .otpbox input{text-align:center;font-family:var(--f-m);font-size:20px;padding:11px 0;letter-spacing:.1em}
-  .hint{background:var(--brass-bg);color:var(--brass);font-family:var(--f-m);font-size:11.5px;padding:9px 12px;margin:12px 0}
-  .err{color:var(--bad);font-size:13.5px;margin:8px 0 0;min-height:1.2em}
-  .steps{display:flex;gap:6px;margin-bottom:16px}
-  .steps i{height:3px;flex:1;background:var(--line)}
-  .steps i.on{background:var(--brass)}
-  .consent-row{display:flex;gap:9px;align-items:flex-start;margin-top:12px}
-  .consent-row input{width:auto;margin-top:4px;flex:0 0 auto}
-  .consent-row label{font-family:var(--f-b);font-size:12.5px;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0;line-height:1.5}
+/* ---- bands ---- */
+.band{background:linear-gradient(120deg,var(--ink),color-mix(in srgb,var(--ink) 86%,var(--brass)));color:#fff;padding:30px 26px;box-shadow:var(--sh-2)}
+.band h2{color:#fff}
+.band p{opacity:.84;max-width:52ch}
+.slots{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.slot{background:transparent;border:1px solid rgba(255,255,255,.28);color:#fff;font-family:var(--f-m);font-size:12px;padding:9px 13px;cursor:pointer;transition:all .2s var(--ease)}
+.slot:hover{border-color:var(--brass);transform:translateY(-2px)}
+.slot[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:#14181D;font-weight:700}
 
-  .nl{background:var(--ink);color:#fff;padding:26px 24px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
-  .nl h3{color:#fff;margin:0 0 5px}
-  .nl p{margin:0;opacity:.8;font-size:14px;max-width:46ch}
-  .nl form{display:flex;gap:8px;flex-wrap:wrap}
-  .nl input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.24);color:#fff;min-width:210px}
-  .nl input::placeholder{color:rgba(255,255,255,.5)}
-  @media(max-width:720px){.nl{grid-template-columns:1fr}}
+/* ---- tabs ---- */
+.tabs{display:flex;gap:2px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:22px;position:sticky;top:53px;background:var(--paper);z-index:20}
+.tabs a{text-decoration:none;font-size:13.5px;color:var(--ink-3);padding:11px 14px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
+.tabs a.on{color:var(--ink);border-bottom-color:var(--brass);font-weight:600}
+.tabs a:hover{color:var(--ink)}
 
-  .lead-badge{font-family:var(--f-m);font-size:9.5px;padding:3px 7px;font-weight:600}
-  .lb-hot{background:var(--bad-bg);color:var(--bad)}
-  .lb-warm{background:var(--brass-bg);color:var(--brass)}
-  .lb-cold{background:var(--info-bg);color:var(--info)}
+/* ---- frames / gallery ---- */
+.frame{background:var(--sunk);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;text-align:center;padding:18px;min-height:180px;position:relative;overflow:hidden;cursor:zoom-in;transition:border-color .25s}
+.frame:hover{border-color:var(--brass)}
+.frame b{font-family:var(--f-m);font-size:10px;letter-spacing:.09em;color:var(--ink-3);font-weight:600}
+.frame span{font-size:12.5px;color:var(--ink-3);max-width:34ch}
+.plan-wrap{background:var(--card);border:1px solid var(--line);padding:20px;box-shadow:var(--sh-1)}
 
-  .faq{border:1px solid var(--line);background:var(--card)}
-  .faq details{border-bottom:1px solid var(--line)}
-  .faq details:last-child{border-bottom:0}
-  .faq summary{padding:14px 16px;cursor:pointer;font-family:var(--f-h);font-size:1rem;list-style:none}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:'+';float:right;color:var(--brass);font-family:var(--f-m)}
-  .faq details[open] summary::after{content:'−'}
-  .faq .ans{padding:0 16px 15px;font-size:14.5px;color:var(--ink-2);max-width:70ch}
+/* ---- chips ---- */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{background:var(--card);border:1px solid var(--line);font-family:var(--f-m);font-size:11px;padding:7px 12px;cursor:pointer;color:var(--ink-2);transition:all .2s var(--ease)}
+.chip:hover{border-color:var(--brass);color:var(--brass);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper);font-weight:600}
+.chip .n{opacity:.6;margin-left:4px}
+.save{background:none;border:1px solid var(--line);color:var(--ink-3);font-size:12px;font-family:var(--f-m);padding:6px 11px;cursor:pointer;transition:all .2s var(--ease)}
+.save:hover{border-color:var(--brass);color:var(--brass)}
+.save[aria-pressed="true"]{border-color:var(--brass);color:var(--brass);background:var(--brass-bg)}
 
-  footer{border-top:1px solid var(--line);padding:32px 0 48px;font-size:12.5px;color:var(--ink-3)}
-  .fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:22px;margin-bottom:24px}
-  .fcols h5{font-family:var(--f-m);font-size:10px;letter-spacing:.1em;color:var(--ink-3);margin:0 0 10px;text-transform:uppercase}
-  .fcols a{display:block;color:var(--ink-2);text-decoration:none;font-size:13px;margin-bottom:7px}
-  .fcols a:hover{color:var(--ink)}
-  footer p{margin:0 0 7px;max-width:78ch}
-  .rera{font-family:var(--f-m);font-size:11px;color:var(--ink-2);border:1px solid var(--line);padding:9px 12px;display:inline-block;margin-bottom:14px}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+.locked{background:var(--sunk);border:1px dashed var(--brass);padding:26px;text-align:center;transition:background .25s}
+.locked:hover{background:var(--brass-bg)}
+.locked b{display:block;font-family:var(--f-h);font-size:1.08rem;margin-bottom:5px}
+.locked p{margin:0 0 14px;font-size:14px;color:var(--ink-2);max-width:44ch;margin-left:auto;margin-right:auto}
+
+/* ---- skeleton ---- */
+.skel{background:linear-gradient(90deg,var(--sunk) 25%,var(--line) 50%,var(--sunk) 75%);background-size:200% 100%;animation:shim 1.3s infinite;height:270px;border:1px solid var(--line)}
+@keyframes shim{from{background-position:200% 0}to{background-position:-200% 0}}
+
+/* ---- modal ---- */
+.ov{position:fixed;inset:0;background:rgba(10,13,16,.66);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
+.ov.on{display:flex;animation:fade .25s var(--ease)}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal{background:var(--paper);border:1px solid var(--line);max-width:470px;width:100%;max-height:92vh;overflow-y:auto;padding:28px;box-shadow:var(--sh-3);animation:pop .32s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.modal h3{font-size:1.32rem;margin-bottom:6px}
+.modal .x{float:right;background:none;border:0;color:var(--ink-3);font-size:24px;cursor:pointer;line-height:1;padding:0;transition:color .2s}
+.modal .x:hover{color:var(--ink)}
+.otpbox{display:flex;gap:8px;margin:16px 0}
+.otpbox input{text-align:center;font-family:var(--f-m);font-size:21px;padding:12px 0;letter-spacing:.1em}
+.hint{background:var(--brass-bg);color:var(--brass);font-family:var(--f-m);font-size:11.5px;padding:10px 13px;margin:13px 0}
+.err{color:var(--bad);font-size:13.5px;margin:8px 0 0;min-height:1.2em}
+.steps{display:flex;gap:6px;margin-bottom:18px}
+.steps i{height:3px;flex:1;background:var(--line);transition:background .4s var(--ease)}
+.steps i.on{background:var(--brass)}
+.consent-row{display:flex;gap:9px;align-items:flex-start;margin-top:13px}
+.consent-row input{width:auto;margin-top:4px;flex:0 0 auto}
+.consent-row label{font-family:var(--f-b);font-size:12.5px;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0;line-height:1.5}
+
+/* ---- lightbox ---- */
+.lb{position:fixed;inset:0;background:rgba(8,10,12,.94);z-index:120;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:24px}
+.lb.on{display:flex;animation:fade .22s var(--ease)}
+.lb-stage{max-width:900px;width:100%;aspect-ratio:16/10;background:var(--sunk);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+.lb-cap{color:#fff;font-family:var(--f-m);font-size:12px;letter-spacing:.06em;opacity:.85;text-align:center}
+.lb-nav{display:flex;gap:12px}
+.lb button{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;padding:9px 16px;cursor:pointer;font-family:var(--f-m);font-size:12px;transition:all .2s}
+.lb button:hover{border-color:var(--brass);color:var(--brass)}
+
+/* ---- newsletter ---- */
+.nl{background:linear-gradient(120deg,var(--ink),color-mix(in srgb,var(--ink) 86%,var(--info)));color:#fff;padding:28px 26px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;box-shadow:var(--sh-2)}
+.nl h3{color:#fff;margin:0 0 5px}
+.nl p{margin:0;opacity:.82;font-size:14px;max-width:46ch}
+.nl form{display:flex;gap:8px;flex-wrap:wrap}
+.nl input{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.24);color:#fff;min-width:220px}
+.nl input::placeholder{color:rgba(255,255,255,.5)}
+.nl input:focus{border-color:var(--brass);box-shadow:0 0 0 3px rgba(217,176,97,.2)}
+@media(max-width:720px){.nl{grid-template-columns:1fr}}
+
+/* ---- compare tray ---- */
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;transform:translateY(110%);transition:transform .38s var(--ease);box-shadow:0 -8px 30px rgba(0,0,0,.3)}
+.tray.on{transform:none}
+.tray-items{display:flex;gap:10px;flex-wrap:wrap;flex:1;min-width:200px}
+.tray-chip{background:rgba(255,255,255,.1);padding:7px 11px;font-size:12.5px;display:flex;align-items:center;gap:8px}
+.tray-chip button{background:none;border:0;color:rgba(255,255,255,.6);cursor:pointer;font-size:15px;line-height:1;padding:0}
+.tray-chip button:hover{color:#fff}
+.tray .lbl{font-family:var(--f-m);font-size:10px;letter-spacing:.1em;opacity:.55}
+
+/* ---- toast ---- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,80px);background:var(--ink);color:#fff;padding:13px 20px;font-size:14px;z-index:200;max-width:90vw;text-align:center;box-shadow:var(--sh-3);opacity:0;transition:transform .35s var(--ease),opacity .35s}
+.toast.on{transform:translate(-50%,0);opacity:1}
+
+/* ---- misc ---- */
+.lead-badge{font-family:var(--f-m);font-size:9.5px;padding:4px 8px;font-weight:600}
+.lb-hot{background:var(--bad-bg);color:var(--bad)}
+.lb-warm{background:var(--brass-bg);color:var(--brass)}
+.lb-cold{background:var(--info-bg);color:var(--info)}
+.faq{border:1px solid var(--line);background:var(--card);box-shadow:var(--sh-1)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:last-child{border-bottom:0}
+.faq summary{padding:15px 17px;cursor:pointer;font-family:var(--f-h);font-size:1rem;list-style:none;transition:background .2s}
+.faq summary:hover{background:var(--sunk)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';float:right;color:var(--brass);font-family:var(--f-m);transition:transform .25s}
+.faq details[open] summary::after{content:'−'}
+.faq .ans{padding:0 17px 16px;font-size:14.5px;color:var(--ink-2);max-width:70ch}
+#top{position:fixed;right:20px;bottom:20px;z-index:70;width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;border:0;cursor:pointer;font-size:17px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s var(--ease);box-shadow:var(--sh-2)}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{transform:translateY(-3px)}
+
+footer{border-top:1px solid var(--line);padding:34px 0 60px;font-size:12.5px;color:var(--ink-3)}
+.fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:24px;margin-bottom:26px}
+.fcols h5{font-family:var(--f-m);font-size:10px;letter-spacing:.1em;color:var(--ink-3);margin:0 0 11px;text-transform:uppercase}
+.fcols a{display:block;color:var(--ink-2);text-decoration:none;font-size:13px;margin-bottom:8px;transition:color .2s,transform .2s}
+.fcols a:hover{color:var(--brass);transform:translateX(3px)}
+footer p{margin:0 0 7px;max-width:78ch}
+.rera{font-family:var(--f-m);font-size:11px;color:var(--ink-2);border:1px solid var(--line);padding:10px 13px;display:inline-block;margin-bottom:14px}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
 
+<div id="prog"></div>
 <div class="demo">PROTOTYPE FOR CLIENT REVIEW · PROJECT NAMES AND DEVELOPERS ARE REAL AND PUBLICLY LISTED · SIZES, RATES, SCORES AND VERDICTS ARE ILLUSTRATIVE, NOT PUBLISHED OTHO REVIEWS</div>
 
 <nav>
@@ -285,7 +403,20 @@
   </div>
 </footer>
 
+<div class="tray" id="tray">
+  <span class="lbl">COMPARE</span>
+  <div class="tray-items" id="trayItems"></div>
+  <a class="btn brass sm" id="trayGo" href="#/compare">Compare now</a>
+  <button class="btn ghost sm" id="trayClear" style="color:#fff;border-color:rgba(255,255,255,.3)">Clear</button>
+</div>
+
+<button id="top" aria-label="Back to top">↑</button>
 <div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="ovT"><div class="modal" id="modal"></div></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Gallery">
+  <div class="lb-stage" id="lbStage"></div>
+  <div class="lb-cap" id="lbCap"></div>
+  <div class="lb-nav"><button id="lbPrev">← Previous</button><button id="lbNext">Next →</button><button id="lbClose">Close</button></div>
+</div>
 
 <script>/* OTHO prototype data.
    Project names, developers and localities are real and publicly listed.
@@ -535,52 +666,57 @@ var D = window.OTHO_DATA, P = D.P, L = D.L, BLOG = D.BLOG, G = D.GUIDES, EP = D.
 var inr = function (n) { return '₹' + Math.round(n).toLocaleString('en-IN'); };
 var cr  = function (n) { return '₹' + (n / 1e7).toFixed(2) + ' Cr'; };
 var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+var RM  = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 var ls = {
   get: function (k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } },
   set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 };
 
-/* ---------- state ---------- */
-var user   = ls.get('otho_user', null);
-var saved  = ls.get('otho_saved', []);
-var leads  = ls.get('otho_leads', []);
-var subs   = ls.get('otho_subs', []);
-var pending = null;   /* action to resume after verification */
-var otpCode = null;
+var user = ls.get('otho_user', null), saved = ls.get('otho_saved', []),
+    leads = ls.get('otho_leads', []), subs = ls.get('otho_subs', []),
+    tray = [], pending = null, otpCode = null, gal = [], galI = 0;
 
 function isSaved(id) { return saved.indexOf(id) > -1; }
 function toggleSave(id) { var i = saved.indexOf(id); if (i > -1) saved.splice(i, 1); else saved.push(id); ls.set('otho_saved', saved); updateSl(); }
 function updateSl() { var a = document.getElementById('slLink'); if (a) a.textContent = 'Shortlist' + (saved.length ? ' (' + saved.length + ')' : ''); }
+function m(p) { var load = (p.sba - p.carpet) / p.sba * 100; return { load: load, real: (p.sba * p.rate) / p.carpet, total: p.sba * p.rate }; }
+function scoreColor(s) { return s >= 7.5 ? 'var(--good)' : (s >= 6.5 ? 'var(--brass)' : 'var(--bad)'); }
 
-/* ---------- metrics ---------- */
-function m(p) {
-  var load = (p.sba - p.carpet) / p.sba * 100;
-  return { load: load, real: (p.sba * p.rate) / p.carpet, total: p.sba * p.rate };
+/* ---------- deterministic generated artwork ---------- */
+var PAL = [
+  ['#16263D', '#2E5A86', '#7FA9D4'], ['#1B3229', '#2F6B52', '#7FC3A2'],
+  ['#33240F', '#8A5F1E', '#D9B061'], ['#221B33', '#4A3A6B', '#9C86C9'],
+  ['#331A18', '#7A3B33', '#C98A7E'], ['#132B2E', '#2A6668', '#79BFC0']
+];
+function rng(seed) { var s = seed * 9301 + 49297; return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; }; }
+function pvis(p, h) {
+  var pal = PAL[p.id % PAL.length], r = rng(p.id + 7), W = 400, H = h || 168, g = 'g' + p.id;
+  var towers = '', wins = '', n = 6 + Math.floor(r() * 3), x = -10;
+  for (var i = 0; i < n; i++) {
+    var w = 34 + r() * 42, th = 40 + r() * (H * 0.62), y = H - th;
+    towers += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + (th + 4).toFixed(1) + '" fill="' + (i % 2 ? pal[0] : pal[1]) + '" opacity="' + (0.82 + (i % 2) * 0.14).toFixed(2) + '"/>';
+    for (var ry = y + 10; ry < H - 8; ry += 13) for (var rx = x + 7; rx < x + w - 8; rx += 12)
+      if (r() > 0.42) wins += '<rect x="' + rx.toFixed(1) + '" y="' + ry.toFixed(1) + '" width="5" height="6" fill="' + pal[2] + '" opacity="' + (0.25 + r() * 0.6).toFixed(2) + '"/>';
+    x += w - 4 + r() * 10;
+  }
+  return '<div class="pvis" style="height:' + H + 'px">'
+    + '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMax slice" aria-hidden="true">'
+    + '<defs><linearGradient id="' + g + '" x1="0" y1="0" x2="0" y2="1">'
+    + '<stop offset="0%" stop-color="' + pal[1] + '"/><stop offset="55%" stop-color="' + pal[0] + '"/><stop offset="100%" stop-color="#0B0F13"/></linearGradient></defs>'
+    + '<rect width="' + W + '" height="' + H + '" fill="url(#' + g + ')"/>'
+    + '<circle cx="' + (300 + (p.id % 5) * 14) + '" cy="' + (H * 0.24) + '" r="' + (13 + (p.id % 3) * 4) + '" fill="' + pal[2] + '" opacity=".22"/>'
+    + towers + wins
+    + '<rect y="' + (H - 5) + '" width="' + W + '" height="5" fill="#080B0E" opacity=".55"/></svg>'
+    + '<span class="badge">' + esc(p.status.toUpperCase()) + '</span>'
+    + '<span class="shot">PHOTOGRAPHY TO BE SHOT</span></div>';
 }
-function scoreCls(s) { return s >= 7.5 ? 's-hi' : (s >= 6.5 ? 's-mid' : 's-lo'); }
-function leadScore(l) {
-  var t = { 'Within 3 months': 3, 'In 3–6 months': 2, 'In 6–12 months': 1, 'Just researching': 0 }[l.timeline] || 0;
-  var b = l.budget >= 30000000 ? 2 : (l.budget >= 15000000 ? 1 : 0);
-  var n = t + b;
-  return n >= 4 ? ['HOT', 'lb-hot'] : (n >= 2 ? ['WARM', 'lb-warm'] : ['COLD', 'lb-cold']);
-}
-
-/* ---------- assets ---------- */
-function svgSkyline() {
-  var g = '', x, y;
-  for (x = 0; x <= 1080; x += 40) g += '<line x1="' + x + '" y1="0" x2="' + x + '" y2="260"/>';
-  for (y = 0; y <= 260; y += 40) g += '<line x1="0" y1="' + y + '" x2="1080" y2="' + y + '"/>';
-  var win = '', cols = [[70,165],[155,120],[225,75],[318,145],[396,45],[502,110],[586,160],[656,85],[756,135],[834,67],[926,175]];
-  cols.forEach(function (c) { for (var r = 0; r < 5; r++) for (var q = 0; q < 3; q++) win += '<rect x="' + (c[0] + q * 16) + '" y="' + (c[1] + r * 22) + '" width="8" height="11"/>'; });
-  return '<svg viewBox="0 0 1080 260" role="img" aria-label="City skyline illustration" style="display:block;width:100%;height:auto">'
-    + '<rect width="1080" height="260" fill="var(--sunk)"/><g fill="none" stroke="var(--line)" stroke-width="1">' + g + '</g>'
-    + '<g fill="var(--card)" stroke="var(--ink-3)" stroke-width="1.5">'
-    + '<rect x="60" y="150" width="70" height="110"/><rect x="145" y="105" width="58" height="155"/><rect x="215" y="60" width="80" height="200"/>'
-    + '<rect x="308" y="130" width="64" height="130"/><rect x="386" y="30" width="92" height="230"/><rect x="492" y="95" width="70" height="165"/>'
-    + '<rect x="576" y="145" width="56" height="115"/><rect x="646" y="70" width="86" height="190"/><rect x="746" y="120" width="64" height="140"/>'
-    + '<rect x="824" y="52" width="78" height="208"/><rect x="916" y="160" width="64" height="100"/></g>'
-    + '<g fill="var(--brass)" opacity=".55">' + win + '</g>'
-    + '<rect x="0" y="252" width="1080" height="8" fill="var(--ink)" opacity=".18"/></svg>';
+function ring(score, size) {
+  var s = size || 56, rr = (s - 5) / 2, c = 2 * Math.PI * rr, off = c * (1 - score / 10);
+  return '<div class="ring" style="width:' + s + 'px;height:' + s + 'px">'
+    + '<svg width="' + s + '" height="' + s + '"><circle class="trk" cx="' + s / 2 + '" cy="' + s / 2 + '" r="' + rr + '"/>'
+    + '<circle class="val" cx="' + s / 2 + '" cy="' + s / 2 + '" r="' + rr + '" stroke="' + scoreColor(score) + '" '
+    + 'stroke-dasharray="' + c.toFixed(1) + '" stroke-dashoffset="' + (RM ? off.toFixed(1) : c.toFixed(1)) + '" data-ring="' + off.toFixed(1) + '"/></svg>'
+    + '<b style="color:' + scoreColor(score) + '">' + score.toFixed(1) + '</b></div>';
 }
 function svgPlan(u) {
   var rooms = [[30,30,210,200,'Living / Dining',''],[30,230,210,140,'Master bedroom','4.2 × 3.6 m'],
@@ -593,27 +729,27 @@ function svgPlan(u) {
       + '<text x="' + (r[0] + 10) + '" y="' + (r[1] + 21) + '" font-family="sans-serif" font-size="12" fill="var(--ink)">' + esc(r[4]) + '</text>';
     if (r[5]) s += '<text x="' + (r[0] + 10) + '" y="' + (r[1] + 37) + '" font-family="monospace" font-size="10" fill="var(--ink-3)">' + esc(r[5]) + '</text>';
   });
-  s += '<g stroke="var(--card)" stroke-width="6"><line x1="240" y1="175" x2="240" y2="205"/><line x1="300" y1="220" x2="330" y2="220"/>'
+  return s + '<g stroke="var(--card)" stroke-width="6"><line x1="240" y1="175" x2="240" y2="205"/><line x1="300" y1="220" x2="330" y2="220"/>'
     + '<line x1="420" y1="175" x2="420" y2="200"/><line x1="120" y1="230" x2="150" y2="230"/></g>'
     + '<text x="30" y="398" font-family="monospace" font-size="10" fill="var(--ink-3)">CARPET ' + u.carpet.toLocaleString('en-IN')
-    + ' SQ FT · SUPER BUILT-UP ' + u.sba.toLocaleString('en-IN') + ' SQ FT · INDICATIVE, NOT TO SCALE</text>'
-    + '<g stroke="var(--ink-3)" stroke-width="1"><line x1="470" y1="392" x2="570" y2="392"/><line x1="470" y1="388" x2="470" y2="396"/><line x1="570" y1="388" x2="570" y2="396"/></g>'
+    + ' SQ FT · SUPER BUILT-UP ' + u.sba.toLocaleString('en-IN') + ' SQ FT · INDICATIVE</text>'
+    + '<g stroke="var(--ink-3)"><line x1="470" y1="392" x2="570" y2="392"/><line x1="470" y1="388" x2="470" y2="396"/><line x1="570" y1="388" x2="570" y2="396"/></g>'
     + '<text x="497" y="384" font-family="monospace" font-size="9" fill="var(--ink-3)">5 metres</text></svg>';
-  return s;
 }
 function svgMap(l) {
   var g = '', x, y;
   for (x = 0; x <= 1080; x += 52) g += '<line x1="' + x + '" y1="0" x2="' + x + '" y2="380"/>';
   for (y = 0; y <= 380; y += 52) g += '<line x1="0" y1="' + y + '" x2="1080" y2="' + y + '"/>';
   return '<svg viewBox="0 0 1080 380" role="img" aria-label="Schematic map" style="display:block;width:100%;height:auto">'
-    + '<rect width="1080" height="380" fill="var(--sunk)"/><g stroke="var(--line)" stroke-width="1">' + g + '</g>'
+    + '<rect width="1080" height="380" fill="var(--sunk)"/><g stroke="var(--line)">' + g + '</g>'
     + '<path d="M0,250 C220,215 400,300 640,255 S920,180 1080,215" fill="none" stroke="var(--ink-3)" stroke-width="14" stroke-linecap="round" opacity=".35"/>'
     + '<path d="M0,250 C220,215 400,300 640,255 S920,180 1080,215" fill="none" stroke="var(--paper)" stroke-width="2" stroke-dasharray="12 10"/>'
     + '<text x="34" y="238" font-family="monospace" font-size="11" fill="var(--ink-3)">OUTER RING ROAD</text>'
     + '<path d="M300,380 L340,140 L560,60" fill="none" stroke="var(--ink-3)" stroke-width="8" opacity=".3"/>'
     + '<path d="M720,380 L700,180 L1080,120" fill="none" stroke="var(--ink-3)" stroke-width="8" opacity=".3"/>'
-    + '<circle cx="520" cy="170" r="15" fill="var(--brass)"/><circle cx="520" cy="170" r="26" fill="none" stroke="var(--brass)" stroke-width="2" opacity=".5"/>'
-    + '<text x="520" y="212" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="var(--ink)">' + esc(l.n) + '</text>'
+    + '<circle cx="520" cy="170" r="15" fill="var(--brass)"><animate attributeName="r" values="15;19;15" dur="2.6s" repeatCount="indefinite"/></circle>'
+    + '<circle cx="520" cy="170" r="27" fill="none" stroke="var(--brass)" stroke-width="2" opacity=".45"><animate attributeName="r" values="27;36;27" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".45;0;.45" dur="2.6s" repeatCount="indefinite"/></circle>'
+    + '<text x="520" y="214" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="var(--ink)">' + esc(l.n) + '</text>'
     + '<g font-family="sans-serif" font-size="12" fill="var(--ink-2)">'
     + '<circle cx="205" cy="105" r="6" fill="var(--ink-3)"/><text x="220" y="110">Financial District</text>'
     + '<circle cx="855" cy="95" r="6" fill="var(--ink-3)"/><text x="870" y="100">HITEC City</text>'
@@ -621,8 +757,8 @@ function svgMap(l) {
     + '<circle cx="235" cy="315" r="6" fill="var(--ink-3)"/><text x="250" y="320">Reservoir</text></g>'
     + '<text x="34" y="356" font-family="monospace" font-size="10" fill="var(--ink-3)">SCHEMATIC — NOT A SURVEY MAP</text></svg>';
 }
-function frame(label, desc, h) {
-  return '<div class="frame" style="min-height:' + (h || 180) + 'px">'
+function frame(label, desc, h, i) {
+  return '<div class="frame" style="min-height:' + (h || 180) + 'px" data-gal="' + (i == null ? '' : i) + '">'
     + '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" stroke-width="1.4" aria-hidden="true" style="opacity:.5">'
     + '<rect x="2.5" y="4.5" width="19" height="15"/><circle cx="12" cy="12" r="3.6"/><path d="M7.5 4.5l1.6-2h5.8l1.6 2"/></svg>'
     + '<b>' + esc(label) + '</b><span>' + esc(desc) + '</span></div>';
@@ -632,84 +768,63 @@ function monogram(name, size) {
   var ch = (w[0] ? w[0][0] : 'O') + (w[1] ? w[1][0] : (w[0] && w[0][1] ? w[0][1] : ''));
   var s = size || 46;
   return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 46 46" aria-hidden="true" style="flex:0 0 auto">'
-    + '<rect width="46" height="46" fill="var(--ink)"/><text x="23" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="var(--brass)">'
-    + esc(ch.toUpperCase()) + '</text></svg>';
+    + '<rect width="46" height="46" fill="var(--ink)"/><text x="23" y="30" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="var(--brass)">' + esc(ch.toUpperCase()) + '</text></svg>';
 }
 
 /* ---------- gate ---------- */
-function gated(action, label) { return 'data-gate="' + esc(action) + '" data-glabel="' + esc(label || '') + '"'; }
-function requireUser(action, label) {
-  if (user && user.verified) { runAction(action, label); return; }
-  pending = { action: action, label: label };
-  openModal(1);
-}
-function runAction(action, label) {
-  var parts = action.split(':');
-  if (parts[0] === 'visit')  { location.hash = '#/visit'; toast('Verified — pick a slot below.'); }
-  else if (parts[0] === 'plan')  toast('Prototype — a live build emails the floor plan PDF to ' + (user ? user.email : 'you') + '.');
-  else if (parts[0] === 'price') { render(); toast('Unit pricing unlocked.'); }
-  else if (parts[0] === 'save')  { toggleSave(+parts[1]); render(); }
-  else if (parts[0] === 'brochure') toast('Prototype — a live build sends the brochure on WhatsApp.');
+function gated(a, l) { return 'data-gate="' + esc(a) + '" data-glabel="' + esc(l || '') + '"'; }
+function requireUser(a, l) { if (user && user.verified) { runAction(a, l); return; } pending = { action: a, label: l }; openModal(1); }
+function runAction(a) {
+  var p = a.split(':');
+  if (p[0] === 'visit') { location.hash = '#/visit'; toast('Verified — pick a slot below.'); }
+  else if (p[0] === 'plan') toast('Prototype — a live build emails the plan set to ' + (user ? user.email : 'you') + '.');
+  else if (p[0] === 'price') { render(); toast('Unit pricing unlocked.'); }
+  else if (p[0] === 'save') { toggleSave(+p[1]); render(); }
   else toast('Verified.');
 }
+var toastEl = null, toastT = null;
 function toast(msg) {
-  var t = document.createElement('div');
-  t.textContent = msg;
-  t.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:26px;background:var(--ink);color:#fff;padding:12px 18px;font-size:14px;z-index:200;max-width:90vw;text-align:center';
-  document.body.appendChild(t);
-  setTimeout(function () { t.remove(); }, 3800);
+  if (!toastEl) { toastEl = document.createElement('div'); toastEl.className = 'toast'; document.body.appendChild(toastEl); }
+  toastEl.textContent = msg;
+  requestAnimationFrame(function () { toastEl.classList.add('on'); });
+  clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 3800);
 }
-
 function openModal(step) {
   var ov = document.getElementById('ov'), mo = document.getElementById('modal');
   ov.classList.add('on');
   if (step === 1) {
-    mo.innerHTML = '<button class="x" id="mx" aria-label="Close">×</button>'
-      + '<div class="steps"><i class="on"></i><i></i></div>'
+    mo.innerHTML = '<button class="x" id="mx" aria-label="Close">×</button><div class="steps"><i class="on"></i><i></i></div>'
       + '<h3 id="ovT">One step, then it\'s yours</h3>'
       + '<p style="color:var(--ink-2);font-size:14px;margin:0 0 16px">'
-      + esc(pending && pending.label ? pending.label : 'Verify once and everything on OTHO unlocks — floor plans, unit pricing, site visits.')
+      + esc(pending && pending.label ? pending.label : 'Verify once and everything unlocks — floor plans, unit pricing, site visits.')
       + ' We verify by OTP so we know you are real. Your number is never shared with a developer or broker.</p>'
       + '<div class="fields" style="grid-template-columns:1fr 1fr">'
       + '<div><label for="uPhone">MOBILE NUMBER</label><input type="tel" id="uPhone" placeholder="10 digits" maxlength="10" inputmode="numeric"></div>'
       + '<div><label for="uEmail">EMAIL</label><input type="email" id="uEmail" placeholder="you@example.com"></div></div>'
       + '<div class="fields" style="grid-template-columns:1fr 1fr">'
       + '<div><label for="uProf">PROFESSION</label><select id="uProf">'
-      + ['Salaried — IT / GCC','Salaried — other','Business owner','Doctor / healthcare','Government service','NRI','Investor','Other'].map(function (o) { return '<option>' + o + '</option>'; }).join('')
-      + '</select></div>'
+      + ['Salaried — IT / GCC','Salaried — other','Business owner','Doctor / healthcare','Government service','NRI','Investor','Other'].map(function (o) { return '<option>' + o + '</option>'; }).join('') + '</select></div>'
       + '<div><label for="uTime">PLANNING TO BUY</label><select id="uTime">'
-      + ['Within 3 months','In 3–6 months','In 6–12 months','Just researching'].map(function (o) { return '<option>' + o + '</option>'; }).join('')
-      + '</select></div></div>'
-      + '<div><label for="uBud">BUDGET · <span id="uBudV">₹2.50 Cr</span></label>'
-      + '<input type="range" id="uBud" min="5000000" max="60000000" step="500000" value="25000000"></div>'
-      + '<div class="consent-row"><input type="checkbox" id="uConsent">'
-      + '<label for="uConsent">I agree to be contacted by OTHO about my enquiry on phone, WhatsApp and email, between 09:00 and 21:00. I can withdraw at any time from consent preferences. My details will not be shared with any developer or broker.</label></div>'
-      + '<p class="err" id="uErr"></p>'
-      + '<button class="btn wide" id="uNext" style="margin-top:10px">Send OTP</button>'
+      + ['Within 3 months','In 3–6 months','In 6–12 months','Just researching'].map(function (o) { return '<option>' + o + '</option>'; }).join('') + '</select></div></div>'
+      + '<div><label for="uBud">BUDGET · <span id="uBudV">₹2.50 Cr</span></label><input type="range" id="uBud" min="5000000" max="60000000" step="500000" value="25000000"></div>'
+      + '<div class="consent-row"><input type="checkbox" id="uConsent"><label for="uConsent">I agree to be contacted by OTHO about my enquiry on phone, WhatsApp and email, between 09:00 and 21:00. I can withdraw at any time. My details will not be shared with any developer or broker.</label></div>'
+      + '<p class="err" id="uErr"></p><button class="btn wide" id="uNext" style="margin-top:10px">Send OTP</button>'
       + '<p class="note" style="text-align:center">Prototype — no real SMS is sent.</p>';
-    document.getElementById('uBud').addEventListener('input', function () {
-      document.getElementById('uBudV').textContent = '₹' + (+this.value / 1e7).toFixed(2) + ' Cr';
-    });
+    document.getElementById('uBud').addEventListener('input', function () { document.getElementById('uBudV').textContent = '₹' + (+this.value / 1e7).toFixed(2) + ' Cr'; });
     document.getElementById('uNext').addEventListener('click', step1);
     document.getElementById('mx').addEventListener('click', closeModal);
+    setTimeout(function () { var e = document.getElementById('uPhone'); if (e) e.focus(); }, 60);
   } else {
-    mo.innerHTML = '<button class="x" id="mx" aria-label="Close">×</button>'
-      + '<div class="steps"><i class="on"></i><i class="on"></i></div>'
-      + '<h3 id="ovT">Enter the code</h3>'
-      + '<p style="color:var(--ink-2);font-size:14px;margin:0 0 4px">Sent to +91 ' + esc(user.phone) + '.</p>'
+    mo.innerHTML = '<button class="x" id="mx" aria-label="Close">×</button><div class="steps"><i class="on"></i><i class="on"></i></div>'
+      + '<h3 id="ovT">Enter the code</h3><p style="color:var(--ink-2);font-size:14px;margin:0 0 4px">Sent to +91 ' + esc(user.phone) + '.</p>'
       + '<div class="hint">DEMO MODE — your code is <strong>' + otpCode + '</strong>. A live build sends this by SMS.</div>'
       + '<div class="otpbox">' + [0,1,2,3,4,5].map(function (i) { return '<input type="text" maxlength="1" inputmode="numeric" data-otp="' + i + '" aria-label="Digit ' + (i+1) + '">'; }).join('') + '</div>'
-      + '<p class="err" id="oErr"></p>'
-      + '<button class="btn wide" id="oVerify">Verify and continue</button>'
+      + '<p class="err" id="oErr"></p><button class="btn wide" id="oVerify">Verify and continue</button>'
       + '<button class="btn ghost wide" id="oBack" style="margin-top:8px">Change number</button>';
-    var boxes = mo.querySelectorAll('[data-otp]');
-    boxes[0].focus();
-    Array.prototype.forEach.call(boxes, function (b, i) {
-      b.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-        if (this.value && boxes[i + 1]) boxes[i + 1].focus();
-      });
-      b.addEventListener('keydown', function (e) { if (e.key === 'Backspace' && !this.value && boxes[i - 1]) boxes[i - 1].focus(); });
+    var b = mo.querySelectorAll('[data-otp]'); b[0].focus();
+    Array.prototype.forEach.call(b, function (el, i) {
+      el.addEventListener('input', function () { this.value = this.value.replace(/\D/g, ''); if (this.value && b[i + 1]) b[i + 1].focus(); if (i === 5) step2(); });
+      el.addEventListener('keydown', function (e) { if (e.key === 'Backspace' && !this.value && b[i - 1]) b[i - 1].focus(); });
     });
     document.getElementById('oVerify').addEventListener('click', step2);
     document.getElementById('oBack').addEventListener('click', function () { openModal(1); });
@@ -718,67 +833,58 @@ function openModal(step) {
 }
 function closeModal() { document.getElementById('ov').classList.remove('on'); }
 function step1() {
-  var ph = document.getElementById('uPhone').value.replace(/\D/g, ''),
-      em = document.getElementById('uEmail').value.trim(),
-      er = document.getElementById('uErr');
+  var ph = document.getElementById('uPhone').value.replace(/\D/g, ''), em = document.getElementById('uEmail').value.trim(), er = document.getElementById('uErr');
   if (ph.length !== 10) { er.textContent = 'Enter a valid 10-digit mobile number.'; return; }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { er.textContent = 'Enter a valid email address.'; return; }
   if (!document.getElementById('uConsent').checked) { er.textContent = 'Please tick consent — we cannot contact you without it.'; return; }
-  user = {
-    phone: ph, email: em,
-    profession: document.getElementById('uProf').value,
-    timeline: document.getElementById('uTime').value,
-    budget: +document.getElementById('uBud').value,
-    verified: false, at: new Date().toISOString()
-  };
+  user = { phone: ph, email: em, profession: document.getElementById('uProf').value, timeline: document.getElementById('uTime').value,
+           budget: +document.getElementById('uBud').value, verified: false, at: new Date().toISOString() };
   otpCode = String(Math.floor(100000 + Math.random() * 900000));
   openModal(2);
 }
 function step2() {
-  var boxes = document.querySelectorAll('[data-otp]'), code = '';
-  Array.prototype.forEach.call(boxes, function (b) { code += b.value; });
+  var b = document.querySelectorAll('[data-otp]'), code = '';
+  Array.prototype.forEach.call(b, function (x) { code += x.value; });
+  if (code.length < 6) return;
   if (code !== otpCode) { document.getElementById('oErr').textContent = 'That code does not match. Try again.'; return; }
-  user.verified = true;
-  ls.set('otho_user', user);
-  leads.push({
-    phone: user.phone, email: user.email, profession: user.profession,
-    timeline: user.timeline, budget: user.budget,
-    source: (pending && pending.action) || 'direct',
-    at: new Date().toISOString()
-  });
+  user.verified = true; ls.set('otho_user', user);
+  leads.push({ phone: user.phone, email: user.email, profession: user.profession, timeline: user.timeline,
+               budget: user.budget, source: (pending && pending.action) || 'direct', at: new Date().toISOString() });
   ls.set('otho_leads', leads);
   closeModal();
-  var p = pending; pending = null;
-  render();
-  if (p) runAction(p.action, p.label); else toast('Verified. Everything is unlocked.');
+  var p = pending; pending = null; render();
+  if (p) runAction(p.action); else toast('Verified. Everything is unlocked.');
+}
+function leadScore(l) {
+  var t = { 'Within 3 months': 3, 'In 3–6 months': 2, 'In 6–12 months': 1, 'Just researching': 0 }[l.timeline] || 0;
+  var b = l.budget >= 30000000 ? 2 : (l.budget >= 15000000 ? 1 : 0), n = t + b;
+  return n >= 4 ? ['HOT','lb-hot'] : (n >= 2 ? ['WARM','lb-warm'] : ['COLD','lb-cold']);
 }
 
 /* ---------- shared blocks ---------- */
 function pcard(p) {
-  var x = m(p);
-  return '<div class="card pad0"><a href="#/project/' + p.id + '" style="text-decoration:none;color:inherit;display:block">'
-    + frame('PROJECT PHOTOGRAPHY', 'Exterior render or site photo', 145)
-    + '<div class="card-body"><div class="pcard-top"><div><div class="meta">' + esc(p.loc.toUpperCase()) + ' · ' + esc(p.status.toUpperCase()) + '</div>'
-    + '<h3>' + esc(p.n) + '</h3><div class="meta" style="margin:2px 0 0">' + esc(p.dev) + '</div></div>'
-    + '<div class="score ' + scoreCls(p.score) + '">' + p.score.toFixed(1) + '</div></div>'
+  var x = m(p), inTray = tray.indexOf(p.id) > -1;
+  return '<div class="card pad0 lift"><a href="#/project/' + p.id + '" style="text-decoration:none;color:inherit;display:block">' + pvis(p)
+    + '<div class="card-body"><div class="pcard-top"><div><div class="meta">' + esc(p.loc.toUpperCase()) + '</div>'
+    + '<h3>' + esc(p.n) + '</h3><div class="meta" style="margin:2px 0 0">' + esc(p.dev) + '</div></div>' + ring(p.score, 54) + '</div>'
     + '<p>' + esc(p.sum) + '</p>'
     + '<div class="pmeta"><span>Real rate <b>' + inr(x.real) + '</b></span><span>Loading <b>' + x.load.toFixed(0) + '%</b></span><span>From <b>' + cr(x.total) + '</b></span></div>'
-    + '<div class="tagrow">' + p.am.slice(0, 4).map(function (i) { return '<span class="tag">' + esc(AMEN[i]) + '</span>'; }).join('') + '</div>'
-    + '</div></a><div class="card-body" style="border-top:1px solid var(--line);padding-top:11px">'
-    + '<button class="save" ' + gated('save:' + p.id, 'Save this project to your shortlist.') + ' aria-pressed="' + (isSaved(p.id) ? 'true' : 'false') + '">'
-    + (isSaved(p.id) ? '★ Saved' : '☆ Save') + '</button></div></div>';
+    + '<div class="tagrow">' + p.am.slice(0, 4).map(function (i) { return '<span class="tag">' + esc(AMEN[i]) + '</span>'; }).join('') + '</div></div></a>'
+    + '<div class="card-body" style="border-top:1px solid var(--line);padding-top:11px;display:flex;gap:8px;flex-wrap:wrap">'
+    + '<button class="save" ' + gated('save:' + p.id, 'Save ' + p.n + ' to your shortlist.') + ' aria-pressed="' + (isSaved(p.id) ? 'true' : 'false') + '">'
+    + (isSaved(p.id) ? '★ Saved' : '☆ Save') + '</button>'
+    + '<button class="save" data-tray="' + p.id + '" aria-pressed="' + (inTray ? 'true' : 'false') + '">' + (inTray ? '✓ In compare' : '⇄ Compare') + '</button></div></div>';
 }
 function visitBand() {
   return '<div class="band"><h2>See it yourself</h2><p>Pick a slot. You get a WhatsApp confirmation from one named person at OTHO — not eight brokers.</p>'
-    + '<div class="slots" id="slots">' + ['Sat 10:00','Sat 12:30','Sat 16:00','Sun 11:00','Sun 15:30'].map(function (s) {
-      return '<button class="slot" aria-pressed="false">' + s + '</button>'; }).join('')
+    + '<div class="slots" id="slots">' + ['Sat 10:00','Sat 12:30','Sat 16:00','Sun 11:00','Sun 15:30'].map(function (s) { return '<button class="slot" aria-pressed="false">' + s + '</button>'; }).join('')
     + '</div><button class="btn brass" id="bookBtn">Confirm this slot</button><p id="bookMsg" style="margin-top:13px;min-height:1.4em"></p></div>';
 }
 function newsletter() {
   return '<div class="nl"><div><h3>The monthly Hyderabad market note</h3>'
     + '<p>Registrations, prices, launches and absorption — with sources, so you can check us. No sales pitch, unsubscribe in one click.</p></div>'
     + '<form id="nlForm"><input type="email" id="nlEmail" placeholder="you@example.com" aria-label="Email"><button class="btn brass" type="submit">Subscribe</button></form>'
-    + '<p id="nlMsg" style="grid-column:1/-1;margin:0;font-size:13.5px;opacity:.85;min-height:1.2em"></p></div>';
+    + '<p id="nlMsg" style="grid-column:1/-1;margin:0;font-size:13.5px;opacity:.88;min-height:1.2em"></p></div>';
 }
 function calcHTML(p) {
   return '<div class="calc"><div class="fields">'
@@ -787,25 +893,25 @@ function calcHTML(p) {
     + '<div><label for="rate">ADVERTISED RATE (₹/SQ FT)</label><input type="number" id="rate" value="' + p.rate + '" min="100" step="50"></div></div>'
     + '<div class="out"><div class="out-row"><span>Loading factor</span><span id="oLoad">—</span></div>'
     + '<div class="out-row"><span>Total price on super built-up</span><span id="oTotal">—</span></div>'
-    + '<div class="out-row key"><span>Real rate on carpet</span><span id="oReal">—</span></div>'
+    + '<div class="out-row key" id="keyRow"><span>Real rate on carpet</span><span id="oReal">—</span></div>'
     + '<div class="out-row"><span>You are paying for</span><span id="oWaste">—</span></div></div></div>';
 }
-function legalShell(title, lede, blocks) {
-  return '<div class="wrap"><section><p class="eyebrow">LEGAL</p><h1>' + esc(title) + '</h1><p class="sub">' + esc(lede) + '</p><div class="prose">'
-    + blocks.map(function (b) {
-      if (b[0] === 'p') return '<p>' + esc(b[1]) + '</p>';
-      if (b[0] === 'h') return '<h3>' + esc(b[1]) + '</h3>';
-      if (b[0] === 'l') return '<ul>' + b[1].map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
-      return ''; }).join('')
-    + '</div><p class="note">Prototype text. A live site requires this reviewed and finalised by counsel before launch.</p></section></div>';
-}
-function proseBody(body) {
-  return body.map(function (b) {
-    if (b[0] === 'p') return '<p>' + esc(b[1]) + '</p>';
-    if (b[0] === 'h') return '<h3>' + esc(b[1]) + '</h3>';
-    if (b[0] === 'q') return '<div class="pullq">' + esc(b[1]) + '</div>';
-    if (b[0] === 'l') return '<ul>' + b[1].map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+function proseBody(b) {
+  return b.map(function (x) {
+    if (x[0] === 'p') return '<p>' + esc(x[1]) + '</p>';
+    if (x[0] === 'h') return '<h3>' + esc(x[1]) + '</h3>';
+    if (x[0] === 'q') return '<div class="pullq">' + esc(x[1]) + '</div>';
+    if (x[0] === 'l') return '<ul>' + x[1].map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
     return ''; }).join('');
+}
+function legalShell(t, l, b) {
+  return '<div class="wrap"><section><p class="eyebrow">LEGAL</p><h1>' + esc(t) + '</h1><p class="sub">' + esc(l) + '</p><div class="prose">'
+    + b.map(function (x) {
+      if (x[0] === 'p') return '<p>' + esc(x[1]) + '</p>';
+      if (x[0] === 'h') return '<h3>' + esc(x[1]) + '</h3>';
+      if (x[0] === 'l') return '<ul>' + x[1].map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+      return ''; }).join('')
+    + '</div><p class="note">Prototype text. A live site requires this reviewed by counsel before launch.</p></section></div>';
 }
 
 /* ---------- views ---------- */
@@ -814,31 +920,29 @@ var V = {};
 V.home = function () {
   var top = P.slice().sort(function (a, b) { return b.score - a.score; }).slice(0, 3);
   return '<div class="wrap">'
-    + '<section style="padding-top:48px">'
+    + '<section class="hero"><div class="hero-bg"></div>'
     + '<p style="font-family:var(--f-h);font-size:clamp(1rem,2.2vw,1.26rem);color:var(--ink-3);margin:0 0 10px">Every property platform tells you what\'s for sale.</p>'
-    + '<h1>OTHO tells you what\'s worth buying.</h1>'
+    + '<h1>OTHO tells you what\'s <span class="em">worth buying</span>.</h1>'
     + '<p class="sub">Independent reviews of ' + P.length + ' Hyderabad projects, with the real price per usable foot, the things nobody puts in a brochure, and your phone number kept out of the market.</p>'
-    + '<div class="cta-row" style="margin-bottom:24px"><a class="btn" href="#/search">Search by budget and amenities</a>'
-    + '<a class="btn ghost" href="#/compare">Compare two</a><a class="btn ghost" href="#/methodology">How we score</a></div>'
-    + svgSkyline() + '</section>'
-    + '<section><div class="promise">'
+    + '<div class="cta-row"><a class="btn" href="#/search">Search by budget and amenities</a><a class="btn ghost" href="#/compare">Compare two</a><a class="btn ghost" href="#/methodology">How we score</a></div>'
+    + '<div class="stats rv" style="margin-top:34px"><div class="stat"><b data-count="' + P.length + '">0</b><span>PROJECTS REVIEWED</span></div>'
+    + '<div class="stat"><b data-count="' + L.length + '">0</b><span>LOCALITIES COVERED</span></div>'
+    + '<div class="stat"><b data-count="30" data-suffix="%">0</b><span>AVG LOADING FACTOR</span></div>'
+    + '<div class="stat"><b>₹0</b><span>COST TO A BUYER</span></div></div></section>'
+    + '<section class="rv"><div class="promise">'
     + '<div><b>Your number is never shared</b><span>One conversation, with us. Not resold to eight brokers the moment you enquire.</span></div>'
     + '<div><b>We publish the negatives</b><span>Every project page lists what is wrong with it, including projects we earn on.</span></div>'
-    + '<div><b>Checked against RERA</b><span>Carpet areas and completion dates read from the filing, not the sales sheet.</span></div>'
-    + '</div></section>'
-    + '<section><h2>Highest rated right now</h2><p class="lede">Scored on land share, loading, delivery record, water, density and measured commute times. The full method is published.</p>'
+    + '<div><b>Checked against RERA</b><span>Carpet areas and completion dates read from the filing, not the sales sheet.</span></div></div></section>'
+    + '<section class="rv"><h2>Highest rated right now</h2><p class="lede">Scored on land share, loading, delivery record, water, density and measured commute times.</p>'
     + '<div class="grid g3">' + top.map(pcard).join('') + '</div>'
     + '<p class="note"><a href="#/projects" style="color:var(--brass)">See all ' + P.length + ' reviewed projects →</a></p></section>'
-    + '<section><h2>Latest from the blog</h2>'
-    + '<div class="grid g3">' + BLOG.slice(0, 3).map(function (b) {
-        return '<a class="card" href="#/blog/' + b.slug + '"><div class="meta">' + esc(b.cat.toUpperCase()) + ' · ' + esc(b.d) + ' · ' + esc(b.read) + '</div>'
-        + '<h3>' + esc(b.t) + '</h3><p>' + esc(b.x) + '</p></a>'; }).join('') + '</div>'
-    + '<p class="note"><a href="#/blog" style="color:var(--brass)">All articles →</a></p></section>'
-    + '<section><h2>Where to buy, honestly assessed</h2><p class="lede">Each locality carries an infrastructure confidence label based on funding and construction status — not on what a sales office says is coming.</p>'
-    + '<div class="grid g3">' + L.map(function (l) {
-        return '<a class="card" href="#/locality/' + l.slug + '"><div class="meta">' + esc(l.price) + ' · ' + esc(l.trend) + '</div><h3>' + esc(l.n) + '</h3><p>' + esc(l.blurb) + '</p></a>'; }).join('') + '</div></section>'
-    + '<section>' + newsletter() + '</section>'
-    + '<section>' + visitBand() + '</section></div>';
+    + '<section class="rv"><h2>Latest from the blog</h2><div class="grid g3">'
+    + BLOG.slice(0, 3).map(function (b) { return '<a class="card" href="#/blog/' + b.slug + '"><div class="meta">' + esc(b.cat.toUpperCase()) + ' · ' + esc(b.d) + ' · ' + esc(b.read) + '</div><h3>' + esc(b.t) + '</h3><p>' + esc(b.x) + '</p></a>'; }).join('')
+    + '</div><p class="note"><a href="#/blog" style="color:var(--brass)">All articles →</a></p></section>'
+    + '<section class="rv"><h2>Where to buy, honestly assessed</h2><p class="lede">Each locality carries an infrastructure confidence label based on funding and construction status.</p>'
+    + '<div class="grid g3">' + L.map(function (l) { return '<a class="card" href="#/locality/' + l.slug + '"><div class="meta">' + esc(l.price) + ' · ' + esc(l.trend) + '</div><h3>' + esc(l.n) + '</h3><p>' + esc(l.blurb) + '</p></a>'; }).join('') + '</div></section>'
+    + '<section class="rv">' + newsletter() + '</section>'
+    + '<section class="rv">' + visitBand() + '</section></div>';
 };
 
 V.search = function () {
@@ -849,123 +953,120 @@ V.search = function () {
     + '<div><label for="qBhk">CONFIGURATION</label><select id="qBhk"><option value="">Any</option><option value="2">2 BHK and up</option><option value="3">3 BHK and up</option><option value="4">4 BHK</option></select></div>'
     + '<div><label for="qStat">STATUS</label><select id="qStat"><option value="">Any</option><option>Ready to move</option><option>Under construction</option><option>Newly launched</option></select></div>'
     + '<div><label for="qSort">SORT BY</label><select id="qSort"><option value="score">OTHO score</option><option value="real">Real rate, lowest first</option><option value="load">Loading, lowest first</option><option value="price">Total price, lowest first</option></select></div></div>'
-    + '<div style="margin-bottom:14px"><label for="qBud">MAXIMUM BUDGET · <span id="qBudV">₹6.00 Cr</span></label>'
-    + '<input type="range" id="qBud" min="8000000" max="60000000" step="500000" value="60000000"></div>'
+    + '<div style="margin-bottom:14px"><label for="qBud">MAXIMUM BUDGET · <span id="qBudV">₹6.00 Cr</span></label><input type="range" id="qBud" min="8000000" max="60000000" step="500000" value="60000000"></div>'
     + '<div><label>AMENITIES — MUST HAVE ALL SELECTED</label><div class="chips" id="qAm">'
-    + AMEN.map(function (a, i) { return '<button class="chip" data-am="' + i + '" aria-pressed="false">' + esc(a) + '</button>'; }).join('') + '</div></div>'
+    + AMEN.map(function (a, i) { return '<button class="chip" data-am="' + i + '" aria-pressed="false">' + esc(a) + '<span class="n"></span></button>'; }).join('') + '</div></div>'
     + '<button class="btn ghost sm" id="qClear">Clear all filters</button></div>'
-    + '<p class="note" id="qCount" style="margin-bottom:16px"></p>'
-    + '<div class="grid g2" id="qList"></div></section></div>';
+    + '<p class="note" id="qCount" style="margin-bottom:16px"></p><div class="grid g2" id="qList"></div></section></div>';
 };
 
 V.projects = function () {
   return '<div class="wrap"><section><p class="eyebrow">REVIEWED PROJECTS</p><h1>All ' + P.length + ' projects we cover</h1>'
     + '<p class="lede">We review on site and against the RERA filing. A score below 7 does not mean do not buy — it means know what you are trading away.</p>'
-    + '<div class="chips" id="locChips"><button class="chip" data-loc="" aria-pressed="true">All</button>'
-    + L.map(function (l) { return '<button class="chip" data-loc="' + esc(l.n) + '" aria-pressed="false">' + esc(l.n) + '</button>'; }).join('') + '</div>'
+    + '<div class="chips" id="locChips"><button class="chip" data-loc="" aria-pressed="true">All<span class="n">' + P.length + '</span></button>'
+    + L.map(function (l) { var c = P.filter(function (p) { return p.loc === l.n; }).length;
+      return '<button class="chip" data-loc="' + esc(l.n) + '" aria-pressed="false">' + esc(l.n) + '<span class="n">' + c + '</span></button>'; }).join('') + '</div>'
     + '<div class="grid g2" id="plist">' + P.map(pcard).join('') + '</div></section></div>';
 };
 
 function projTabs(id, tab) {
   var t = [['','Overview'],['floorplans','Floor plans'],['pricing','Pricing'],['gallery','Gallery'],['progress','Progress'],['location','Location']];
-  return '<div class="tabs">' + t.map(function (x) {
-    return '<a href="#/project/' + id + (x[0] ? '/' + x[0] : '') + '" class="' + ((tab || '') === x[0] ? 'on' : '') + '">' + x[1] + '</a>'; }).join('') + '</div>';
+  return '<div class="tabs">' + t.map(function (x) { return '<a href="#/project/' + id + (x[0] ? '/' + x[0] : '') + '" class="' + ((tab || '') === x[0] ? 'on' : '') + '">' + x[1] + '</a>'; }).join('') + '</div>';
 }
 
 V.project = function (id, tab) {
   var p = P[id]; if (!p) return V.notfound();
   var x = m(p);
-  var head = '<div class="wrap"><section>'
+  var head = '<div class="wrap"><section style="padding-bottom:20px">'
     + '<p class="crumb"><a href="#/projects">Projects</a> / ' + esc(p.loc) + '</p>'
-    + '<p class="eyebrow">' + esc(p.dev.toUpperCase()) + ' · ' + esc(p.status.toUpperCase()) + ' · TG-RERA P0XXXXXXX</p>'
+    + '<div style="margin-bottom:20px">' + pvis(p, 260) + '</div>'
+    + '<p class="eyebrow">' + esc(p.dev.toUpperCase()) + ' · TG-RERA P0XXXXXXX</p>'
     + '<h1>' + esc(p.n) + '</h1><p class="sub">' + esc(p.sum) + '</p>'
     + '<div class="cta-row" style="margin-bottom:18px">'
     + '<button class="btn" ' + gated('visit', 'Book a site visit at ' + p.n + '.') + '>Book a site visit</button>'
     + '<a class="btn ghost" href="#/compare?a=' + p.id + '">Compare this</a>'
-    + '<button class="save" ' + gated('save:' + p.id, 'Save ' + p.n + ' to your shortlist.') + ' aria-pressed="' + (isSaved(p.id) ? 'true' : 'false') + '">'
-    + (isSaved(p.id) ? '★ Saved' : '☆ Save') + '</button></div>'
+    + '<button class="save" ' + gated('save:' + p.id, 'Save ' + p.n + ' to your shortlist.') + ' aria-pressed="' + (isSaved(p.id) ? 'true' : 'false') + '">' + (isSaved(p.id) ? '★ Saved' : '☆ Save') + '</button>'
+    + '<button class="save" data-tray="' + p.id + '" aria-pressed="' + (tray.indexOf(p.id) > -1 ? 'true' : 'false') + '">' + (tray.indexOf(p.id) > -1 ? '✓ In compare' : '⇄ Compare') + '</button></div>'
     + '<div class="stats"><div class="stat"><b>' + p.carpet.toLocaleString('en-IN') + '</b><span>RERA CARPET SQ FT</span></div>'
     + '<div class="stat"><b>' + cr(x.total) + '</b><span>INDICATIVE PRICE</span></div>'
     + '<div class="stat"><b>' + inr(x.real) + '</b><span>REAL RATE / CARPET FT</span></div>'
     + '<div class="stat"><b>' + esc(p.poss) + '</b><span>POSSESSION</span></div></div></section>'
-    + '<section style="padding-top:24px">' + projTabs(id, tab);
+    + '<section style="padding-top:0;border-top:0">' + projTabs(id, tab);
   var body = '';
 
   if (!tab) {
-    body = '<h2>Our verdict</h2>'
-      + '<div class="verdict"><div><div class="big">' + p.score.toFixed(1) + '</div><div class="lbl">OTHO SCORE / 10</div></div><p>' + esc(p.sum) + '</p></div>'
+    body = '<h2>Our verdict</h2><div class="verdict">' + ring(p.score, 88)
+      + '<div><p>' + esc(p.sum) + '</p><div class="lbl">OTHO SCORE / 10 · ILLUSTRATIVE</div></div></div>'
       + '<div class="grid g2"><div class="panel"><h3><span class="dot" style="background:var(--good)"></span>What\'s good</h3><ul>'
       + p.good.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>'
       + '<div class="panel"><h3><span class="dot" style="background:var(--bad)"></span>What we\'d flag</h3><ul>'
       + p.flag.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div></div>'
       + '<h2 style="margin-top:32px">Amenities</h2><div class="chips">'
-      + p.am.map(function (i) { return '<span class="chip" style="cursor:default">' + esc(AMEN[i]) + '</span>'; }).join('') + '</div>'
+      + AMEN.map(function (a, i) { var has = p.am.indexOf(i) > -1;
+          return '<span class="chip" style="cursor:default;opacity:' + (has ? 1 : .38) + '">' + (has ? '✓ ' : '✕ ') + esc(a) + '</span>'; }).join('') + '</div>'
       + '<h2 style="margin-top:32px">What you\'re actually paying</h2><p class="lede">Pre-filled with this project. Change anything and it recalculates.</p>' + calcHTML(p);
   } else if (tab === 'floorplans') {
     body = '<h2>Floor plans</h2><p class="lede">Carpet and super built-up shown together, because one is what you buy and the other is what you pay for.</p>'
-      + '<div class="plan-wrap" style="margin-bottom:14px"><div class="pcard-top" style="margin-bottom:12px">'
+      + '<div class="plan-wrap" style="margin-bottom:14px"><div class="pcard-top" style="margin-bottom:14px">'
       + '<div><div class="meta">' + p.bhk + ' BHK · TYPICAL UNIT</div><h3>' + esc(p.n) + '</h3></div>'
-      + '<div class="pmeta" style="margin:0"><span>Carpet <b>' + p.carpet.toLocaleString('en-IN') + '</b></span><span>SBA <b>' + p.sba.toLocaleString('en-IN') + '</b></span>'
-      + '<span>Loading <b>' + x.load.toFixed(0) + '%</b></span></div></div>' + svgPlan(p) + '</div>'
+      + '<div class="pmeta" style="margin:0"><span>Carpet <b>' + p.carpet.toLocaleString('en-IN') + '</b></span><span>SBA <b>' + p.sba.toLocaleString('en-IN') + '</b></span><span>Loading <b>' + x.load.toFixed(0) + '%</b></span></div></div>'
+      + svgPlan(p) + '</div>'
       + '<div class="locked"><b>Download the full plan set</b><p>All unit types as a PDF, with dimensions and the RERA carpet schedule.</p>'
-      + '<button class="btn" ' + gated('plan', 'Download the floor plan set for ' + p.n + '.') + '>Get the PDF</button></div>';
+      + '<button class="btn" ' + gated('plan', 'Download the plan set for ' + p.n + '.') + '>Get the PDF</button></div>';
   } else if (tab === 'pricing') {
     if (user && user.verified) {
-      var rows = [['Base rate on super built-up', inr(p.rate) + ' / sq ft'],
-                  ['Super built-up area', p.sba.toLocaleString('en-IN') + ' sq ft'],
-                  ['Base price', cr(x.total)],
-                  ['Floor rise (indicative, per floor)', inr(p.rate * 0.004 * p.sba)],
-                  ['Car parking (2 covered)', inr(650000)],
-                  ['Corpus and maintenance advance', inr(p.sba * 95)],
-                  ['GST at 5% on base', inr(x.total * 0.05)],
-                  ['Stamp duty and registration ~7.5%', inr(x.total * 0.075)]];
-      body = '<h2>Pricing, broken down</h2><p class="lede">The number a sales office quotes is rarely the number you pay. This is the whole stack.</p>'
+      var rows = [['Base rate on super built-up', inr(p.rate) + ' / sq ft'], ['Super built-up area', p.sba.toLocaleString('en-IN') + ' sq ft'],
+        ['Base price', cr(x.total)], ['Floor rise (indicative, per floor)', inr(p.rate * 0.004 * p.sba)],
+        ['Car parking (2 covered)', inr(650000)], ['Corpus and maintenance advance', inr(p.sba * 95)],
+        ['GST at 5% on base', inr(x.total * 0.05)], ['Stamp duty and registration ~7.5%', inr(x.total * 0.075)]];
+      body = '<h2>Pricing, broken down</h2><p class="lede">The number a sales office quotes is rarely the number you pay.</p>'
         + '<div class="scroll"><table><thead><tr><th>Line</th><th>Indicative</th></tr></thead><tbody>'
         + rows.map(function (r) { return '<tr><td>' + esc(r[0]) + '</td><td class="v">' + esc(r[1]) + '</td></tr>'; }).join('')
         + '<tr><td><strong>All-in, approximately</strong></td><td class="v" style="background:var(--info-bg);color:var(--info)">'
-        + cr(x.total * 1.125 + 650000 + p.sba * 95 + p.rate * 0.004 * p.sba) + '</td></tr>'
-        + '</tbody></table></div><p class="note">Illustrative modelling. Confirm every line against the developer\'s cost sheet and the sale agreement.</p>';
+        + cr(x.total * 1.125 + 650000 + p.sba * 95 + p.rate * 0.004 * p.sba) + '</td></tr></tbody></table></div>'
+        + '<p class="note">Illustrative. Confirm every line against the developer\'s cost sheet and the sale agreement.</p>';
     } else {
       body = '<h2>Pricing, broken down</h2><p class="lede">Base rate, floor rise, parking, corpus, GST, stamp duty — the whole stack, not the headline.</p>'
-        + '<div class="locked"><b>Verify to see the full cost breakdown</b>'
-        + '<p>We ask once, by OTP, so we know you are a real buyer. Your number is never passed to the developer.</p>'
+        + '<div class="locked"><b>Verify to see the full cost breakdown</b><p>We ask once, by OTP, so we know you are a real buyer. Your number is never passed to the developer.</p>'
         + '<button class="btn" ' + gated('price', 'See the full cost breakdown for ' + p.n + '.') + '>Verify with OTP</button></div>';
     }
   } else if (tab === 'gallery') {
-    body = '<h2>Gallery</h2><p class="lede">What the shoot covers. Every image is dated so you can tell a current photo from a launch render.</p>'
-      + '<div class="grid g2">' + [['EXTERIOR — TOWER','Drone, elevation, approach road'],['CLUBHOUSE','Interior, pool, gym'],
-        ['SHOW FLAT — LIVING','Wide and detail, natural light'],['SHOW FLAT — KITCHEN','Fittings, counter, utility'],
-        ['LANDSCAPE / PODIUM','Open area, walkways, play zone'],['APPROACH AND SURROUNDS','What you see from the gate']]
-        .map(function (f) { return frame(f[0], f[1], 200); }).join('') + '</div>'
-      + '<p class="note">Prototype frames, filled from the monthly site shoot.</p>';
+    var shots = [['EXTERIOR — TOWER','Drone, elevation, approach road'],['CLUBHOUSE','Interior, pool, gym'],
+      ['SHOW FLAT — LIVING','Wide and detail, natural light'],['SHOW FLAT — KITCHEN','Fittings, counter, utility'],
+      ['LANDSCAPE / PODIUM','Open area, walkways, play zone'],['APPROACH AND SURROUNDS','What you see from the gate']];
+    gal = shots;
+    body = '<h2>Gallery</h2><p class="lede">What the shoot covers. Click any frame to open it. Every image is dated so you can tell a current photo from a launch render.</p>'
+      + '<div class="grid g2">' + shots.map(function (f, i) { return frame(f[0], f[1], 200, i); }).join('') + '</div>';
   } else if (tab === 'progress') {
     var st = [['Excavation and foundation',100],['Structure to podium',Math.min(100,p.prog+30)],['Tower structure',p.prog],
-              ['Blockwork and plaster',Math.max(0,p.prog-22)],['MEP and finishes',Math.max(0,p.prog-34)],['Amenities and landscape',Math.max(0,p.prog-45)]];
+      ['Blockwork and plaster',Math.max(0,p.prog-22)],['MEP and finishes',Math.max(0,p.prog-34)],['Amenities and landscape',Math.max(0,p.prog-45)]];
+    gal = [['JUN 2026','Dated site photograph'],['JUL 2026','Dated site photograph'],['AUG 2026','Dated site photograph']];
     body = '<h2>Construction progress</h2><p class="lede">Updated monthly with dated photographs. Overall completion is ' + p.prog + '% against a declared possession of ' + esc(p.poss) + '.</p>'
       + '<div class="infra" style="margin-bottom:16px">' + st.map(function (s) {
-        return '<div class="infra-row" style="grid-template-columns:1fr 120px 54px"><div><b>' + esc(s[0]) + '</b></div>'
-        + '<div class="bar"><i style="width:' + s[1] + '%"></i></div><div style="font-family:var(--f-m);font-size:12px;text-align:right">' + s[1] + '%</div></div>'; }).join('') + '</div>'
-      + '<div class="grid g3">' + ['Jun 2026','Jul 2026','Aug 2026'].map(function (mo) { return frame(mo.toUpperCase(), 'Dated site photograph', 150); }).join('') + '</div>';
+        return '<div class="infra-row" style="grid-template-columns:1fr 130px 54px"><div><b>' + esc(s[0]) + '</b></div>'
+        + '<div class="bar"><i data-bar="' + s[1] + '"></i></div><div style="font-family:var(--f-m);font-size:12px;text-align:right">' + s[1] + '%</div></div>'; }).join('') + '</div>'
+      + '<div class="grid g3">' + gal.map(function (f, i) { return frame(f[0], f[1], 150, i); }).join('') + '</div>';
   } else if (tab === 'location') {
     var l = null; L.forEach(function (z) { if (z.n === p.loc) l = z; });
     body = '<h2>Location</h2><p class="lede">Drive times measured at 9am on a weekday, not calculated from straight-line distance.</p>'
-      + (l ? svgMap(l) + '<div class="stats" style="margin-top:14px">' + l.times.map(function (t) {
-          return '<div class="stat"><b>' + esc(t[0]) + '</b><span>' + esc(t[1].toUpperCase()) + '</span></div>'; }).join('') + '</div>'
+      + (l ? svgMap(l) + '<div class="stats" style="margin-top:14px">' + l.times.map(function (t) { return '<div class="stat"><b>' + esc(t[0]) + '</b><span>' + esc(t[1].toUpperCase()) + '</span></div>'; }).join('') + '</div>'
         + '<h3 style="margin-top:28px">Infrastructure confidence</h3><div class="infra">' + l.infra.map(function (r) {
           return '<div class="infra-row"><div><b>' + esc(r[0]) + '</b><em>' + esc(r[1]) + '</em></div><span class="pill ' + r[3] + '">' + esc(r[2]) + '</span></div>'; }).join('') + '</div>'
         + '<p class="note"><a href="#/locality/' + l.slug + '" style="color:var(--brass)">Full ' + esc(l.n) + ' report →</a></p>' : '');
   } else return V.notfound();
 
-  return head + body + '</section><section>' + visitBand() + '</section></div>';
+  return head + body + '</section><section class="rv">' + visitBand() + '</section></div>';
 };
 
 V.compare = function (q) {
-  var a = q && q.a != null ? +q.a : 0, b = a === 3 ? 0 : 3;
+  var a = tray[0] != null ? tray[0] : (q && q.a != null ? +q.a : 0);
+  var b = tray[1] != null ? tray[1] : (a === 3 ? 0 : 3);
   return '<div class="wrap"><section><p class="eyebrow">COMPARISON ENGINE</p><h1>Compare it honestly</h1>'
     + '<p class="lede">Pick any two. Green marks the better of the pair on each line — lower wins on rate and loading, higher wins on carpet, land share and score.</p>'
     + '<div class="cta-row" style="margin-bottom:18px">'
     + '<select id="selA" aria-label="First project">' + P.map(function (p, i) { return '<option value="' + i + '"' + (i === a ? ' selected' : '') + '>' + esc(p.n) + '</option>'; }).join('') + '</select>'
     + '<select id="selB" aria-label="Second project">' + P.map(function (p, i) { return '<option value="' + i + '"' + (i === b ? ' selected' : '') + '>' + esc(p.n) + '</option>'; }).join('') + '</select></div>'
+    + '<div class="grid g2" style="margin-bottom:18px" id="cmpVis"></div>'
     + '<div class="scroll"><table><thead><tr><th>Measure</th><th id="hA">—</th><th id="hB">—</th></tr></thead><tbody id="cmpBody"></tbody></table></div>'
     + '<p class="note">Land share is indexed against the set average. Higher means more land per apartment.</p></section></div>';
 };
@@ -974,28 +1075,23 @@ V.blog = function () {
   return '<div class="wrap"><section><p class="eyebrow">BLOG</p><h1>What we are seeing in the market</h1>'
     + '<p class="lede">Written by the people who do the reviews. No press releases, no launch announcements.</p>'
     + '<div class="grid g2">' + BLOG.map(function (b) {
-      return '<a class="card" href="#/blog/' + b.slug + '"><div class="meta">' + esc(b.cat.toUpperCase()) + ' · ' + esc(b.d) + ' · ' + esc(b.read) + '</div>'
-      + '<h3>' + esc(b.t) + '</h3><p>' + esc(b.x) + '</p></a>'; }).join('') + '</div></section>'
-    + '<section>' + newsletter() + '</section></div>';
+      return '<a class="card" href="#/blog/' + b.slug + '"><div class="meta">' + esc(b.cat.toUpperCase()) + ' · ' + esc(b.d) + ' · ' + esc(b.read) + '</div><h3>' + esc(b.t) + '</h3><p>' + esc(b.x) + '</p></a>'; }).join('') + '</div></section>'
+    + '<section class="rv">' + newsletter() + '</section></div>';
 };
-
 V.blogPost = function (slug) {
   var b = null; BLOG.forEach(function (x) { if (x.slug === slug) b = x; });
   if (!b) return V.notfound();
   return '<div class="wrap"><section><p class="crumb"><a href="#/blog">Blog</a> / ' + esc(b.cat) + '</p>'
     + '<h1>' + esc(b.t) + '</h1><p class="sub">' + esc(b.x) + '</p>'
-    + '<p class="meta" style="font-family:var(--f-m);font-size:11px;color:var(--ink-3)">' + esc(b.d) + ' · ' + esc(b.read) + ' read</p>'
-    + '<div class="prose">' + proseBody(b.body) + '</div></section>'
-    + '<section>' + newsletter() + '</section></div>';
+    + '<p style="font-family:var(--f-m);font-size:11px;color:var(--ink-3)">' + esc(b.d) + ' · ' + esc(b.read) + ' read</p>'
+    + '<div class="prose">' + proseBody(b.body) + '</div></section><section class="rv">' + newsletter() + '</section></div>';
 };
 
 V.localities = function () {
   return '<div class="wrap"><section><p class="eyebrow">LOCALITIES</p><h1>Where to buy, honestly assessed</h1>'
     + '<p class="lede">Price, direction of travel, and an infrastructure confidence label for every promised improvement.</p>'
-    + '<div class="grid g2">' + L.map(function (l) {
-      return '<a class="card" href="#/locality/' + l.slug + '"><div class="meta">' + esc(l.price) + ' · ' + esc(l.trend) + '</div><h3>' + esc(l.n) + '</h3><p>' + esc(l.blurb) + '</p></a>'; }).join('') + '</div></section></div>';
+    + '<div class="grid g2">' + L.map(function (l) { return '<a class="card" href="#/locality/' + l.slug + '"><div class="meta">' + esc(l.price) + ' · ' + esc(l.trend) + '</div><h3>' + esc(l.n) + '</h3><p>' + esc(l.blurb) + '</p></a>'; }).join('') + '</div></section></div>';
 };
-
 V.locality = function (slug) {
   var l = null; L.forEach(function (x) { if (x.slug === slug) l = x; });
   if (!l) return V.notfound();
@@ -1004,22 +1100,18 @@ V.locality = function (slug) {
     + '<p class="eyebrow">LOCALITY REPORT · UPDATED MONTHLY</p><h1>' + esc(l.n) + '</h1><p class="sub">' + esc(l.blurb) + '</p>'
     + '<div class="stats"><div class="stat"><b>' + esc(l.price) + '</b><span>PRICE BAND</span></div>'
     + '<div class="stat"><b>' + esc(l.trend) + '</b><span>DIRECTION</span></div>'
-    + '<div class="stat"><b>' + here.length + '</b><span>PROJECTS REVIEWED</span></div></div></section>'
-    + '<section>' + svgMap(l) + '<div class="stats" style="margin-top:14px">' + l.times.map(function (t) {
-      return '<div class="stat"><b>' + esc(t[0]) + '</b><span>' + esc(t[1].toUpperCase()) + '</span></div>'; }).join('') + '</div></section>'
-    + '<section><h2>Infrastructure confidence</h2><p class="lede">Labelled on funding and construction status, not on announcements.</p>'
-    + '<div class="infra">' + l.infra.map(function (r) {
-      return '<div class="infra-row"><div><b>' + esc(r[0]) + '</b><em>' + esc(r[1]) + '</em></div><span class="pill ' + r[3] + '">' + esc(r[2]) + '</span></div>'; }).join('') + '</div></section>'
-    + (here.length ? '<section><h2>Projects we cover here</h2><div class="grid g2">' + here.map(pcard).join('') + '</div></section>' : '') + '</div>';
+    + '<div class="stat"><b data-count="' + here.length + '">0</b><span>PROJECTS REVIEWED</span></div></div></section>'
+    + '<section class="rv">' + svgMap(l) + '<div class="stats" style="margin-top:14px">' + l.times.map(function (t) { return '<div class="stat"><b>' + esc(t[0]) + '</b><span>' + esc(t[1].toUpperCase()) + '</span></div>'; }).join('') + '</div></section>'
+    + '<section class="rv"><h2>Infrastructure confidence</h2><p class="lede">Labelled on funding and construction status, not on announcements.</p>'
+    + '<div class="infra">' + l.infra.map(function (r) { return '<div class="infra-row"><div><b>' + esc(r[0]) + '</b><em>' + esc(r[1]) + '</em></div><span class="pill ' + r[3] + '">' + esc(r[2]) + '</span></div>'; }).join('') + '</div></section>'
+    + (here.length ? '<section class="rv"><h2>Projects we cover here</h2><div class="grid g2">' + here.map(pcard).join('') + '</div></section>' : '') + '</div>';
 };
 
 V.guides = function () {
   return '<div class="wrap"><section><p class="eyebrow">GUIDES</p><h1>The mechanics, explained plainly</h1>'
     + '<p class="lede">The things a sales office will talk around, written so you can check them yourself.</p>'
-    + '<div class="grid g2">' + G.map(function (g) {
-      return '<a class="card" href="#/guides/' + g.slug + '"><div class="meta">GUIDE</div><h3>' + esc(g.t) + '</h3><p>' + esc(g.x) + '</p></a>'; }).join('') + '</div></section></div>';
+    + '<div class="grid g2">' + G.map(function (g) { return '<a class="card" href="#/guides/' + g.slug + '"><div class="meta">GUIDE</div><h3>' + esc(g.t) + '</h3><p>' + esc(g.x) + '</p></a>'; }).join('') + '</div></section></div>';
 };
-
 V.guide = function (slug) {
   var g = null; G.forEach(function (x) { if (x.slug === slug) g = x; });
   if (!g) return V.notfound();
@@ -1031,9 +1123,9 @@ V.guide = function (slug) {
 V.tools = function () {
   return '<div class="wrap"><section><p class="eyebrow">CALCULATORS</p><h1>Work it out before anyone tells you</h1>'
     + '<p class="lede">Two numbers decide most purchases: what you actually pay per usable foot, and what the bank will lend you.</p></section>'
-    + '<section><h2>Real rate on carpet</h2><p class="lede">Enter any project\'s figures. Loading factor and real rate calculate as you type.</p>'
+    + '<section class="rv"><h2>Real rate on carpet</h2><p class="lede">Enter any project\'s figures. Loading factor and real rate calculate as you type.</p>'
     + calcHTML({sba:2650, carpet:1850, rate:11300}) + '</section>'
-    + '<section><h2>Loan and affordability</h2><p class="lede">Indicative only. Banks assess the project as well as you.</p>'
+    + '<section class="rv"><h2>Loan and affordability</h2><p class="lede">Indicative only. Banks assess the project as well as you.</p>'
     + '<div class="calc"><div class="fields">'
     + '<div><label for="lAmt">PROPERTY PRICE (₹)</label><input type="number" id="lAmt" value="29900000" step="100000"></div>'
     + '<div><label for="lDown">DOWN PAYMENT (%)</label><input type="number" id="lDown" value="20" min="10" max="90"></div>'
@@ -1044,7 +1136,7 @@ V.tools = function () {
     + '<div class="out-row key"><span>Monthly EMI</span><span id="lOutEmi">—</span></div>'
     + '<div class="out-row"><span>Total interest over term</span><span id="lOutInt">—</span></div>'
     + '<div class="out-row"><span>Income usually needed</span><span id="lOutInc">—</span></div></div>'
-    + '<p class="note">Lenders generally want the EMI under about 40% of net monthly income. Stamp duty and registration are not included.</p></div></section></div>';
+    + '<p class="note">Lenders generally want the EMI under about 40% of net monthly income.</p></div></section></div>';
 };
 
 V.shortlist = function () {
@@ -1066,199 +1158,160 @@ V.leads = function () {
   var hot = leads.filter(function (l) { return leadScore(l)[0] === 'HOT'; }).length;
   return '<div class="wrap"><section><p class="eyebrow">INTERNAL DEMO · NOT PUBLIC</p><h1>What you capture instead of losing</h1>'
     + '<p class="lede">This is the page OTHO staff would see. Every verified visitor arrives with a phone, an email, a profession, a buying timeline and a budget — scored automatically so sales calls the right people first.</p>'
-    + '<div class="stats"><div class="stat"><b>' + leads.length + '</b><span>VERIFIED LEADS</span></div>'
-    + '<div class="stat"><b>' + hot + '</b><span>HOT — BUYING IN 3 MONTHS</span></div>'
-    + '<div class="stat"><b>' + subs.length + '</b><span>NEWSLETTER SUBSCRIBERS</span></div>'
-    + '<div class="stat"><b>' + saved.length + '</b><span>PROJECTS SHORTLISTED</span></div></div></section>'
-    + '<section>' + (leads.length
+    + '<div class="stats"><div class="stat"><b data-count="' + leads.length + '">0</b><span>VERIFIED LEADS</span></div>'
+    + '<div class="stat"><b data-count="' + hot + '">0</b><span>HOT — BUYING IN 3 MONTHS</span></div>'
+    + '<div class="stat"><b data-count="' + subs.length + '">0</b><span>NEWSLETTER SUBSCRIBERS</span></div>'
+    + '<div class="stat"><b data-count="' + saved.length + '">0</b><span>PROJECTS SHORTLISTED</span></div></div></section>'
+    + '<section class="rv">' + (leads.length
       ? '<div class="scroll"><table><thead><tr><th>Phone</th><th>Email</th><th>Profession</th><th>Timeline</th><th>Budget</th><th>Triggered by</th><th>Score</th></tr></thead><tbody>'
-        + leads.slice().reverse().map(function (l) {
-          var s = leadScore(l);
+        + leads.slice().reverse().map(function (l) { var s = leadScore(l);
           return '<tr><td>+91 ' + esc(l.phone) + '</td><td>' + esc(l.email) + '</td><td>' + esc(l.profession) + '</td><td>' + esc(l.timeline) + '</td>'
-          + '<td class="v">' + cr(l.budget) + '</td><td>' + esc(l.source) + '</td><td class="v"><span class="lead-badge ' + s[1] + '">' + s[0] + '</span></td></tr>'; }).join('')
-        + '</tbody></table></div>'
+          + '<td class="v">' + cr(l.budget) + '</td><td>' + esc(l.source) + '</td><td class="v"><span class="lead-badge ' + s[1] + '">' + s[0] + '</span></td></tr>'; }).join('') + '</tbody></table></div>'
       : '<div class="locked"><b>No leads captured yet in this session</b><p>Try booking a visit or unlocking pricing on any project — the OTP flow will capture a lead and it will appear here.</p>'
         + '<a class="btn" href="#/projects">Go and trigger one</a></div>')
     + '<p class="note">Prototype — stored in your browser only. A live build writes to the CRM with consent timestamp, source page and UTM parameters, and pushes hot leads to WhatsApp within minutes.</p></section>'
-    + '<section><h2>Why this answers the problem</h2><div class="prose">'
+    + '<section class="rv"><h2>Why this answers the problem</h2><div class="prose">'
     + '<p>The complaint was that a lot of visitors arrive and are never heard from again. Gating the whole site would fix that and destroy the traffic at the same time — search engines cannot crawl what is behind a login, and the brand promise is that nothing is hidden.</p>'
     + '<div class="pullq">Gate the intent, not the information.</div>'
-    + '<p>So browsing, reviews, comparisons, guides and blog stay open. Verification is asked only where someone is signalling they are serious: booking a visit, downloading the plan set, unlocking the full cost breakdown, or saving a shortlist. Those people convert, and they are the ones worth a call.</p>'
+    + '<p>So browsing, reviews, comparisons, guides and blog stay open. Verification is asked only where someone signals they are serious: booking a visit, downloading the plan set, unlocking the full cost breakdown, or saving a shortlist.</p>'
     + '</div></section></div>';
 };
 
 V.methodology = function () {
   return '<div class="wrap"><section><p class="eyebrow">HOW WE SCORE</p><h1>The method, published in full</h1>'
     + '<p class="sub">If we are going to put a number on someone\'s building, the working has to be visible.</p></section>'
-    + '<section><h2>The six inputs</h2><div class="scroll"><table><thead><tr><th>Input</th><th>Weight</th><th>What we measure</th></tr></thead><tbody>'
-    + SCORE.map(function (s) { return '<tr><td><strong>' + esc(s[0]) + '</strong></td><td class="v">' + esc(s[1]) + '</td><td>' + esc(s[2]) + '</td></tr>'; }).join('')
-    + '</tbody></table></div></section>'
-    + '<section><h2>What the score is not</h2><div class="prose">'
+    + '<section class="rv"><h2>The six inputs</h2><div class="scroll"><table><thead><tr><th>Input</th><th>Weight</th><th>What we measure</th></tr></thead><tbody>'
+    + SCORE.map(function (s) { return '<tr><td><strong>' + esc(s[0]) + '</strong></td><td class="v">' + esc(s[1]) + '</td><td>' + esc(s[2]) + '</td></tr>'; }).join('') + '</tbody></table></div></section>'
+    + '<section class="rv"><h2>What the score is not</h2><div class="prose">'
     + '<p>It is not a prediction of price appreciation. Nobody can do that honestly, and anyone selling a forecast built on unfunded infrastructure is selling something else.</p>'
     + '<p>It is not a recommendation. A 6.5 can be exactly right for a buyer who values a five-minute commute above everything.</p>'
     + '<div class="pullq">A low score means know what you are giving up. It does not mean do not buy.</div>'
     + '<h3>How we gather it</h3><ul><li>Carpet areas and possession dates from the TG-RERA filing, never the brochure</li>'
     + '<li>Land and unit counts from the sanctioned plan</li><li>Drive times measured in a car at 9am on a weekday</li>'
     + '<li>Water and infrastructure status from the relevant authority, with funding stage recorded</li><li>A physical site visit before any project is scored</li></ul>'
-    + '<h3>When we change a score</h3><p>Re-reviewed every six months, and immediately if something material changes. Every change is dated and the previous score stays visible.</p>'
     + '</div><p class="note"><a href="#/charter" style="color:var(--brass)">Read the editorial charter →</a></p></section></div>';
 };
-
 V.charter = function () {
   return '<div class="wrap"><section><p class="eyebrow">EDITORIAL CHARTER</p><h1>What we will and will not publish</h1>'
     + '<p class="sub">We earn money from developers and publish criticism of their projects. That tension is real, so the rules governing it are public.</p></section>'
-    + '<section><div class="prose">'
-    + '<h3>Everything negative must be a cited fact</h3>'
-    + '<p>We do not publish "this project is bad." We publish "the sanctioned plan shows one clubhouse for 640 units" or "no municipal water connection has been tendered as of August 2026." Every flag traces to a filing, a measurement, or an authority record.</p>'
+    + '<section class="rv"><div class="prose"><h3>Everything negative must be a cited fact</h3>'
+    + '<p>We do not publish "this project is bad." We publish "the sanctioned plan shows one clubhouse for 640 units." Every flag traces to a filing, a measurement, or an authority record.</p>'
     + '<div class="pullq">Opinion is litigable. A sourced measurement is not.</div>'
-    + '<h3>Right of reply</h3><p>Developers see every finding before publication and have five working days to respond. Disputed facts carry their response alongside. Where they show we are wrong, we correct and say so.</p>'
-    + '<h3>Commercial separation</h3><ul><li>No developer may pay to change, soften or remove a finding</li><li>No developer may pay for placement in search results or comparisons</li>'
+    + '<h3>Right of reply</h3><p>Developers see every finding before publication and have five working days to respond. Disputed facts carry their response alongside.</p>'
+    + '<h3>Commercial separation</h3><ul><li>No developer may pay to change, soften or remove a finding</li><li>No developer may pay for placement in search or comparisons</li>'
     + '<li>A mandate relationship is disclosed on the project page</li><li>Reviewers are not compensated on sales of projects they score</li></ul>'
-    + '<h3>Corrections</h3><p>Errors are corrected at the top of the page, dated, with the original text preserved. We do not quietly edit.</p>'
-    + '</div></section></div>';
+    + '<h3>Corrections</h3><p>Errors are corrected at the top of the page, dated, with the original preserved. We do not quietly edit.</p></div></section></div>';
 };
-
 V.developers = function () {
   return '<div class="wrap"><section><p class="eyebrow">FOR DEVELOPERS</p><h1>We move inventory by making buyers confident, not by making more calls.</h1>'
     + '<p class="sub">OTHO takes a small number of exclusive mandates. Buyers arrive having read the honest case for and against your project — which is why they convert faster and negotiate less.</p>'
     + '<div class="cta-row"><a class="btn" href="#/contact">Talk about a mandate</a><a class="btn ghost" href="#/methodology">See how we score</a></div></section>'
-    + '<section><h2>What a mandate includes</h2><div class="grid g2">'
+    + '<section class="rv"><h2>What a mandate includes</h2><div class="grid g2">'
     + '<div class="panel"><h3>Distribution</h3><ul><li>A reviewed project page with full comparison data</li><li>Placement across search, locality and comparison pages</li>'
     + '<li>Video walkthrough and a comparison film</li><li>Channel partner kit with per-partner attribution</li></ul></div>'
     + '<div class="panel"><h3>Intelligence</h3><ul><li>Monthly demand report on your micro-market</li><li>What buyers ask, object to, and walk away from</li>'
     + '<li>Real cost per booking, by source</li><li>Competitive pricing movement in your layout</li></ul></div></div></section>'
-    + '<section><h2>The honest part</h2><div class="prose">'
+    + '<section class="rv"><h2>The honest part</h2><div class="prose">'
     + '<p>Your project page will carry a section on what is wrong with it. We will not remove it, and we will not soften it because a mandate is at stake.</p>'
     + '<div class="pullq">The flags are why buyers believe the rest of the page.</div>'
-    + '<h3>How we are paid</h3><p>A commission on completed sale, on registration. No listing fees, no pay-per-lead, no paid placement. If your inventory does not move, we do not earn.</p>'
-    + '</div></section></div>';
+    + '<h3>How we are paid</h3><p>A commission on completed sale, on registration. No listing fees, no pay-per-lead, no paid placement.</p></div></section></div>';
 };
-
 V.about = function () {
   return '<div class="wrap"><section><p class="eyebrow">ABOUT OTHO</p><h1>We make money when you buy well, not when you buy fast.</h1>'
     + '<p class="sub">OTHO is an advisory business, not a listings portal. That distinction decides everything about how this site works.</p></section>'
-    + '<section><h2>How we\'re different, concretely</h2><div class="scroll"><table><thead><tr><th>&nbsp;</th><th>A listings portal</th><th>OTHO</th></tr></thead><tbody>'
+    + '<section class="rv"><h2>How we\'re different, concretely</h2><div class="scroll"><table><thead><tr><th>&nbsp;</th><th>A listings portal</th><th>OTHO</th></tr></thead><tbody>'
     + '<tr><td>Your phone number</td><td class="v lose">Sold to several brokers</td><td class="v win">Never shared</td></tr>'
     + '<tr><td>What it tells you</td><td class="v lose">What is available</td><td class="v win">What is worth buying</td></tr>'
     + '<tr><td>Negative information</td><td class="v lose">Not published</td><td class="v win">On every project page</td></tr>'
     + '<tr><td>Area shown</td><td class="v lose">Super built-up</td><td class="v win">Carpet and real rate</td></tr>'
-    + '<tr><td>Paid by</td><td class="v lose">Listing fees, per lead</td><td class="v win">Developer mandate on completion</td></tr>'
-    + '</tbody></table></div></section>'
-    + '<section><h2>How we are paid</h2><div class="prose">'
+    + '<tr><td>Paid by</td><td class="v lose">Listing fees, per lead</td><td class="v win">Developer mandate on completion</td></tr></tbody></table></div></section>'
+    + '<section class="rv"><h2>How we are paid</h2><div class="prose">'
     + '<p>We earn a commission from developers when a sale completes. That is a real conflict of interest and we would rather name it than pretend it away.</p>'
     + '<div class="pullq">Every project page carries what is wrong with it — including projects we earn on. If that ever stops, nothing else here is worth reading.</div>'
     + '<h3>What we will not do</h3><ul><li>Sell or share your contact details with anyone</li><li>Remove a negative finding because a developer asked</li>'
     + '<li>Publish an appreciation forecast built on unfunded infrastructure</li><li>Quote a rate on super built-up without the carpet figure beside it</li></ul>'
-    + '</div></section><section>' + visitBand() + '</section></div>';
+    + '</div></section><section class="rv">' + visitBand() + '</section></div>';
 };
-
 V.team = function () {
   var t = [['Founder','Two decades in Hyderabad residential. Has sat on both sides of the table — developer sales and buyer advisory.'],
     ['Co-founder','Twenty years of transactions across the western corridor. Knows which projects were rescued and which were quietly repriced.'],
     ['Head of research','Reads the filings. Every carpet area, sanctioned plan and possession date passes through here.'],
     ['Site reviewer','Visits every project before it is scored, measures the commute in a car, and photographs what the brochure crops out.']];
-  return '<div class="wrap"><section><p class="eyebrow">TEAM</p><h1>The people whose judgement this is</h1>'
-    + '<p class="lede">A score is only worth the experience behind it.</p>'
-    + '<div class="grid g2">' + t.map(function (x) {
-      return '<div class="card pad0">' + frame('PORTRAIT', 'Studio headshot', 175) + '<div class="card-body"><h3>' + esc(x[0]) + '</h3><p>' + esc(x[1]) + '</p></div></div>'; }).join('') + '</div>'
+  return '<div class="wrap"><section><p class="eyebrow">TEAM</p><h1>The people whose judgement this is</h1><p class="lede">A score is only worth the experience behind it.</p>'
+    + '<div class="grid g2">' + t.map(function (x) { return '<div class="card pad0 lift">' + frame('PORTRAIT','Studio headshot',175) + '<div class="card-body"><h3>' + esc(x[0]) + '</h3><p>' + esc(x[1]) + '</p></div></div>'; }).join('') + '</div>'
     + '<p class="note">Names, photographs and biographies to be supplied by OTHO before launch.</p></section></div>';
 };
-
 V.contact = function () {
   return '<div class="wrap"><section><p class="eyebrow">CONTACT</p><h1>One conversation, with one person</h1>'
     + '<p class="lede">We call between 09:00 and 21:00 only, as the telecom rules require, and your number is never passed on.</p>'
-    + '<div class="grid g2">'
-    + '<div class="panel"><h3>Buyers</h3><ul><li>WhatsApp: +91 XXXXX XXXXX</li><li>Email: hello@otho.in</li><li>Hours: 09:00–21:00, all days</li></ul></div>'
+    + '<div class="grid g2"><div class="panel"><h3>Buyers</h3><ul><li>WhatsApp: +91 XXXXX XXXXX</li><li>Email: hello@otho.in</li><li>Hours: 09:00–21:00, all days</li></ul></div>'
     + '<div class="panel"><h3>Developers and press</h3><ul><li>Mandates: developers@otho.in</li><li>Press: press@otho.in</li><li>Grievances: <a href="#/grievance">grievance officer</a></li></ul></div></div>'
     + '<div class="calc" style="margin-top:18px"><div class="fields">'
     + '<div><label for="cName">YOUR NAME</label><input type="text" id="cName" placeholder="Name"></div>'
     + '<div><label for="cPhone">PHONE</label><input type="tel" id="cPhone" placeholder="+91"></div>'
     + '<div><label for="cTopic">WHAT ABOUT</label><select id="cTopic"><option>Buying advice</option><option>A specific project</option><option>Developer mandate</option><option>Press enquiry</option></select></div></div>'
     + '<div><label for="cMsg">MESSAGE</label><textarea id="cMsg" placeholder="What are you trying to work out?"></textarea></div>'
-    + '<div class="consent-row"><input type="checkbox" id="cConsent">'
-    + '<label for="cConsent">I agree to be contacted about this enquiry. I can withdraw at any time from <a href="#/consent" style="color:var(--brass)">consent preferences</a>.</label></div>'
+    + '<div class="consent-row"><input type="checkbox" id="cConsent"><label for="cConsent">I agree to be contacted about this enquiry. I can withdraw at any time from <a href="#/consent" style="color:var(--brass)">consent preferences</a>.</label></div>'
     + '<div class="cta-row" style="margin-top:14px"><button class="btn" id="cBtn">Send</button><span id="cMsgOut" style="font-size:13.5px;color:var(--ink-3)"></span></div></div>'
     + '<p class="note">Consent is collected separately from the terms of use, as the DPDP Act requires.</p></section></div>';
 };
-
 V.careers = function () {
   return '<div class="wrap"><section><p class="eyebrow">CAREERS</p><h1>We are hiring people who would rather be right than agreeable</h1>'
-    + '<p class="lede">Publishing criticism of your own clients is not for everyone. If it appeals, these are the roles.</p>'
-    + '<div class="grid g2">' + [['Research analyst','Read filings, measure commutes, and defend a finding to a developer who does not like it.'],
-      ['Site reviewer','Visit every project before it is scored. Photograph what the brochure crops out.'],
-      ['Content producer','Two shoot days a month, roughly thirty finished pieces.'],
-      ['Buyer advisor','One point of contact for a buyer, from first enquiry to registration.']].map(function (r) {
-      return '<div class="card"><div class="meta">HYDERABAD · FULL TIME</div><h3>' + esc(r[0]) + '</h3><p>' + esc(r[1]) + '</p></div>'; }).join('')
+    + '<p class="lede">Publishing criticism of your own clients is not for everyone.</p><div class="grid g2">'
+    + [['Research analyst','Read filings, measure commutes, and defend a finding to a developer who does not like it.'],
+       ['Site reviewer','Visit every project before it is scored.'],['Content producer','Two shoot days a month, roughly thirty finished pieces.'],
+       ['Buyer advisor','One point of contact for a buyer, from first enquiry to registration.']].map(function (r) {
+      return '<div class="card lift"><div class="meta">HYDERABAD · FULL TIME</div><h3>' + esc(r[0]) + '</h3><p>' + esc(r[1]) + '</p></div>'; }).join('')
     + '</div><p class="note">Write to careers@otho.in with something you have researched, not a covering letter.</p></section></div>';
 };
-
 V.faq = function () {
-  var q = [
-    ["Do you sell my phone number?","No, and the business model does not depend on it. A listings portal earns by reselling one enquiry to several brokers. We earn a commission from the developer when a sale completes, so there is nothing to gain from passing your number on."],
-    ["Why do I have to verify with OTP?","Only for actions that signal you are serious — booking a visit, downloading plans, unlocking the full cost breakdown. Reviews, comparisons, guides and the blog are open to everyone, no login. We verify so our advisors talk to real buyers rather than bots."],
-    ["How can you criticise projects you earn money from?","Because the criticism is what makes the endorsement worth anything. Every finding is a cited fact with a right of reply, set out in the editorial charter."],
+  var q = [["Do you sell my phone number?","No, and the business model does not depend on it. We earn a commission from the developer when a sale completes, so there is nothing to gain from passing your number on."],
+    ["Why do I have to verify with OTP?","Only for actions that signal you are serious — booking a visit, downloading plans, unlocking the full cost breakdown. Reviews, comparisons, guides and the blog are open to everyone, no login."],
+    ["How can you criticise projects you earn money from?","Because the criticism is what makes the endorsement worth anything. Every finding is a cited fact with a right of reply."],
     ["Is the OTHO score a prediction of returns?","No. It measures what you are trading away — land share, loading, water, density, delivery record and access."],
-    ["Why is your price different from the developer's?","We show the real rate on RERA carpet area alongside the advertised rate on super built-up. Same flat, same money, different denominator."],
+    ["Why is your price different from the developer's?","We show the real rate on RERA carpet area alongside the advertised rate on super built-up. Same flat, different denominator."],
     ["Do you charge buyers anything?","No. Advice, comparisons, guides and site visits are free to buyers."],
-    ["What if I disagree with a review?","Tell us. If you can show a figure is wrong we correct it at the top of the page, dated, with the original preserved."],
-    ["Can I buy from abroad?","Yes. The NRI article covers FEMA rules, repatriation and power of attorney, and we can act as your eyes on the ground."]
-  ];
-  return '<div class="wrap"><section><p class="eyebrow">FAQ</p><h1>Questions we get asked</h1>'
-    + '<div class="faq" style="margin-top:18px">' + q.map(function (x) {
-      return '<details><summary>' + esc(x[0]) + '</summary><div class="ans">' + esc(x[1]) + '</div></details>'; }).join('') + '</div></section></div>';
+    ["What if I disagree with a review?","Tell us. If you can show a figure is wrong we correct it at the top of the page, dated."],
+    ["Can I buy from abroad?","Yes. The NRI article covers FEMA rules, repatriation and power of attorney."]];
+  return '<div class="wrap"><section><p class="eyebrow">FAQ</p><h1>Questions we get asked</h1><div class="faq" style="margin-top:18px">'
+    + q.map(function (x) { return '<details><summary>' + esc(x[0]) + '</summary><div class="ans">' + esc(x[1]) + '</div></details>'; }).join('') + '</div></section></div>';
 };
-
 V.market = function () {
   return '<div class="wrap"><section><p class="eyebrow">MARKET REPORT · AUGUST 2026</p><h1>Hyderabad, in numbers we can source</h1>'
     + '<p class="lede">Published monthly. Every figure carries its source so you can check it rather than trust us.</p>'
-    + '<div class="stats"><div class="stat"><b>19 months</b><span>INVENTORY OVERHANG</span></div>'
-    + '<div class="stat"><b>~97,000</b><span>UNSOLD UNITS</span></div>'
-    + '<div class="stat"><b>₹8,258</b><span>AVG PRICE / SQ FT</span></div>'
-    + '<div class="stat"><b>+1%</b><span>H1 SALES GROWTH</span></div></div></section>'
-    + '<section><h2>What the numbers say</h2><div class="prose">'
-    + '<p>Hyderabad carries the highest residential inventory overhang of any major Indian city. Launches have continued to run ahead of absorption, and roughly 97,000 units sit unsold.</p>'
+    + '<div class="stats"><div class="stat"><b data-count="19" data-suffix=" months">0</b><span>INVENTORY OVERHANG</span></div>'
+    + '<div class="stat"><b data-count="97000" data-prefix="~">0</b><span>UNSOLD UNITS</span></div>'
+    + '<div class="stat"><b data-count="8258" data-prefix="₹">0</b><span>AVG PRICE / SQ FT</span></div>'
+    + '<div class="stat"><b data-count="1" data-prefix="+" data-suffix="%">0</b><span>H1 SALES GROWTH</span></div></div></section>'
+    + '<section class="rv"><h2>What the numbers say</h2><div class="prose">'
+    + '<p>Hyderabad carries the highest residential inventory overhang of any major Indian city. Launches have continued to run ahead of absorption.</p>'
     + '<div class="pullq">This is a buyer\'s market that mostly still talks like a seller\'s market.</div>'
-    + '<p>The demand engine underneath is strong — Hyderabad leads the country on GCC office absorption. What has overshot is the residential supply response, not the demand for housing.</p>'
+    + '<p>The demand engine underneath is strong — Hyderabad leads the country on GCC office absorption. What has overshot is the residential supply response.</p>'
     + '<h3>Sources</h3><p>Anarock quarterly residential viewpoints; Knight Frank H1 2026 India Real Estate; Telangana registration data; Hyderabad trade press.</p>'
-    + '</div></section><section>' + newsletter() + '</section></div>';
+    + '</div></section><section class="rv">' + newsletter() + '</section></div>';
 };
-
 V.podcast = function () {
   return '<div class="wrap"><section><p class="eyebrow">THE OTHO PODCAST</p><h1>Conversations with people who actually know</h1>'
-    + '<p class="lede">Developers, planners, architects and lawyers, on the record. Fortnightly.</p>'
-    + '<div class="grid g2">' + EP.map(function (e) {
-      return '<div class="card pad0">' + frame('EPISODE ARTWORK', 'Studio still or guest portrait', 135)
-      + '<div class="card-body"><div class="meta">EPISODE ' + e.n + ' · ' + esc(e.d) + ' · ' + esc(e.len) + '</div><h3>' + esc(e.t) + '</h3><p>' + esc(e.g) + '</p></div></div>'; }).join('')
-    + '</div></section></div>';
+    + '<p class="lede">Developers, planners, architects and lawyers, on the record. Fortnightly.</p><div class="grid g2">'
+    + EP.map(function (e) { return '<div class="card pad0 lift">' + frame('EPISODE ARTWORK','Studio still or guest portrait',135)
+      + '<div class="card-body"><div class="meta">EPISODE ' + e.n + ' · ' + esc(e.d) + ' · ' + esc(e.len) + '</div><h3>' + esc(e.t) + '</h3><p>' + esc(e.g) + '</p></div></div>'; }).join('') + '</div></section></div>';
 };
-
 V.visit = function () {
   return '<div class="wrap"><section><p class="eyebrow">BOOK A SITE VISIT</p><h1>One conversation, with one person</h1>'
-    + '<p class="lede">Pick a slot and you get a WhatsApp confirmation from a named person at OTHO. No call centre, no resold enquiry, and calls only between 09:00 and 21:00.</p>'
+    + '<p class="lede">Pick a slot and you get a WhatsApp confirmation from a named person at OTHO. No call centre, no resold enquiry.</p>'
     + visitBand() + '</section></div>';
 };
-
 V.privacy = function () {
-  return legalShell('Privacy notice', 'How we collect, use and protect your personal data under the Digital Personal Data Protection Act.', [
-    ['h','What we collect'],
-    ['l',['Name, phone number and email when you verify or make an enquiry','Profession, buying timeline and budget, so an advisor can be useful rather than generic','The projects you view, save or compare','Device and browser information for security and performance']],
-    ['h','Why we collect it'],
-    ['p','To respond to your enquiry, arrange site visits, and send updates you asked for. We do not build advertising profiles and we do not sell data.'],
-    ['h','Who we share it with'],
-    ['p','Nobody outside OTHO, other than the processors needed to run the service — hosting, messaging and CRM providers, each bound by contract. We do not pass your contact details to developers or brokers without your explicit, separate consent for that specific project.'],
-    ['h','Your rights'],
-    ['l',['Access the data we hold about you','Correct anything inaccurate','Erase your data','Withdraw consent at any time, as easily as it was given','Nominate someone to act for you','Complain to the Data Protection Board']],
-    ['h','How to withdraw'],
-    ['p','Use the consent preferences page, or write to the grievance officer. Withdrawal takes effect immediately.'],
-    ['h','How long we keep it'],
-    ['p','Enquiry data for three years from your last interaction, unless you ask us to erase it sooner.'],
-    ['h','Consent, stated separately'],
-    ['p','This notice is standalone. Agreeing to our terms of use is not agreement to be contacted — that consent is asked for separately, in plain language, at the point of collection.']
-  ]);
+  return legalShell('Privacy notice','How we collect, use and protect your personal data under the Digital Personal Data Protection Act.',[
+    ['h','What we collect'],['l',['Name, phone number and email when you verify or make an enquiry','Profession, buying timeline and budget, so an advisor can be useful rather than generic','The projects you view, save or compare','Device and browser information for security']],
+    ['h','Why we collect it'],['p','To respond to your enquiry, arrange site visits, and send updates you asked for. We do not build advertising profiles and we do not sell data.'],
+    ['h','Who we share it with'],['p','Nobody outside OTHO, other than the processors needed to run the service — hosting, messaging and CRM providers, each bound by contract. We do not pass your contact details to developers or brokers without your explicit, separate consent.'],
+    ['h','Your rights'],['l',['Access the data we hold about you','Correct anything inaccurate','Erase your data','Withdraw consent at any time, as easily as it was given','Nominate someone to act for you','Complain to the Data Protection Board']],
+    ['h','How long we keep it'],['p','Enquiry data for three years from your last interaction, unless you ask us to erase it sooner.'],
+    ['h','Consent, stated separately'],['p','This notice is standalone. Agreeing to our terms of use is not agreement to be contacted — that consent is asked for separately, at the point of collection.']]);
 };
-
 V.consent = function () {
-  var items = [['Essential service','Responding to your enquiry and arranging site visits. Required to provide the service.',true,true],
+  var items = [['Essential service','Responding to your enquiry and arranging site visits.',true,true],
     ['Project updates','Construction progress and price changes for projects you saved.',true,false],
     ['Market report','The monthly Hyderabad report by email.',false,false],
     ['WhatsApp messages','Visit confirmations and replies on WhatsApp.',true,false],
@@ -1266,53 +1319,110 @@ V.consent = function () {
   return '<div class="wrap"><section><p class="eyebrow">CONSENT PREFERENCES</p><h1>Turn anything off, right here</h1>'
     + '<p class="lede">Withdrawal has to be as easy as consent. It is on this page, one click, no email required.</p>'
     + items.map(function (i, n) {
-      return '<div class="tog" style="display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);padding:14px 16px;margin-bottom:9px">'
+      return '<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);padding:15px 17px;margin-bottom:9px;box-shadow:var(--sh-1)">'
       + '<div><b style="display:block;font-size:14.5px">' + esc(i[0]) + '</b><span style="font-size:13px;color:var(--ink-3)">' + esc(i[1]) + '</span></div>'
       + '<button class="sw" data-cons="' + n + '" aria-pressed="' + (i[2] ? 'true' : 'false') + '" aria-label="' + esc(i[0]) + '"' + (i[3] ? ' disabled' : '')
-      + ' style="width:46px;height:26px;border-radius:13px;background:' + (i[2] ? 'var(--good)' : 'var(--line)') + ';border:0;cursor:pointer;position:relative;flex:0 0 auto'
+      + ' style="width:48px;height:27px;border-radius:14px;background:' + (i[2] ? 'var(--good)' : 'var(--line)') + ';border:0;cursor:pointer;position:relative;flex:0 0 auto;transition:background .25s'
       + (i[3] ? ';opacity:.55;cursor:not-allowed' : '') + '">'
-      + '<i style="position:absolute;top:3px;left:' + (i[2] ? '23px' : '3px') + ';width:20px;height:20px;border-radius:50%;background:var(--card);display:block"></i></button></div>'; }).join('')
+      + '<i style="position:absolute;top:3px;left:' + (i[2] ? '24px' : '3px') + ';width:21px;height:21px;border-radius:50%;background:#fff;display:block;transition:left .25s cubic-bezier(.22,.68,.36,1)"></i></button></div>'; }).join('')
     + '<div class="cta-row" style="margin-top:16px"><button class="btn" id="consSave">Save preferences</button>'
-    + '<button class="btn ghost" id="consAll">Withdraw all non-essential</button>'
-    + '<button class="btn ghost" id="consErase">Erase my data</button>'
-    + '<span id="consMsg" style="font-size:13.5px;color:var(--ink-3)"></span></div>'
-    + '<p class="note">A live build writes these immediately and stops the relevant processing.</p></section></div>';
+    + '<button class="btn ghost" id="consAll">Withdraw all non-essential</button><button class="btn ghost" id="consErase">Erase my data</button>'
+    + '<span id="consMsg" style="font-size:13.5px;color:var(--ink-3)"></span></div></section></div>';
 };
-
 V.terms = function () {
-  return legalShell('Terms of use', 'The rules for using this site. Plain language, no traps.', [
-    ['h','What this site is'],['p','An information and advisory service for property buyers in Hyderabad. It is not a listings marketplace and does not sell property directly.'],
+  return legalShell('Terms of use','The rules for using this site. Plain language, no traps.',[
+    ['h','What this site is'],['p','An information and advisory service for property buyers in Hyderabad. It is not a listings marketplace.'],
     ['h','Accuracy'],['p','We take reasonable care that figures match the source documents. Filings change and errors happen. Verify anything material before you transact.'],
     ['h','Our reviews and scores'],['p','Reviews express our assessment based on documented facts and site inspection. They are opinion informed by evidence, not financial advice.'],
     ['h','Your use'],['l',['Do not scrape, republish or resell our content without permission','Do not submit false resident reviews','Do not use the site to harass any developer or individual']],
     ['h','Liability'],['p','We are not liable for decisions you take based on this site. Do your own due diligence and read the sale agreement.'],
-    ['h','Governing law'],['p','Indian law, with jurisdiction in Hyderabad.']
-  ]);
+    ['h','Governing law'],['p','Indian law, with jurisdiction in Hyderabad.']]);
 };
-
 V.disclaimer = function () {
-  return legalShell('Reviews disclaimer', 'What our scores mean and what they do not.', [
-    ['h','Prototype notice'],['p','This site is currently a prototype. Project names, developers and localities are real and publicly listed. Sizes, rates, land shares, scores and verdicts shown here are illustrative modelling for demonstration and are not published OTHO reviews or statements of fact about any project or developer.'],
-    ['h','Opinion based on documented fact'],['p','In the live service, every finding traces to a RERA filing, a sanctioned plan, an authority record or a physical measurement. Where something is judgement rather than document, we say so on the page.'],
+  return legalShell('Reviews disclaimer','What our scores mean and what they do not.',[
+    ['h','Prototype notice'],['p','This site is currently a prototype. Project names, developers and localities are real and publicly listed. Sizes, rates, land shares, scores and verdicts are illustrative modelling for demonstration and are not published OTHO reviews or statements of fact about any project or developer.'],
+    ['h','Opinion based on documented fact'],['p','In the live service, every finding traces to a RERA filing, a sanctioned plan, an authority record or a physical measurement.'],
     ['h','Not investment advice'],['p','Nothing here is a recommendation to buy, sell or hold property, and no part of it is a forecast of returns.'],
-    ['h','Point in time'],['p','A score reflects the project as assessed on the date shown. Scores are re-reviewed every six months and whenever something material changes.'],
-    ['h','Right of reply'],['p','Developers see findings before publication and may respond. Disputed facts carry their response alongside. Demonstrated errors are corrected at the top of the page, dated.']
-  ]);
+    ['h','Point in time'],['p','A score reflects the project as assessed on the date shown. Scores are re-reviewed every six months.'],
+    ['h','Right of reply'],['p','Developers see findings before publication and may respond. Demonstrated errors are corrected at the top of the page, dated.']]);
 };
-
 V.grievance = function () {
-  return legalShell('Grievance officer', 'Who to contact if something has gone wrong with your data or a review.', [
-    ['h','Data protection grievances'],['p','Under the DPDP Act you may raise a grievance about how your personal data has been handled. The grievance officer responds within the statutory period.'],
+  return legalShell('Grievance officer','Who to contact if something has gone wrong with your data or a review.',[
+    ['h','Data protection grievances'],['p','Under the DPDP Act you may raise a grievance about how your personal data has been handled.'],
     ['l',['Grievance Officer, OTHO Realty','Email: grievance@otho.in','Address: to be confirmed before launch, Hyderabad, Telangana','Response: within 30 days of receipt']],
     ['h','If you are not satisfied'],['p','You may escalate to the Data Protection Board of India. We will tell you how, and we will not obstruct it.'],
     ['h','Complaints about a review'],['p','Write to editorial@otho.in with the specific figure you believe is wrong and the document that shows it.'],
-    ['h','RERA complaints'],['p','If your complaint concerns a developer rather than OTHO, TG-RERA is the correct authority.']
-  ]);
+    ['h','RERA complaints'],['p','If your complaint concerns a developer rather than OTHO, TG-RERA is the correct authority.']]);
 };
-
 V.notfound = function () {
   return '<div class="wrap"><section><h1>Page not found</h1><p class="lede">That link does not exist in the prototype.</p><a class="btn" href="#/">Back to home</a></section></div>';
 };
+
+/* ---------- motion helpers ---------- */
+var io = null;
+function revealInit() {
+  if (RM) { Array.prototype.forEach.call(document.querySelectorAll('.rv'), function (e) { e.classList.add('in'); }); return; }
+  if (io) io.disconnect();
+  io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  Array.prototype.forEach.call(document.querySelectorAll('.rv'), function (e) { io.observe(e); });
+}
+function animateRings() {
+  requestAnimationFrame(function () {
+    Array.prototype.forEach.call(document.querySelectorAll('.ring .val'), function (c) { c.style.strokeDashoffset = c.getAttribute('data-ring'); });
+  });
+}
+function animateBars() {
+  requestAnimationFrame(function () {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-bar]'), function (b) { b.style.width = b.getAttribute('data-bar') + '%'; });
+  });
+}
+function countUp() {
+  Array.prototype.forEach.call(document.querySelectorAll('[data-count]'), function (el) {
+    var to = +el.getAttribute('data-count'), pre = el.getAttribute('data-prefix') || '', suf = el.getAttribute('data-suffix') || '';
+    if (RM) { el.textContent = pre + to.toLocaleString('en-IN') + suf; return; }
+    var t0 = null, dur = 900;
+    function tick(t) {
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = pre + Math.round(to * e).toLocaleString('en-IN') + suf;
+      if (k < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+/* ---------- compare tray ---------- */
+function trayRender() {
+  var t = document.getElementById('tray'), items = document.getElementById('trayItems');
+  if (!tray.length) { t.classList.remove('on'); return; }
+  t.classList.add('on');
+  items.innerHTML = tray.map(function (id) {
+    return '<span class="tray-chip">' + esc(P[id].n) + '<button data-untray="' + id + '" aria-label="Remove">×</button></span>'; }).join('');
+  document.getElementById('trayGo').style.opacity = tray.length === 2 ? 1 : .45;
+  document.getElementById('trayGo').textContent = tray.length === 2 ? 'Compare now' : 'Pick one more';
+}
+function trayToggle(id) {
+  var i = tray.indexOf(id);
+  if (i > -1) tray.splice(i, 1);
+  else { if (tray.length >= 2) tray.shift(); tray.push(id); }
+  trayRender();
+  Array.prototype.forEach.call(document.querySelectorAll('[data-tray]'), function (b) {
+    var on = tray.indexOf(+b.getAttribute('data-tray')) > -1;
+    b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.textContent = on ? '✓ In compare' : '⇄ Compare';
+  });
+}
+
+/* ---------- lightbox ---------- */
+function openLb(i) {
+  galI = i; var lb = document.getElementById('lb');
+  document.getElementById('lbStage').innerHTML = '<b style="font-family:var(--f-m);font-size:11px;letter-spacing:.1em;color:var(--ink-3)">' + esc(gal[i][0]) + '</b>'
+    + '<span style="font-size:13px;color:var(--ink-3)">' + esc(gal[i][1]) + '</span>';
+  document.getElementById('lbCap').textContent = (i + 1) + ' of ' + gal.length + ' · photography to be shot';
+  lb.classList.add('on');
+}
+function lbStep(d) { if (!gal.length) return; galI = (galI + d + gal.length) % gal.length; openLb(galI); }
 
 /* ---------- wiring ---------- */
 function wireCalc() {
@@ -1323,6 +1433,8 @@ function wireCalc() {
     if (!(S > 0 && C > 0 && R > 0) || C > S) { set('oLoad','—'); set('oTotal','—'); set('oReal', C > S ? 'carpet exceeds built-up' : '—'); set('oWaste','—'); return; }
     set('oLoad', ((S - C) / S * 100).toFixed(1) + '%'); set('oTotal', inr(S * R));
     set('oReal', inr(S * R / C) + ' / sq ft'); set('oWaste', Math.round(S - C).toLocaleString('en-IN') + ' sq ft you cannot use');
+    var k = document.getElementById('keyRow');
+    if (k && !RM) { k.classList.remove('flash'); void k.offsetWidth; k.classList.add('flash'); }
   }
   [s, c, r].forEach(function (e) { e.addEventListener('input', go); }); go();
 }
@@ -1343,8 +1455,10 @@ function wireCompare() {
   function go() {
     var A = P[+a.value], B = P[+b.value], ma = m(A), mb = m(B);
     document.getElementById('hA').textContent = A.n; document.getElementById('hB').textContent = B.n;
-    var rows = [['Developer', A.dev, B.dev, 0, 0, 0],
-      ['Advertised rate', inr(A.rate) + ' / sq ft', inr(B.rate) + ' / sq ft', A.rate, B.rate, -1],
+    document.getElementById('cmpVis').innerHTML = [A, B].map(function (p) {
+      return '<div class="card pad0">' + pvis(p, 150) + '<div class="card-body"><div class="pcard-top"><div><h3>' + esc(p.n) + '</h3>'
+      + '<div class="meta">' + esc(p.dev) + ' · ' + esc(p.loc) + '</div></div>' + ring(p.score, 52) + '</div></div></div>'; }).join('');
+    var rows = [['Advertised rate', inr(A.rate) + ' / sq ft', inr(B.rate) + ' / sq ft', A.rate, B.rate, -1],
       ['RERA carpet area', A.carpet.toLocaleString('en-IN') + ' sq ft', B.carpet.toLocaleString('en-IN') + ' sq ft', A.carpet, B.carpet, 1],
       ['Loading factor', ma.load.toFixed(1) + '%', mb.load.toFixed(1) + '%', ma.load, mb.load, -1],
       ['Real rate on carpet', inr(ma.real) + ' / sq ft', inr(mb.real) + ' / sq ft', ma.real, mb.real, -1],
@@ -1356,23 +1470,24 @@ function wireCompare() {
     var body = document.getElementById('cmpBody'); body.innerHTML = '';
     rows.forEach(function (r) {
       var tr = document.createElement('tr'), t0 = document.createElement('td'); t0.textContent = r[0]; tr.appendChild(t0);
-      var cls = ['', ''];
+      var cls = ['', ''], mx = Math.max(r[3], r[4]) || 1;
       if (r[5] !== 0 && r[3] !== r[4]) { var ab = r[5] === -1 ? r[3] < r[4] : r[3] > r[4]; cls = ab ? ['win','lose'] : ['lose','win']; }
-      [[r[1], cls[0]], [r[2], cls[1]]].forEach(function (cc) {
-        var td = document.createElement('td'); td.className = 'v ' + cc[1]; td.textContent = cc[0]; tr.appendChild(td); });
+      [[r[1], cls[0], r[3]], [r[2], cls[1], r[4]]].forEach(function (cc) {
+        var td = document.createElement('td'); td.className = 'v ' + cc[1];
+        td.innerHTML = esc(cc[0]) + (r[5] !== 0 ? '<div class="cbar"><i data-bar="' + Math.round(cc[2] / mx * 100) + '" style="background:' + (cc[1] === 'win' ? 'var(--good)' : 'var(--bad)') + '"></i></div>' : '');
+        tr.appendChild(td); });
       body.appendChild(tr);
     });
+    animateRings(); animateBars();
   }
   a.addEventListener('change', go); b.addEventListener('change', go); go();
 }
 function wireSearch() {
   var loc = document.getElementById('qLoc'); if (!loc) return;
   var bhk = document.getElementById('qBhk'), st = document.getElementById('qStat'), so = document.getElementById('qSort'),
-      bud = document.getElementById('qBud'), budV = document.getElementById('qBudV'), amBox = document.getElementById('qAm');
-  function sel() { return Array.prototype.filter.call(amBox.children, function (c) { return c.getAttribute('aria-pressed') === 'true'; })
-      .map(function (c) { return +c.getAttribute('data-am'); }); }
-  function go() {
-    budV.textContent = '₹' + (+bud.value / 1e7).toFixed(2) + ' Cr';
+      bud = document.getElementById('qBud'), budV = document.getElementById('qBudV'), amBox = document.getElementById('qAm'), tmr = null;
+  function sel() { return Array.prototype.filter.call(amBox.children, function (c) { return c.getAttribute('aria-pressed') === 'true'; }).map(function (c) { return +c.getAttribute('data-am'); }); }
+  function results() {
     var want = sel();
     var list = P.filter(function (p) {
       if (loc.value && p.loc !== loc.value) return false;
@@ -1380,20 +1495,34 @@ function wireSearch() {
       if (st.value && p.status !== st.value) return false;
       if (m(p).total > +bud.value) return false;
       for (var i = 0; i < want.length; i++) if (p.am.indexOf(want[i]) === -1) return false;
-      return true;
-    });
+      return true; });
     list.sort(function (x, y) {
       if (so.value === 'real') return m(x).real - m(y).real;
       if (so.value === 'load') return m(x).load - m(y).load;
       if (so.value === 'price') return m(x).total - m(y).total;
-      return y.score - x.score;
-    });
-    document.getElementById('qCount').textContent = list.length + ' of ' + P.length + ' projects match';
-    document.getElementById('qList').innerHTML = list.length ? list.map(pcard).join('')
-      : '<p class="lede">Nothing matches. Try widening the budget or removing an amenity.</p>';
+      return y.score - x.score; });
+    return list;
   }
-  [loc, bhk, st, so].forEach(function (e) { e.addEventListener('change', go); });
-  bud.addEventListener('input', go);
+  function counts() {
+    Array.prototype.forEach.call(amBox.children, function (c) {
+      var i = +c.getAttribute('data-am');
+      c.querySelector('.n').textContent = P.filter(function (p) { return p.am.indexOf(i) > -1; }).length;
+    });
+  }
+  function go(instant) {
+    budV.textContent = '₹' + (+bud.value / 1e7).toFixed(2) + ' Cr';
+    var out = document.getElementById('qList');
+    if (!instant && !RM) { out.innerHTML = '<div class="skel"></div><div class="skel"></div>'; }
+    clearTimeout(tmr);
+    tmr = setTimeout(function () {
+      var list = results();
+      document.getElementById('qCount').textContent = list.length + ' of ' + P.length + ' projects match';
+      out.innerHTML = list.length ? list.map(pcard).join('') : '<p class="lede">Nothing matches. Try widening the budget or removing an amenity.</p>';
+      animateRings();
+    }, instant || RM ? 0 : 260);
+  }
+  [loc, bhk, st, so].forEach(function (e) { e.addEventListener('change', function () { go(); }); });
+  bud.addEventListener('input', function () { go(true); });
   amBox.addEventListener('click', function (e) {
     var c = e.target.closest('.chip'); if (!c) return;
     c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); go();
@@ -1402,7 +1531,7 @@ function wireSearch() {
     loc.value = ''; bhk.value = ''; st.value = ''; so.value = 'score'; bud.value = 60000000;
     Array.prototype.forEach.call(amBox.children, function (c) { c.setAttribute('aria-pressed', 'false'); }); go();
   });
-  go();
+  counts(); go(true);
 }
 function wireChips() {
   var box = document.getElementById('locChips'); if (!box) return;
@@ -1412,6 +1541,7 @@ function wireChips() {
     c.setAttribute('aria-pressed', 'true');
     var v = c.getAttribute('data-loc'), list = v ? P.filter(function (p) { return p.loc === v; }) : P;
     document.getElementById('plist').innerHTML = list.length ? list.map(pcard).join('') : '<p class="lede">No projects reviewed there yet.</p>';
+    animateRings();
   });
 }
 function wireVisit() {
@@ -1426,7 +1556,7 @@ function wireVisit() {
   document.getElementById('bookBtn').addEventListener('click', function () {
     if (!chosen) { document.getElementById('bookMsg').textContent = 'Pick a slot first.'; return; }
     if (!(user && user.verified)) { requireUser('visit', 'Confirm your site visit for ' + chosen + '.'); return; }
-    document.getElementById('bookMsg').textContent = 'Confirmed for ' + chosen + '. Prototype — a live build sends WhatsApp confirmation to +91 ' + user.phone + ' and writes the booking to the CRM.';
+    document.getElementById('bookMsg').textContent = 'Confirmed for ' + chosen + '. Prototype — a live build sends WhatsApp confirmation to +91 ' + user.phone + '.';
   });
 }
 function wireNewsletter() {
@@ -1436,8 +1566,8 @@ function wireNewsletter() {
     var v = document.getElementById('nlEmail').value.trim(), msg = document.getElementById('nlMsg');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { msg.textContent = 'Enter a valid email address.'; return; }
     if (subs.indexOf(v) === -1) { subs.push(v); ls.set('otho_subs', subs); }
-    msg.textContent = 'Subscribed. ' + v + ' will get the next monthly note. Unsubscribe in one click from any email.';
-    document.getElementById('nlEmail').value = '';
+    msg.textContent = 'Subscribed. ' + v + ' will get the next monthly note.';
+    document.getElementById('nlEmail').value = ''; toast('Subscribed to the monthly market note.');
   });
 }
 function wireMisc() {
@@ -1445,11 +1575,10 @@ function wireMisc() {
   if (cb) cb.addEventListener('click', function () {
     var ok = document.getElementById('cConsent').checked, n = document.getElementById('cName').value.trim();
     document.getElementById('cMsgOut').textContent = !n ? 'Add your name first.'
-      : (!ok ? 'Please tick consent — we cannot contact you without it.'
-      : 'Prototype — a live build writes this to the CRM with your consent record and timestamp.');
+      : (!ok ? 'Please tick consent — we cannot contact you without it.' : 'Prototype — a live build writes this to the CRM with a consent timestamp.');
   });
   var cs = document.getElementById('consSave');
-  if (cs) cs.addEventListener('click', function () { document.getElementById('consMsg').textContent = 'Preferences saved.'; });
+  if (cs) cs.addEventListener('click', function () { document.getElementById('consMsg').textContent = 'Preferences saved.'; toast('Preferences saved.'); });
   var ca = document.getElementById('consAll');
   if (ca) ca.addEventListener('click', function () {
     Array.prototype.forEach.call(document.querySelectorAll('.sw:not([disabled])'), function (s) {
@@ -1458,19 +1587,9 @@ function wireMisc() {
   });
   var ce = document.getElementById('consErase');
   if (ce) ce.addEventListener('click', function () {
-    user = null; leads = []; subs = []; saved = [];
+    user = null; leads = []; subs = []; saved = []; tray = [];
     ls.set('otho_user', null); ls.set('otho_leads', []); ls.set('otho_subs', []); ls.set('otho_saved', []);
-    updateSl();
-    document.getElementById('consMsg').textContent = 'Everything erased from this device.';
-  });
-  document.addEventListener('click', function (e) {
-    var s = e.target.closest('.sw');
-    if (s && !s.disabled) {
-      var on = s.getAttribute('aria-pressed') === 'true';
-      s.setAttribute('aria-pressed', on ? 'false' : 'true');
-      s.style.background = on ? 'var(--line)' : 'var(--good)';
-      s.querySelector('i').style.left = on ? '3px' : '23px';
-    }
+    updateSl(); trayRender(); document.getElementById('consMsg').textContent = 'Everything erased from this device.';
   });
 }
 
@@ -1482,6 +1601,7 @@ function parse() {
 }
 function render() {
   var r = parse(), s = r.s, html;
+  gal = [];
   if (!s.length) html = V.home();
   else if (s[0] === 'search') html = V.search();
   else if (s[0] === 'projects') html = V.projects();
@@ -1512,9 +1632,12 @@ function render() {
   else if (s[0] === 'grievance') html = V.grievance();
   else html = V.notfound();
 
-  document.getElementById('app').innerHTML = html;
+  var app = document.getElementById('app');
+  app.innerHTML = html;
+  app.style.animation = 'none'; void app.offsetWidth; app.style.animation = '';
+
   wireCalc(); wireLoan(); wireCompare(); wireSearch(); wireChips(); wireVisit(); wireNewsletter(); wireMisc();
-  updateSl();
+  updateSl(); revealInit(); animateRings(); animateBars(); countUp(); trayRender();
 
   var top = s[0] || '';
   Array.prototype.forEach.call(document.querySelectorAll('#links a'), function (a) {
@@ -1525,12 +1648,44 @@ function render() {
   window.scrollTo(0, 0);
 }
 
+/* ---------- global listeners ---------- */
 document.addEventListener('click', function (e) {
   var g = e.target.closest('[data-gate]');
-  if (g) { e.preventDefault(); requireUser(g.getAttribute('data-gate'), g.getAttribute('data-glabel')); }
+  if (g) { e.preventDefault(); requireUser(g.getAttribute('data-gate'), g.getAttribute('data-glabel')); return; }
+  var t = e.target.closest('[data-tray]');
+  if (t) { e.preventDefault(); trayToggle(+t.getAttribute('data-tray')); return; }
+  var u = e.target.closest('[data-untray]');
+  if (u) { trayToggle(+u.getAttribute('data-untray')); return; }
+  var f = e.target.closest('[data-gal]');
+  if (f && gal.length && f.getAttribute('data-gal') !== '') { openLb(+f.getAttribute('data-gal')); return; }
+  var sw = e.target.closest('.sw');
+  if (sw && !sw.disabled) {
+    var on = sw.getAttribute('aria-pressed') === 'true';
+    sw.setAttribute('aria-pressed', on ? 'false' : 'true');
+    sw.style.background = on ? 'var(--line)' : 'var(--good)';
+    sw.querySelector('i').style.left = on ? '3px' : '24px';
+  }
 });
+document.getElementById('trayClear').addEventListener('click', function () { tray = []; trayRender(); render(); });
+document.getElementById('trayGo').addEventListener('click', function (e) { if (tray.length !== 2) { e.preventDefault(); toast('Pick two projects to compare.'); } });
 document.getElementById('ov').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
-document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+document.getElementById('lbClose').addEventListener('click', function () { document.getElementById('lb').classList.remove('on'); });
+document.getElementById('lbPrev').addEventListener('click', function () { lbStep(-1); });
+document.getElementById('lbNext').addEventListener('click', function () { lbStep(1); });
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') { closeModal(); document.getElementById('lb').classList.remove('on'); }
+  if (document.getElementById('lb').classList.contains('on')) {
+    if (e.key === 'ArrowLeft') lbStep(-1);
+    if (e.key === 'ArrowRight') lbStep(1);
+  }
+});
+window.addEventListener('scroll', function () {
+  var y = window.scrollY, h = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('prog').style.width = (h > 0 ? y / h * 100 : 0) + '%';
+  document.querySelector('nav').classList.toggle('stuck', y > 8);
+  document.getElementById('top').classList.toggle('on', y > 700);
+}, { passive: true });
+document.getElementById('top').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' }); });
 window.addEventListener('hashchange', render);
 document.getElementById('home').addEventListener('click', function () { location.hash = '#/'; });
 document.getElementById('menu').addEventListener('click', function () { document.getElementById('links').classList.toggle('open'); });
