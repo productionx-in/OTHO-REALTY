@@ -41,11 +41,31 @@ any project. Verify against TG-RERA filings before any live use.
 | `index.html` | Shell, design tokens, all styles |
 | `data.js` | 20 projects, 6 localities, blog, guides, episodes, scoring model |
 | `app.js` | Router, views, OTP flow, search, calculators, comparison |
+| `img/` | 17 photographs, each at two widths for `srcset` |
+
+## Photography
+
+Every image is a stock photograph **licensed from Adobe Stock** and used as a
+placeholder. None of them show the projects, localities or people they sit
+beside, and each is labelled on the page so nothing can be read as a claim
+about a real development.
+
+Two are genuine Hyderabad frames — the hero (Financial District, aerial) and
+the market-report skyline. The rest are generic architecture, interiors and
+amenity shots.
+
+Each file ships at two widths (`name.jpg` at 1200px, `name@640.jpg` at 640px)
+and is served through `srcset`/`sizes`, lazy-loaded below the fold, with a
+skeleton shimmer behind it and a fade-in once decoded. Vercel serves `/img/*`
+with a one-year immutable cache.
+
+OTHO's own shoot replaces all of them before launch: exteriors, clubhouse,
+show flats, dated monthly site progress, team portraits.
 
 ## Before going live
 
 - Verified RERA carpet areas and pricing per project
-- Photography and architect floor plans
+- OTHO's own photography and architect floor plans, replacing every stock image
 - Real OTP provider (MSG91 / Twilio) and CRM webhook
 - WhatsApp Business API for confirmations
 - Legal pages reviewed by counsel

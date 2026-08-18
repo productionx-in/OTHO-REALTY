@@ -22,33 +22,51 @@ function updateSl() { var a = document.getElementById('slLink'); if (a) a.textCo
 function m(p) { var load = (p.sba - p.carpet) / p.sba * 100; return { load: load, real: (p.sba * p.rate) / p.carpet, total: p.sba * p.rate }; }
 function scoreColor(s) { return s >= 7.5 ? 'var(--good)' : (s >= 6.5 ? 'var(--brass)' : 'var(--bad)'); }
 
-/* ---------- deterministic generated artwork ---------- */
-var PAL = [
-  ['#16263D', '#2E5A86', '#7FA9D4'], ['#1B3229', '#2F6B52', '#7FC3A2'],
-  ['#33240F', '#8A5F1E', '#D9B061'], ['#221B33', '#4A3A6B', '#9C86C9'],
-  ['#331A18', '#7A3B33', '#C98A7E'], ['#132B2E', '#2A6668', '#79BFC0']
-];
-function rng(seed) { var s = seed * 9301 + 49297; return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; }; }
+/* ---------- photography ----------
+   Stock photographs licensed from Adobe Stock and used as placeholders.
+   They are not photographs of the named projects — every frame is labelled
+   as such so nothing on this prototype can be read as a claim about a
+   real development. OTHO's own shoot replaces all of them before launch. */
+var IMG = {
+  'hero-skyline':   [2000, 1100, 16 / 9],
+  'proj-1':         [1200, 640, 3 / 2], 'proj-2': [1200, 640, 3 / 2], 'proj-3': [1200, 640, 3 / 2],
+  'proj-4':         [1200, 640, 3 / 2], 'proj-5': [1200, 640, 3 / 2],
+  'aerial':         [1200, 640, 3 / 2], 'construction': [1200, 640, 3 / 2],
+  'amenity-pool':   [1200, 640, 3 / 2], 'amenity-gym': [1200, 640, 3 / 2],
+  'interior-living':[1200, 640, 3 / 2], 'show-kitchen': [1200, 640, 3 / 2],
+  'lobby':          [1200, 640, 3 / 2], 'balcony': [1200, 640, 3 / 2],
+  'podcast':        [1200, 640, 3 / 2], 'advisory': [1200, 640, 3 / 2],
+  'hyderabad':      [1200, 640, 3 / 2]
+};
+function photo(name, alt, sizes, eager) {
+  var d = IMG[name] || [1200, 640, 3 / 2], hi = d[0], lo = d[1];
+  return '<img class="ph" src="img/' + name + '@' + lo + '.jpg"'
+    + ' srcset="img/' + name + '@' + lo + '.jpg ' + lo + 'w, img/' + name + '.jpg ' + hi + 'w"'
+    + ' sizes="' + (sizes || '(max-width:760px) 100vw, 380px') + '"'
+    + ' width="' + hi + '" height="' + Math.round(hi / d[2]) + '"'
+    + ' alt="' + esc(alt) + '"' + (eager ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async">';
+}
+/* fade each photograph in once it has actually decoded; kill the skeleton behind it */
+function photoInit(root) {
+  Array.prototype.forEach.call((root || document).querySelectorAll('img.ph:not(.rdy)'), function (im) {
+    function done() { im.classList.add('rdy'); if (im.parentElement) im.parentElement.classList.add('ph-done'); }
+    if (im.complete && im.naturalWidth) { done(); return; }
+    im.addEventListener('load', done, { once: true });
+    im.addEventListener('error', done, { once: true });
+  });
+}
+var PH_READY = ['proj-1', 'proj-3', 'balcony', 'proj-4', 'lobby', 'proj-5'];
+var PH_BUILD = ['construction', 'aerial', 'proj-2', 'proj-5'];
+function projPhoto(p) {
+  var pool = p.status === 'Ready to move' ? PH_READY : PH_BUILD;
+  return pool[p.id % pool.length];
+}
 function pvis(p, h) {
-  var pal = PAL[p.id % PAL.length], r = rng(p.id + 7), W = 400, H = h || 168, g = 'g' + p.id;
-  var towers = '', wins = '', n = 6 + Math.floor(r() * 3), x = -10;
-  for (var i = 0; i < n; i++) {
-    var w = 34 + r() * 42, th = 40 + r() * (H * 0.62), y = H - th;
-    towers += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + (th + 4).toFixed(1) + '" fill="' + (i % 2 ? pal[0] : pal[1]) + '" opacity="' + (0.82 + (i % 2) * 0.14).toFixed(2) + '"/>';
-    for (var ry = y + 10; ry < H - 8; ry += 13) for (var rx = x + 7; rx < x + w - 8; rx += 12)
-      if (r() > 0.42) wins += '<rect x="' + rx.toFixed(1) + '" y="' + ry.toFixed(1) + '" width="5" height="6" fill="' + pal[2] + '" opacity="' + (0.25 + r() * 0.6).toFixed(2) + '"/>';
-    x += w - 4 + r() * 10;
-  }
+  var H = h || 168;
   return '<div class="pvis" style="height:' + H + 'px">'
-    + '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMax slice" aria-hidden="true">'
-    + '<defs><linearGradient id="' + g + '" x1="0" y1="0" x2="0" y2="1">'
-    + '<stop offset="0%" stop-color="' + pal[1] + '"/><stop offset="55%" stop-color="' + pal[0] + '"/><stop offset="100%" stop-color="#0B0F13"/></linearGradient></defs>'
-    + '<rect width="' + W + '" height="' + H + '" fill="url(#' + g + ')"/>'
-    + '<circle cx="' + (300 + (p.id % 5) * 14) + '" cy="' + (H * 0.24) + '" r="' + (13 + (p.id % 3) * 4) + '" fill="' + pal[2] + '" opacity=".22"/>'
-    + towers + wins
-    + '<rect y="' + (H - 5) + '" width="' + W + '" height="5" fill="#080B0E" opacity=".55"/></svg>'
+    + photo(projPhoto(p), 'Representative photograph — ' + p.n + ', ' + p.loc, H > 220 ? '(max-width:760px) 100vw, 1060px' : '(max-width:760px) 100vw, 380px')
     + '<span class="badge">' + esc(p.status.toUpperCase()) + '</span>'
-    + '<span class="shot">PHOTOGRAPHY TO BE SHOT</span></div>';
+    + '<span class="shot">STOCK IMAGE · NOT THIS PROJECT</span></div>';
 }
 function ring(score, size) {
   var s = size || 56, rr = (s - 5) / 2, c = 2 * Math.PI * rr, off = c * (1 - score / 10);
@@ -97,11 +115,21 @@ function svgMap(l) {
     + '<circle cx="235" cy="315" r="6" fill="var(--ink-3)"/><text x="250" y="320">Reservoir</text></g>'
     + '<text x="34" y="356" font-family="monospace" font-size="10" fill="var(--ink-3)">SCHEMATIC — NOT A SURVEY MAP</text></svg>';
 }
-function frame(label, desc, h, i) {
+function frame(label, desc, h, i, img) {
+  if (img) return '<div class="pframe" style="height:' + (h || 180) + 'px" data-gal="' + (i == null ? '' : i) + '">'
+    + photo(img, label + ' — ' + desc, '(max-width:760px) 100vw, 420px')
+    + '<span class="zoom" aria-hidden="true">⤢</span>'
+    + '<span class="cap"><b>' + esc(label) + '</b><i>' + esc(desc) + '</i></span></div>';
   return '<div class="frame" style="min-height:' + (h || 180) + 'px" data-gal="' + (i == null ? '' : i) + '">'
     + '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" stroke-width="1.4" aria-hidden="true" style="opacity:.5">'
     + '<rect x="2.5" y="4.5" width="19" height="15"/><circle cx="12" cy="12" r="3.6"/><path d="M7.5 4.5l1.6-2h5.8l1.6 2"/></svg>'
     + '<b>' + esc(label) + '</b><span>' + esc(desc) + '</span></div>';
+}
+function epArt(e) {
+  return '<div class="epart">' + photo('podcast', 'The OTHO Podcast', '(max-width:760px) 100vw, 420px')
+    + '<span class="sr">THE OTHO PODCAST</span><span class="no">' + e.n + '</span>'
+    + '<span class="wav">' + [0, 1, 2, 3, 4, 5, 6].map(function (k) {
+      return '<i style="animation-delay:' + (k * 0.13).toFixed(2) + 's;height:' + (30 + k * 9) + '%"></i>'; }).join('') + '</span></div>';
 }
 function monogram(name, size) {
   var w = name.replace(/[^A-Za-z0-9 ]/g, '').split(' ').filter(Boolean);
@@ -216,9 +244,11 @@ function pcard(p) {
     + '<button class="save" data-tray="' + p.id + '" aria-pressed="' + (inTray ? 'true' : 'false') + '">' + (inTray ? '✓ In compare' : '⇄ Compare') + '</button></div></div>';
 }
 function visitBand() {
-  return '<div class="band"><h2>See it yourself</h2><p>Pick a slot. You get a WhatsApp confirmation from one named person at OTHO — not eight brokers.</p>'
+  return '<div class="split"><div class="split-media">'
+    + photo('advisory', 'An OTHO advisor walking a buyer through a home', '(max-width:820px) 100vw, 560px') + '</div>'
+    + '<div class="band"><h2>See it yourself</h2><p>Pick a slot. You get a WhatsApp confirmation from one named person at OTHO — not eight brokers.</p>'
     + '<div class="slots" id="slots">' + ['Sat 10:00','Sat 12:30','Sat 16:00','Sun 11:00','Sun 15:30'].map(function (s) { return '<button class="slot" aria-pressed="false">' + s + '</button>'; }).join('')
-    + '</div><button class="btn brass" id="bookBtn">Confirm this slot</button><p id="bookMsg" style="margin-top:13px;min-height:1.4em"></p></div>';
+    + '</div><button class="btn brass" id="bookBtn">Confirm this slot</button><p id="bookMsg" style="margin-top:13px;min-height:1.4em"></p></div></div>';
 }
 function newsletter() {
   return '<div class="nl"><div><h3>The monthly Hyderabad market note</h3>'
@@ -235,6 +265,25 @@ function calcHTML(p) {
     + '<div class="out-row"><span>Total price on super built-up</span><span id="oTotal">—</span></div>'
     + '<div class="out-row key" id="keyRow"><span>Real rate on carpet</span><span id="oReal">—</span></div>'
     + '<div class="out-row"><span>You are paying for</span><span id="oWaste">—</span></div></div></div>';
+}
+var PH_BLOG = ['aerial', 'balcony', 'construction', 'show-kitchen', 'hyderabad', 'lobby', 'proj-3', 'amenity-pool'];
+function blogPhoto(b) {
+  var i = BLOG.indexOf(b); if (i < 0) i = 0;
+  return PH_BLOG[i % PH_BLOG.length];
+}
+var PH_LOC = ['hyderabad', 'aerial', 'proj-4', 'construction', 'proj-1', 'balcony'];
+function locCard(l) {
+  var i = L.indexOf(l); if (i < 0) i = 0;
+  return '<a class="card pad0 lift" href="#/locality/' + l.slug + '">'
+    + '<div class="thumb">' + photo(PH_LOC[i % PH_LOC.length], l.n + ', Hyderabad', '(max-width:760px) 100vw, 430px') + '</div>'
+    + '<div class="card-body"><div class="meta">' + esc(l.price) + ' · ' + esc(l.trend) + '</div>'
+    + '<h3>' + esc(l.n) + '</h3><p>' + esc(l.blurb) + '</p></div></a>';
+}
+function blogCard(b) {
+  return '<a class="card pad0 lift" href="#/blog/' + b.slug + '">'
+    + '<div class="thumb">' + photo(blogPhoto(b), b.t, '(max-width:760px) 100vw, 430px') + '</div>'
+    + '<div class="card-body"><div class="meta">' + esc(b.cat.toUpperCase()) + ' · ' + esc(b.d) + ' · ' + esc(b.read) + '</div>'
+    + '<h3>' + esc(b.t) + '</h3><p>' + esc(b.x) + '</p></div></a>';
 }
 function proseBody(b) {
   return b.map(function (x) {
@@ -259,17 +308,21 @@ var V = {};
 
 V.home = function () {
   var top = P.slice().sort(function (a, b) { return b.score - a.score; }).slice(0, 3);
-  return '<div class="wrap">'
-    + '<section class="hero"><div class="hero-bg"></div>'
-    + '<p style="font-family:var(--f-h);font-size:clamp(1rem,2.2vw,1.26rem);color:var(--ink-3);margin:0 0 10px">Every property platform tells you what\'s for sale.</p>'
+  return '<section class="hero"><div class="hero-media">'
+    + photo('hero-skyline', 'A city skyline at dusk', '100vw', true) + '</div>'
+    + '<div class="wrap"><div class="hero-in">'
+    + '<p class="kicker" style="font-family:var(--f-h);font-size:clamp(1rem,2.2vw,1.26rem);margin:0 0 10px">Every property platform tells you what\'s for sale.</p>'
     + '<h1>OTHO tells you what\'s <span class="em">worth buying</span>.</h1>'
     + '<p class="sub">Independent reviews of ' + P.length + ' Hyderabad projects, with the real price per usable foot, the things nobody puts in a brochure, and your phone number kept out of the market.</p>'
     + '<div class="cta-row"><a class="btn" href="#/search">Search by budget and amenities</a><a class="btn ghost" href="#/compare">Compare two</a><a class="btn ghost" href="#/methodology">How we score</a></div>'
-    + '<div class="stats rv" style="margin-top:34px"><div class="stat"><b data-count="' + P.length + '">0</b><span>PROJECTS REVIEWED</span></div>'
+    + '<div class="stats" style="margin-top:34px"><div class="stat"><b data-count="' + P.length + '">0</b><span>PROJECTS REVIEWED</span></div>'
     + '<div class="stat"><b data-count="' + L.length + '">0</b><span>LOCALITIES COVERED</span></div>'
     + '<div class="stat"><b data-count="30" data-suffix="%">0</b><span>AVG LOADING FACTOR</span></div>'
-    + '<div class="stat"><b>₹0</b><span>COST TO A BUYER</span></div></div></section>'
-    + '<section class="rv"><div class="promise">'
+    + '<div class="stat"><b>₹0</b><span>COST TO A BUYER</span></div></div>'
+    + '<p class="hero-note">STOCK PHOTOGRAPH · OTHO\'S OWN HYDERABAD SHOOT REPLACES THIS BEFORE LAUNCH</p>'
+    + '</div></div></section>'
+    + '<div class="wrap">'
+    + '<section class="rv" style="border-top:0"><div class="promise">'
     + '<div><b>Your number is never shared</b><span>One conversation, with us. Not resold to eight brokers the moment you enquire.</span></div>'
     + '<div><b>We publish the negatives</b><span>Every project page lists what is wrong with it, including projects we earn on.</span></div>'
     + '<div><b>Checked against RERA</b><span>Carpet areas and completion dates read from the filing, not the sales sheet.</span></div></div></section>'
@@ -277,10 +330,10 @@ V.home = function () {
     + '<div class="grid g3">' + top.map(pcard).join('') + '</div>'
     + '<p class="note"><a href="#/projects" style="color:var(--brass)">See all ' + P.length + ' reviewed projects →</a></p></section>'
     + '<section class="rv"><h2>Latest from the blog</h2><div class="grid g3">'
-    + BLOG.slice(0, 3).map(function (b) { return '<a class="card" href="#/blog/' + b.slug + '"><div class="meta">' + esc(b.cat.toUpperCase()) + ' · ' + esc(b.d) + ' · ' + esc(b.read) + '</div><h3>' + esc(b.t) + '</h3><p>' + esc(b.x) + '</p></a>'; }).join('')
+    + BLOG.slice(0, 3).map(blogCard).join('')
     + '</div><p class="note"><a href="#/blog" style="color:var(--brass)">All articles →</a></p></section>'
     + '<section class="rv"><h2>Where to buy, honestly assessed</h2><p class="lede">Each locality carries an infrastructure confidence label based on funding and construction status.</p>'
-    + '<div class="grid g3">' + L.map(function (l) { return '<a class="card" href="#/locality/' + l.slug + '"><div class="meta">' + esc(l.price) + ' · ' + esc(l.trend) + '</div><h3>' + esc(l.n) + '</h3><p>' + esc(l.blurb) + '</p></a>'; }).join('') + '</div></section>'
+    + '<div class="grid g3">' + L.map(locCard).join('') + '</div></section>'
     + '<section class="rv">' + newsletter() + '</section>'
     + '<section class="rv">' + visitBand() + '</section></div>';
 };
@@ -371,21 +424,28 @@ V.project = function (id, tab) {
         + '<button class="btn" ' + gated('price', 'See the full cost breakdown for ' + p.n + '.') + '>Verify with OTP</button></div>';
     }
   } else if (tab === 'gallery') {
-    var shots = [['EXTERIOR — TOWER','Drone, elevation, approach road'],['CLUBHOUSE','Interior, pool, gym'],
-      ['SHOW FLAT — LIVING','Wide and detail, natural light'],['SHOW FLAT — KITCHEN','Fittings, counter, utility'],
-      ['LANDSCAPE / PODIUM','Open area, walkways, play zone'],['APPROACH AND SURROUNDS','What you see from the gate']];
+    var shots = [['EXTERIOR — TOWER','Elevation, approach road, entrance', projPhoto(p)],
+      ['CLUBHOUSE POOL','Deck, depth, hours it gets sun','amenity-pool'],
+      ['SHOW FLAT — LIVING','Wide and detail, natural light','interior-living'],
+      ['SHOW FLAT — KITCHEN','Fittings, counter run, utility','show-kitchen'],
+      ['GYM AND FITNESS','Equipment, floor area, ceiling height','amenity-gym'],
+      ['LOBBY AND ARRIVAL','What you see walking in','lobby']];
     gal = shots;
-    body = '<h2>Gallery</h2><p class="lede">What the shoot covers. Click any frame to open it. Every image is dated so you can tell a current photo from a launch render.</p>'
-      + '<div class="grid g2">' + shots.map(function (f, i) { return frame(f[0], f[1], 200, i); }).join('') + '</div>';
+    body = '<h2>Gallery</h2><p class="lede">What the shoot covers. Click any frame to open it. Every image is dated so you can tell a current photograph from a launch render.</p>'
+      + '<div class="grid g2">' + shots.map(function (f, i) { return frame(f[0], f[1], 220, i, f[2]); }).join('') + '</div>'
+      + '<p class="credit">Stock photographs standing in for OTHO\'s own shoot. They are not images of ' + esc(p.n) + '.</p>';
   } else if (tab === 'progress') {
     var st = [['Excavation and foundation',100],['Structure to podium',Math.min(100,p.prog+30)],['Tower structure',p.prog],
       ['Blockwork and plaster',Math.max(0,p.prog-22)],['MEP and finishes',Math.max(0,p.prog-34)],['Amenities and landscape',Math.max(0,p.prog-45)]];
-    gal = [['JUN 2026','Dated site photograph'],['JUL 2026','Dated site photograph'],['AUG 2026','Dated site photograph']];
+    gal = [['JUN 2026','Excavation and tower crane in position','construction'],
+      ['JUL 2026','Aerial over the whole site','aerial'],
+      ['AUG 2026','Façade and glazing going up','proj-2']];
     body = '<h2>Construction progress</h2><p class="lede">Updated monthly with dated photographs. Overall completion is ' + p.prog + '% against a declared possession of ' + esc(p.poss) + '.</p>'
       + '<div class="infra" style="margin-bottom:16px">' + st.map(function (s) {
         return '<div class="infra-row" style="grid-template-columns:1fr 130px 54px"><div><b>' + esc(s[0]) + '</b></div>'
         + '<div class="bar"><i data-bar="' + s[1] + '"></i></div><div style="font-family:var(--f-m);font-size:12px;text-align:right">' + s[1] + '%</div></div>'; }).join('') + '</div>'
-      + '<div class="grid g3">' + gal.map(function (f, i) { return frame(f[0], f[1], 150, i); }).join('') + '</div>';
+      + '<div class="grid g3">' + gal.map(function (f, i) { return frame(f[0], f[1], 170, i, f[2]); }).join('') + '</div>'
+      + '<p class="credit">Stock photographs standing in for OTHO\'s dated monthly site visit. They are not images of ' + esc(p.n) + '.</p>';
   } else if (tab === 'location') {
     var l = null; L.forEach(function (z) { if (z.n === p.loc) l = z; });
     body = '<h2>Location</h2><p class="lede">Drive times measured at 9am on a weekday, not calculated from straight-line distance.</p>'
@@ -414,8 +474,8 @@ V.compare = function (q) {
 V.blog = function () {
   return '<div class="wrap"><section><p class="eyebrow">BLOG</p><h1>What we are seeing in the market</h1>'
     + '<p class="lede">Written by the people who do the reviews. No press releases, no launch announcements.</p>'
-    + '<div class="grid g2">' + BLOG.map(function (b) {
-      return '<a class="card" href="#/blog/' + b.slug + '"><div class="meta">' + esc(b.cat.toUpperCase()) + ' · ' + esc(b.d) + ' · ' + esc(b.read) + '</div><h3>' + esc(b.t) + '</h3><p>' + esc(b.x) + '</p></a>'; }).join('') + '</div></section>'
+    + '<div class="grid g2">' + BLOG.map(blogCard).join('') + '</div>'
+    + '<p class="credit">Article images are licensed stock photographs, replaced by OTHO\'s own Hyderabad shoot at launch.</p></section>'
     + '<section class="rv">' + newsletter() + '</section></div>';
 };
 V.blogPost = function (slug) {
@@ -424,13 +484,16 @@ V.blogPost = function (slug) {
   return '<div class="wrap"><section><p class="crumb"><a href="#/blog">Blog</a> / ' + esc(b.cat) + '</p>'
     + '<h1>' + esc(b.t) + '</h1><p class="sub">' + esc(b.x) + '</p>'
     + '<p style="font-family:var(--f-m);font-size:11px;color:var(--ink-3)">' + esc(b.d) + ' · ' + esc(b.read) + ' read</p>'
+    + '<div class="phw" style="height:clamp(200px,32vw,360px);margin:6px 0 8px">' + photo(blogPhoto(b), b.t, '100vw') + '</div>'
+    + '<p class="credit" style="margin-bottom:22px">Licensed stock photograph, not an image of any named project.</p>'
     + '<div class="prose">' + proseBody(b.body) + '</div></section><section class="rv">' + newsletter() + '</section></div>';
 };
 
 V.localities = function () {
   return '<div class="wrap"><section><p class="eyebrow">LOCALITIES</p><h1>Where to buy, honestly assessed</h1>'
     + '<p class="lede">Price, direction of travel, and an infrastructure confidence label for every promised improvement.</p>'
-    + '<div class="grid g2">' + L.map(function (l) { return '<a class="card" href="#/locality/' + l.slug + '"><div class="meta">' + esc(l.price) + ' · ' + esc(l.trend) + '</div><h3>' + esc(l.n) + '</h3><p>' + esc(l.blurb) + '</p></a>'; }).join('') + '</div></section></div>';
+    + '<div class="grid g2">' + L.map(locCard).join('') + '</div>'
+    + '<p class="credit">Locality images are licensed stock photographs, not photographs of these localities.</p></section></div>';
 };
 V.locality = function (slug) {
   var l = null; L.forEach(function (x) { if (x.slug === slug) l = x; });
@@ -440,7 +503,11 @@ V.locality = function (slug) {
     + '<p class="eyebrow">LOCALITY REPORT · UPDATED MONTHLY</p><h1>' + esc(l.n) + '</h1><p class="sub">' + esc(l.blurb) + '</p>'
     + '<div class="stats"><div class="stat"><b>' + esc(l.price) + '</b><span>PRICE BAND</span></div>'
     + '<div class="stat"><b>' + esc(l.trend) + '</b><span>DIRECTION</span></div>'
-    + '<div class="stat"><b data-count="' + here.length + '">0</b><span>PROJECTS REVIEWED</span></div></div></section>'
+    + '<div class="stat"><b data-count="' + here.length + '">0</b><span>PROJECTS REVIEWED</span></div></div>'
+    + '<div class="strip" style="margin-top:16px">'
+    + [PH_LOC[L.indexOf(l) % PH_LOC.length], 'construction', 'balcony'].map(function (n, k) {
+        return '<div>' + photo(n, l.n + ' — representative photograph', k ? '(max-width:720px) 50vw, 260px' : '(max-width:720px) 100vw, 540px') + '</div>'; }).join('')
+    + '</div><p class="credit">Licensed stock photographs standing in for OTHO\'s own shoot in ' + esc(l.n) + '.</p></section>'
     + '<section class="rv">' + svgMap(l) + '<div class="stats" style="margin-top:14px">' + l.times.map(function (t) { return '<div class="stat"><b>' + esc(t[0]) + '</b><span>' + esc(t[1].toUpperCase()) + '</span></div>'; }).join('') + '</div></section>'
     + '<section class="rv"><h2>Infrastructure confidence</h2><p class="lede">Labelled on funding and construction status, not on announcements.</p>'
     + '<div class="infra">' + l.infra.map(function (r) { return '<div class="infra-row"><div><b>' + esc(r[0]) + '</b><em>' + esc(r[1]) + '</em></div><span class="pill ' + r[3] + '">' + esc(r[2]) + '</span></div>'; }).join('') + '</div></section>'
@@ -622,7 +689,9 @@ V.market = function () {
     + '<div class="stats"><div class="stat"><b data-count="19" data-suffix=" months">0</b><span>INVENTORY OVERHANG</span></div>'
     + '<div class="stat"><b data-count="97000" data-prefix="~">0</b><span>UNSOLD UNITS</span></div>'
     + '<div class="stat"><b data-count="8258" data-prefix="₹">0</b><span>AVG PRICE / SQ FT</span></div>'
-    + '<div class="stat"><b data-count="1" data-prefix="+" data-suffix="%">0</b><span>H1 SALES GROWTH</span></div></div></section>'
+    + '<div class="stat"><b data-count="1" data-prefix="+" data-suffix="%">0</b><span>H1 SALES GROWTH</span></div></div>'
+    + '<div class="phw" style="height:clamp(190px,28vw,320px);margin-top:16px">' + photo('hyderabad', 'Hyderabad city skyline', '100vw') + '</div>'
+    + '<p class="credit">Licensed stock photograph of Hyderabad.</p></section>'
     + '<section class="rv"><h2>What the numbers say</h2><div class="prose">'
     + '<p>Hyderabad carries the highest residential inventory overhang of any major Indian city. Launches have continued to run ahead of absorption.</p>'
     + '<div class="pullq">This is a buyer\'s market that mostly still talks like a seller\'s market.</div>'
@@ -633,8 +702,9 @@ V.market = function () {
 V.podcast = function () {
   return '<div class="wrap"><section><p class="eyebrow">THE OTHO PODCAST</p><h1>Conversations with people who actually know</h1>'
     + '<p class="lede">Developers, planners, architects and lawyers, on the record. Fortnightly.</p><div class="grid g2">'
-    + EP.map(function (e) { return '<div class="card pad0 lift">' + frame('EPISODE ARTWORK','Studio still or guest portrait',135)
-      + '<div class="card-body"><div class="meta">EPISODE ' + e.n + ' · ' + esc(e.d) + ' · ' + esc(e.len) + '</div><h3>' + esc(e.t) + '</h3><p>' + esc(e.g) + '</p></div></div>'; }).join('') + '</div></section></div>';
+    + EP.map(function (e) { return '<div class="card pad0 lift">' + epArt(e)
+      + '<div class="card-body"><div class="meta">EPISODE ' + e.n + ' · ' + esc(e.d) + ' · ' + esc(e.len) + '</div><h3>' + esc(e.t) + '</h3><p>' + esc(e.g) + '</p></div></div>'; }).join('') + '</div>'
+    + '<p class="credit">Series artwork over a licensed stock photograph. Guest portraits are shot on the day of recording.</p></section></div>';
 };
 V.visit = function () {
   return '<div class="wrap"><section><p class="eyebrow">BOOK A SITE VISIT</p><h1>One conversation, with one person</h1>'
@@ -756,10 +826,14 @@ function trayToggle(id) {
 
 /* ---------- lightbox ---------- */
 function openLb(i) {
-  galI = i; var lb = document.getElementById('lb');
-  document.getElementById('lbStage').innerHTML = '<b style="font-family:var(--f-m);font-size:11px;letter-spacing:.1em;color:var(--ink-3)">' + esc(gal[i][0]) + '</b>'
-    + '<span style="font-size:13px;color:var(--ink-3)">' + esc(gal[i][1]) + '</span>';
-  document.getElementById('lbCap').textContent = (i + 1) + ' of ' + gal.length + ' · photography to be shot';
+  galI = i; var lb = document.getElementById('lb'), g = gal[i];
+  document.getElementById('lbStage').innerHTML = (g[2]
+      ? '<img src="img/' + g[2] + '.jpg" alt="' + esc(g[0] + ' — ' + g[1]) + '">'
+      : '<b style="font-family:var(--f-m);font-size:11px;letter-spacing:.1em;color:var(--ink-3)">' + esc(g[0]) + '</b>'
+        + '<span style="font-size:13px;color:var(--ink-3)">' + esc(g[1]) + '</span>')
+    + '<span class="lbl"><b>' + esc(g[0]) + '</b><i>' + esc(g[1]) + '</i></span>';
+  document.getElementById('lbCap').textContent = (i + 1) + ' of ' + gal.length
+    + ' · stock image standing in for OTHO’s own shoot';
   lb.classList.add('on');
 }
 function lbStep(d) { if (!gal.length) return; galI = (galI + d + gal.length) % gal.length; openLb(galI); }
@@ -858,7 +932,7 @@ function wireSearch() {
       var list = results();
       document.getElementById('qCount').textContent = list.length + ' of ' + P.length + ' projects match';
       out.innerHTML = list.length ? list.map(pcard).join('') : '<p class="lede">Nothing matches. Try widening the budget or removing an amenity.</p>';
-      animateRings();
+      animateRings(); photoInit(out);
     }, instant || RM ? 0 : 260);
   }
   [loc, bhk, st, so].forEach(function (e) { e.addEventListener('change', function () { go(); }); });
@@ -880,8 +954,9 @@ function wireChips() {
     Array.prototype.forEach.call(box.children, function (x) { x.setAttribute('aria-pressed', 'false'); });
     c.setAttribute('aria-pressed', 'true');
     var v = c.getAttribute('data-loc'), list = v ? P.filter(function (p) { return p.loc === v; }) : P;
-    document.getElementById('plist').innerHTML = list.length ? list.map(pcard).join('') : '<p class="lede">No projects reviewed there yet.</p>';
-    animateRings();
+    var pl = document.getElementById('plist');
+    pl.innerHTML = list.length ? list.map(pcard).join('') : '<p class="lede">No projects reviewed there yet.</p>';
+    animateRings(); photoInit(pl);
   });
 }
 function wireVisit() {
@@ -977,7 +1052,7 @@ function render() {
   app.style.animation = 'none'; void app.offsetWidth; app.style.animation = '';
 
   wireCalc(); wireLoan(); wireCompare(); wireSearch(); wireChips(); wireVisit(); wireNewsletter(); wireMisc();
-  updateSl(); revealInit(); animateRings(); animateBars(); countUp(); trayRender();
+  updateSl(); revealInit(); animateRings(); animateBars(); countUp(); trayRender(); photoInit(app);
 
   var top = s[0] || '';
   Array.prototype.forEach.call(document.querySelectorAll('#links a'), function (a) {
